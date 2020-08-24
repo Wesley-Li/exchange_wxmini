@@ -36,7 +36,7 @@ Page({
       })
       if (isLogined) {
         _this.getUserApiInfo();
-        _this.getUserAmount();
+        // _this.getUserAmount();
         _this.orderStatistics();
       }
     })
@@ -46,7 +46,7 @@ Page({
   aboutUs : function () {
     wx.showModal({
       title: '关于我们',
-      content: '本系统基于开源小程序商城系统 https://github.com/EastWorld/wechat-app-mall 搭建，祝大家使用愉快！',
+      content: '蚁库信用交换平台，大家放心交换！',
       showCancel:false
     })
   },
@@ -91,11 +91,11 @@ Page({
   getUserApiInfo: function () {
     var that = this;
     WXAPI.userDetail(wx.getStorageSync('token')).then(function (res) {
-      if (res.code == 0) {
-        let _data = {}
+      if (res.retcode == 0) {
+        let _data = {score:res.data.score}
         _data.apiUserInfoMap = res.data
-        if (res.data.base.mobile) {
-          _data.userMobile = res.data.base.mobile
+        if (res.data.mobile) {
+          _data.userMobile = res.data.mobile
         }
         if (that.data.order_hx_uids && that.data.order_hx_uids.indexOf(res.data.base.id) != -1) {
           _data.canHX = true // 具有扫码核销的权限
@@ -104,19 +104,19 @@ Page({
       }
     })
   },
-  getUserAmount: function () {
-    var that = this;
-    WXAPI.userAmount(wx.getStorageSync('token')).then(function (res) {
-      if (res.code == 0) {
-        that.setData({
-          balance: res.data.balance.toFixed(2),
-          freeze: res.data.freeze.toFixed(2),
-          score: res.data.score,
-          growth: res.data.growth
-        });
-      }
-    })
-  },
+  // getUserAmount: function () {
+  //   var that = this;
+  //   WXAPI.userAmount(wx.getStorageSync('token')).then(function (res) {
+  //     if (res.code == 0) {
+  //       that.setData({
+  //         balance: res.data.balance.toFixed(2),
+  //         freeze: res.data.freeze.toFixed(2),
+  //         score: res.data.score,
+  //         growth: res.data.growth
+  //       });
+  //     }
+  //   })
+  // },
   handleOrderCount: function (count) {
     return count > 99 ? '99+' : count;
   },
@@ -171,7 +171,8 @@ Page({
       })
       return;
     }
-    AUTH.register(this);
+    // AUTH.register(this);
+    AUTH.login(this);
   },
   scanOrderCode(){
     wx.scanCode({

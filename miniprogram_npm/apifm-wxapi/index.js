@@ -94,19 +94,21 @@ module.exports =
 
 /* eslint-disable */
 // 小程序开发api接口工具包，https://github.com/gooking/wxapi
-var API_BASE_URL = 'https://api.it120.cc';
-// var API_BASE_URL = 'http://127.0.0.1:8081';
-var subDomain = '-';
+// var API_BASE_URL = 'https://api.it120.cc';
+var API_BASE_URL = 'http://192.168.1.246:8082';
+var subDomain = '';
 
 var request = function request(url, needSubDomain, method, data) {
   var _url = API_BASE_URL + (needSubDomain ? '/' + subDomain : '') + url;
+  let sid = wx.getStorageSync('token'); //? wx.getStorageSync('token') : getApp().globalData.sessionid;
   return new Promise(function (resolve, reject) {
     wx.request({
       url: _url,
       method: method,
       data: data,
       header: {
-        'Content-Type': 'application/x-www-form-urlencoded'
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Cookie': 'JSESSIONID=' + sid
       },
       success: function success(request) {
         resolve(request.data);
@@ -282,12 +284,17 @@ module.exports = {
   alipay: function alipay(data) {
     return request('/pay/alipay/semiAutomatic/payurl', true, 'post', data);
   },
-  login_wx: function login_wx(code) {
-    return request('/user/wxapp/login', true, 'post', {
-      code: code,
-      type: 2
-    });
+
+  login_wx: function login_wx(code, info_res) {
+    return  request('/api/wechatLogin', false, 'post', {
+            code: code, //临时登录凭证
+            rawData: info_res.rawData, //用户非敏感信息
+            signature: info_res.signature, //签名
+            encrypteData: info_res.encryptedData, //用户敏感信息
+            iv: info_res.iv //解密算法的向量
+        });
   },
+
   loginWxaMobile: function loginWxaMobile(code, encryptedData, iv) {
     return request('/user/wxapp/login/mobile', true, 'post', {
       code: code,
@@ -295,6 +302,7 @@ module.exports = {
       iv: iv
     });
   },
+
   login_username: function login_username(data) {
     return request('/user/username/login', true, 'post', data);
   },
@@ -339,13 +347,13 @@ module.exports = {
     return request('/banner/list', true, 'get', data);
   },
   goodsCategory: function goodsCategory() {
-    return request('/shop/goods/category/all', true, 'get');
+    return request('/api/product/categories/', false, 'get');
   },
   goodsCategoryDetail: function goodsCategoryDetail(id) {
     return request('/shop/goods/category/info', true, 'get', { id: id });
   },
   goods: function goods(data) {
-    return request('/shop/goods/list', true, 'post', data);
+    return request('/api/product/bycid/', false, 'get', data);
   },
   goodsDetail: function goodsDetail(id) {
     return request('/shop/goods/detail', true, 'get', {
@@ -535,7 +543,7 @@ module.exports = {
     });
   },
   userDetail: function userDetail(token) {
-    return request('/user/detail', true, 'get', {
+    return request('/api/user/detail', false, 'get', {
       token: token
     });
   },

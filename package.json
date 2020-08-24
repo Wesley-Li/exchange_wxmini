@@ -1,7 +1,7 @@
 {
-  "name": "wechat-app-mall",
-  "version": "8.3.0",
-  "description": "微信小程序商城，微信小程序微店",
+  "name": "蚁库",
+  "version": "1.0.0",
+  "description": "信用商品交换，小程序",
   "main": "app.js",
   "dependencies": {
     "@vant/weapp": "^1.2.1",
@@ -18,9 +18,9 @@
     "url": "git+https://github.com/EastWorld/wechat-app-mall.git"
   },
   "keywords": [
-    "微店",
-    "小店",
-    "微商城"
+    "信用",
+    "交换",
+    "蚁库"
   ],
   "author": "gooking",
   "license": "ISC",

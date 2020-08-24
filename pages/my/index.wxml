@@ -2,32 +2,32 @@
 
 <view class="container">
 	<view wx:if="{{apiUserInfoMap}}" class="userinfo">
-		<image wx:if="{{apiUserInfoMap.base.avatarUrl}}" class="userinfo-avatar" src="{{ apiUserInfoMap.base.avatarUrl }}" background-size="cover"></image>
-		<text class="userinfo-nickname">{{ apiUserInfoMap.base.nick }}</text>
+		<image wx:if="{{apiUserInfoMap.avatar}}" class="userinfo-avatar" src="{{ apiUserInfoMap.avatar }}" background-size="cover"></image>
+		<text class="userinfo-nickname">{{ apiUserInfoMap.nickName }}</text>
 	</view>
   <view wx:else class="userinfo" style="margin-bottom:50rpx;">
 		<image class="userinfo-avatar" src="/images/nologin.png" background-size="cover"></image>
 		<button class="weui-btn mini-btn" plain="true" size="mini" bindtap="goLogin">立即登录</button>
 	</view>
   <view class="asset">
-    <view class='item' bindtap='goAsset'>
+    <!-- <view class='item' bindtap='goAsset'>
       <view>{{balance}}</view>
       <view>余额</view>
-    </view>
-    <view class='item right' bindtap='goAsset'>
+    </view> -->
+    <!-- <view class='item right' bindtap='goAsset'>
       <view>{{freeze}}</view>
       <view>冻结</view>
-    </view>
-    <view class='item right' bindtap='goScore'>
+    </view> -->
+    <view class='item' bindtap='goScore'>
       <view>{{score}}</view>
-      <view>积分</view>
+      <view>信用币</view>
     </view>
-    <navigator url="/pages/score/growth">
+    <!-- <navigator url="/pages/score/growth">
       <view class='item right'>
         <view>{{growth}}</view>
         <view>成长值</view>
       </view>
-    </navigator>
+    </navigator> -->
   </view>
   <view class="space"></view>
   <navigator url="/pages/order-list/index">
@@ -64,7 +64,7 @@
       <view class='text'>售后</view>
     </view>
   </view>
-  <view wx:if="{{canHX}}" class="line"></view>
+  <!-- <view wx:if="{{canHX}}" class="line"></view>
   <view wx:if="{{canHX}}" class="menu-item" bindtap="scanOrderCode">
     <view class="l">扫码核销</view>
     <image class="next" src="/images/icon/next.png"></image>
@@ -82,7 +82,7 @@
       <view class="l">资金明细</view>
       <image class="next" src="/images/icon/next.png"></image>
     </view>
-  </navigator>
+  </navigator> -->
   <view class="line"></view>
   <!-- flex布局的新菜单 -->
   <!-- <view class="menu-item">
@@ -102,7 +102,7 @@
   </view> -->
 
   <view class="space"></view>
-  <navigator wx:if="{{!apiUserInfoMap.base.isSeller}}" url="/pages/fx/apply-status">
+  <!-- <navigator wx:if="{{!apiUserInfoMap.base.isSeller}}" url="/pages/fx/apply-status">
     <view class="menu-item">
       <view class="l">成为分销商</view>
       <image class="next" src="/images/icon/next.png"></image>
@@ -142,7 +142,7 @@
       <view class="l">发票记录</view>
       <image class="next" src="/images/icon/next.png"></image>
     </view>
-  </navigator>
+  </navigator> -->
 
   <view class="space"></view>
   <navigator url="/pages/select-address/index">
@@ -151,7 +151,7 @@
       <image class="next" src="/images/icon/next.png"></image>
     </view>
   </navigator>
-  <view class="line"></view>
+  <!-- <view class="line"></view>
   <navigator url="/pages/coupons/index">
     <view class="menu-item">
       <view class="l">领券中心</view>
@@ -187,7 +187,7 @@
       <image class="next" src="/images/icon/next.png"></image>
     </view>
   </navigator>
-  <view class="line"></view>
+  <view class="line"></view> -->
 
   <view class="space"></view>
   <view class="menu-item" bindtap="aboutUs">
@@ -225,7 +225,7 @@
   </view> -->
 
   <view class="space"></view>
-  <view class="version">EastWorld v {{version}}</view>
+  <view class="version">蚁库交换 v {{version}}</view>
   <view class="space"></view>
 </view>
 

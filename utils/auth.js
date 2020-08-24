@@ -16,6 +16,7 @@ async function checkSession(){
 // 检测登录状态，返回 true / false
 async function checkHasLogined() {
   const token = wx.getStorageSync('token')
+  // console.log('token is ' + token)
   if (!token) {
     return false
   }
@@ -24,11 +25,11 @@ async function checkHasLogined() {
     wx.removeStorageSync('token')
     return false
   }
-  const checkTokenRes = await WXAPI.checkToken(token)
-  if (checkTokenRes.code != 0) {
-    wx.removeStorageSync('token')
-    return false
-  }
+  // const checkTokenRes = await WXAPI.checkToken(token)
+  // if (checkTokenRes.code != 0) {
+  //   wx.removeStorageSync('token')
+  //   return false
+  // }
   return true
 }
 
@@ -66,8 +67,42 @@ async function getUserInfo() {
 async function login(page){
   const _this = this
   wx.login({
+    success: function(login_res) {
+      console.log('wx login success')
+      //获取用户信息
+      wx.getUserInfo({
+        success: function(info_res) {
+          console.log('wx get user info success')
+          WXAPI.login_wx(login_res.code, info_res).then(function (res) {
+            if (res.retcode == 0) {
+              // 7.小程序存储skey（自定义登录状态）到本地
+              console.log("wni登陆成功!");
+              wx.setStorageSync('token', res.token);
+              wx.setStorageSync('uid', res.uid);
+              getApp().globalData.sessionid = res.token;
+              if ( page ) {
+                page.onShow()
+              }
+            } else{
+              wx.showModal({
+                title: '无法登录',
+                content: res.msg,
+                showCancel: false
+              })
+              return;
+            }
+          })
+        }
+      })
+    }
+  })
+}
+
+async function login_origin(page){
+  const _this = this
+  wx.login({
     success: function (res) {
-      WXAPI.login_wx(res.code).then(function (res) {        
+      WXAPI.loginWxaMobile(res.code).then(function (res) {        
         if (res.code == 10000) {
           // 去注册
           //_this.register(page)
