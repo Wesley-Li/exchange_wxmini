@@ -467,7 +467,7 @@ module.exports = {
     });
   },
   queryAddress: function queryAddress(token) {
-    return request('/user/shipping-address/list', true, 'get', {
+    return request('/api/address/list', false, 'get', {
       token: token
     });
   },
