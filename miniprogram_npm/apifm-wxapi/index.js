@@ -455,15 +455,14 @@ module.exports = {
     });
   },
   addAddress: function addAddress(data) {
-    return request('/user/shipping-address/add', true, 'post', data);
+    return request('/api/address/add', false, 'post', data);
   },
   updateAddress: function updateAddress(data) {
-    return request('/user/shipping-address/update', true, 'post', data);
+    return request('/api/address/update', false, 'post', data);
   },
-  deleteAddress: function deleteAddress(token, id) {
-    return request('/user/shipping-address/delete', true, 'post', {
-      id: id,
-      token: token
+  deleteAddress: function deleteAddress(id) {
+    return request('/api/address/delete', false, 'post', {
+      aid: id,
     });
   },
   queryAddress: function queryAddress(token) {
@@ -476,10 +475,9 @@ module.exports = {
       token: token
     });
   },
-  addressDetail: function addressDetail(token, id) {
-    return request('/user/shipping-address/detail/v2', true, 'get', {
-      id: id,
-      token: token
+  addressDetail: function addressDetail(id) {
+    return request('/api/address/detail', false, 'get', {
+      aid: id,
     });
   },
   pingtuanSet: function pingtuanSet(goodsId) {
