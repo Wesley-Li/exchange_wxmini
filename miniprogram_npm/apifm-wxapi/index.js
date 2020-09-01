@@ -1059,22 +1059,22 @@ module.exports = {
     return request('/cms/news/fav/delete', true, 'post', { token: token, newsId: newsId });
   },
   shippingCarInfo: function shippingCarInfo(token) {
-    return request('/shopping-cart/info', true, 'get', {
+    return request('/api/shopping-cart/info', false, 'get', {
       token: token
     });
   },
   shippingCarInfoAddItem: function shippingCarInfoAddItem(token, goodsId, number, sku) {
-    return request('/shopping-cart/add', true, 'post', {
-      token: token, goodsId: goodsId, number: number, sku: JSON.stringify(sku)
+    return request('/api/shopping-cart/add', false, 'post', {
+      token: token, pid: goodsId, number: number, sku: JSON.stringify(sku)
     });
   },
   shippingCarInfoModifyNumber: function shippingCarInfoModifyNumber(token, key, number) {
-    return request('/shopping-cart/modifyNumber', true, 'post', {
+    return request('/api/shopping-cart/modifyNumber', false, 'post', {
       token: token, key: key, number: number
     });
   },
   shippingCarInfoRemoveItem: function shippingCarInfoRemoveItem(token, key) {
-    return request('/shopping-cart/remove', true, 'post', {
+    return request('/api/shopping-cart/remove', false, 'post', {
       token: token, key: key
     });
   },

@@ -629,7 +629,8 @@ Page({
       })
       return;
     }
-    AUTH.register(this);
+    // AUTH.register(this);
+    AUTH.login(this);
   },
   closePop(){
     this.setData({

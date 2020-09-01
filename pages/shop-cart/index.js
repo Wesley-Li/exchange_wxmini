@@ -55,7 +55,7 @@ Page({
       return
     }
     const res = await WXAPI.shippingCarInfo(token)
-    if (res.code == 0) {
+    if (res.retcode == 0) {
       this.setData({
         shippingCarInfo: res.data
       })
@@ -121,7 +121,7 @@ Page({
   async delItemDone(key){
     const token = wx.getStorageSync('token')
     const res = await WXAPI.shippingCarInfoRemoveItem(token, key)
-    if (res.code != 0 && res.code != 700) {
+    if (res.retcode != 0 && res.code != 700) {
       wx.showToast({
         title: res.msg,
         icon:'none'
@@ -172,7 +172,8 @@ Page({
       })
       return;
     }
-    AUTH.register(this);
+    // AUTH.register(this);
+    AUTH.login(this);
   },
   changeCarNumber(e){
     const key = e.currentTarget.dataset.key

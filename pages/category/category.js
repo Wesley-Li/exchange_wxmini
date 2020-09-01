@@ -23,7 +23,8 @@ Page({
    */
   onLoad: function(options) {
     wx.showShareMenu({
-      withShareTicket: true
+      withShareTicket: true,
+      menus: ['shareAppMessage', 'shareTimeline']
     })
     this.categories();
   },
@@ -36,7 +37,7 @@ Page({
     let categories = [];
     let categoryName = '';
     let categoryId = '';
-    if (res.code == 0) {
+    if (res.retcode == 0) {
       if (this.data.categorySelected.id) {
         const _curCategory = res.data.find(ele => {
           return ele.id == this.data.categorySelected.id
@@ -67,7 +68,7 @@ Page({
       title: '加载中',
     })
     const res = await WXAPI.goods({
-      categoryId: this.data.categorySelected.id,
+      cid: this.data.categorySelected.id,
       page: 1,
       pageSize: 100000
     })
@@ -201,7 +202,7 @@ Page({
       })
       return
     }
-    if (res.code != 0) {
+    if (res.retcode != 0) {
       wx.showToast({
         title: res.msg,
         icon: 'none'

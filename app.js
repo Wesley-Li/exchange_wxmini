@@ -53,16 +53,19 @@ App({
         wx.hideToast()
       }
     })
-    WXAPI.queryConfigBatch('mallName,WITHDRAW_MIN,ALLOW_SELF_COLLECTION,order_hx_uids,subscribe_ids,share_profile').then(res => {
-      if (res.code == 0) {
-        res.data.forEach(config => {
-          wx.setStorageSync(config.key, config.value);
-        })
-        if (this.configLoadOK) {
-          this.configLoadOK()
-        }
-      }
-    })
+    // 先不用动态配置了，先写死
+    // WXAPI.queryConfigBatch('mallName,WITHDRAW_MIN,ALLOW_SELF_COLLECTION,order_hx_uids,subscribe_ids,share_profile').then(res => {
+    //   if (res.code == 0) {
+    //     res.data.forEach(config => {
+    //       wx.setStorageSync(config.key, config.value);
+    //     })
+    //     if (this.configLoadOK) {
+    //       this.configLoadOK()
+    //     }
+    //   }
+    // })
+    wx.setStorageSync('mallName', "蚁库");
+    wx.setStorageSync('share_profile', "蚁库，绝对放心的交易!")
   },
 
   onShow (e) {

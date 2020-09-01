@@ -12,7 +12,7 @@ function showTabBarBadge(){
         index: 2
       });
     }
-    if (res.code == 0) {
+    if (res.retcode == 0) {
       if (res.data.number == 0) {
         wx.removeTabBarBadge({
           index: 2
