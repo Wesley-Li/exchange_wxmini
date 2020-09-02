@@ -42,7 +42,7 @@ Page({
       goodsDetailSkuShowType: CONFIG.goodsDetailSkuShowType,
       curuid: wx.getStorageSync('uid')
     })
-    this.reputation(e.id)
+    // this.reputation(e.id)  // 获取用户对商品评价
     this.shippingCartInfo()
   },  
   async shippingCartInfo(){
@@ -51,7 +51,7 @@ Page({
       return
     }
     const res = await WXAPI.shippingCarInfo(token)
-    if (res.code == 0) {
+    if (res.retcode == 0) {
       this.setData({
         shopNum: res.data.number
       })
@@ -63,7 +63,7 @@ Page({
         this.setData({
           wxlogin: isLogined
         })
-        this.goodsFavCheck()
+        // this.goodsFavCheck() //是否是已收藏商品
       }
     })
     this.getGoodsDetailAndKanjieInfo(this.data.goodsId)
@@ -103,38 +103,39 @@ Page({
   async getGoodsDetailAndKanjieInfo(goodsId) {
     const that = this;
     const goodsDetailRes = await WXAPI.goodsDetail(goodsId)
-    const goodsKanjiaSetRes = await WXAPI.kanjiaSet(goodsId)
-    if (goodsDetailRes.code == 0) {
+    const goodsKanjiaSetRes = {}; //await WXAPI.kanjiaSet(goodsId) 砍价先不玩这个
+    if (goodsDetailRes.retcode == 0) {
       var selectSizeTemp = SelectSizePrefix;
       if (goodsDetailRes.data.properties) {
         for (var i = 0; i < goodsDetailRes.data.properties.length; i++) {
           selectSizeTemp = selectSizeTemp + " " + goodsDetailRes.data.properties[i].name;
         }
         that.setData({
-          hasMoreSelect: true,
+          // hasMoreSelect: true, //注销，蚁库暂无多属性
           selectSize: selectSizeTemp,
           selectSizePrice: goodsDetailRes.data.basicInfo.minPrice,
           selectSizeOPrice: goodsDetailRes.data.basicInfo.originalPrice,
           totalScoreToPay: goodsDetailRes.data.basicInfo.minScore
         });
       }
-      if (goodsDetailRes.data.basicInfo.shopId) {
+      if (goodsDetailRes.data.shopId) {
         this.shopSubdetail(goodsDetailRes.data.basicInfo.shopId)
       }
-      if (goodsDetailRes.data.basicInfo.pingtuan) {
+      if (goodsDetailRes.data.pingtuan) {
         that.pingtuanList(goodsId)
       }
       that.data.goodsDetail = goodsDetailRes.data;
-      if (goodsDetailRes.data.basicInfo.videoId) {
-        that.getVideoSrc(goodsDetailRes.data.basicInfo.videoId);
+      if (goodsDetailRes.data.videoId) {
+        //如果后面增加这个视频也没必要，直接在product里放上这个videoMp4Src就行了
+        // that.getVideoSrc(goodsDetailRes.data.basicInfo.videoId);
       }
       let _data = {
         goodsDetail: goodsDetailRes.data,
-        selectSizePrice: goodsDetailRes.data.basicInfo.minPrice,
-        selectSizeOPrice: goodsDetailRes.data.basicInfo.originalPrice,
-        totalScoreToPay: goodsDetailRes.data.basicInfo.minScore,
-        buyNumMax: goodsDetailRes.data.basicInfo.stores,
-        buyNumber: (goodsDetailRes.data.basicInfo.stores > 0) ? 1 : 0
+        selectSizePrice: goodsDetailRes.data.credprice,
+        selectSizeOPrice: goodsDetailRes.data.originalPrice,
+        totalScoreToPay: goodsDetailRes.data.minScore,
+        buyNumMax: goodsDetailRes.data.stores,
+        buyNumber: (goodsDetailRes.data.stores > 0) ? 1 : 0
       }
       if (goodsKanjiaSetRes.code == 0) {
         _data.curGoodsKanjia = goodsKanjiaSetRes.data[0]

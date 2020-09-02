@@ -356,7 +356,7 @@ module.exports = {
     return request('/api/product/bycid/', false, 'get', data);
   },
   goodsDetail: function goodsDetail(id) {
-    return request('/shop/goods/detail', true, 'get', {
+    return request('/api/product/info', false, 'get', {
       id: id
     });
   },
