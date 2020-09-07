@@ -143,6 +143,21 @@
       <image class="next" src="/images/icon/next.png"></image>
     </view>
   </navigator> -->
+  <view class="space"></view>
+  <navigator url="/pages/goods/list?onlymy=true">
+    <view class="menu-item">
+      <view class="l">我的商品</view>
+      <image class="next" src="/images/icon/next.png"></image>
+    </view>
+  </navigator>
+
+  <view class="space"></view>
+  <navigator url="/pages/goods-add/question-ask">
+    <view class="menu-item">
+      <view class="l">发布商品</view>
+      <image class="next" src="/images/icon/next.png"></image>
+    </view>
+  </navigator>
 
   <view class="space"></view>
   <navigator url="/pages/select-address/index">

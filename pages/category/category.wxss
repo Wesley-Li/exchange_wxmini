@@ -31,6 +31,7 @@ page,view,image,input {
   position: absolute;
   top: 16rpx;
   right: 32rpx;
+  z-index: 99;
 }
 
 .content-container {

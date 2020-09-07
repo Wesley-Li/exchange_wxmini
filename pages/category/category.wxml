@@ -1,7 +1,7 @@
 <view class="container">
   <view class="search">
     <input type="text" placeholder="输入搜索关键词" value="{{name}}" bindinput="bindinput" bindconfirm="bindconfirm"></input>
-    <image src="/images/icon/search.svg"></image>
+    <image src="/images/icon/search.svg" bindtap="goSearch"></image>
   </view>
   <view class="content-container">
     <scroll-view class="category-container" scroll-y="true" scroll-with-animation="true">

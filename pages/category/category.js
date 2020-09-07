@@ -127,6 +127,11 @@ Page({
       url: '/pages/goods/list?name=' + this.data.inputVal,
     })
   },
+  goSearch(){
+    wx.navigateTo({
+      url: '/pages/goods/list?name=' + this.data.inputVal,
+    })
+  },
   onShareAppMessage() {    
     return {
       title: '"' + wx.getStorageSync('mallName') + '" ' + wx.getStorageSync('share_profile'),

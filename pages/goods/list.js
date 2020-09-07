@@ -1,14 +1,18 @@
 const WXAPI = require('apifm-wxapi')
 const AUTH = require('../../utils/auth')
+const TOOLS = require('../../utils/tools.js')
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    listType: 1, // 1为1个商品一行，2为2个商品一行    
+    wxlogin: true,
+    onlymy:false,
+    listType: 2, // 1为1个商品一行，2为2个商品一行    
     name: '', // 搜索关键词
     orderBy: '', // 排序规则
+    // categoryId: 0
   },
 
   /**
@@ -17,9 +21,10 @@ Page({
   onLoad: function (options) {
     this.setData({
       name: options.name,
-      categoryId: options.categoryId
+      categoryId: options.categoryId,
+      onlymy: options.onlymy?options.onlymy:false
     })
-    this.search()
+    // this.search()
   },
 
   /**
@@ -33,7 +38,18 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    if(this.data.onlymy){
+    AUTH.checkHasLogined().then(isLogined => {
+      this.setData({
+        wxlogin: isLogined
+      })
+      if(isLogined){
+        this.search()
+        return
+      }
+    })
+   }
+   this.search()
   },
   async search(){
     // 搜索商品
@@ -44,16 +60,22 @@ Page({
       orderBy: this.data.orderBy,
       page: 1,
       pageSize: 500,
+      // cid: this.data.categoryId
     }
     if (this.data.name) {
       _data.k = this.data.name
     }
     if (this.data.categoryId) {
-      _data.categoryId = this.data.categoryId
+      _data.cid = this.data.categoryId
     }
-    const res = await WXAPI.goods(_data)
+    let res;
+    if (this.data.onlymy) {
+      res = await WXAPI.mygoods(_data)
+    }else{
+      res = await WXAPI.goods(_data)
+    }
     wx.hideLoading()
-    if (res.code == 0) {
+    if (res.retcode == 0) {
       this.setData({
         goods: res.data,
       })
@@ -149,7 +171,41 @@ Page({
       }
     })
   },
-  async addShopCarDone(options) {
+  // async addShopCarDone(options) {
+  //   const res = await WXAPI.shippingCarInfoAddItem(wx.getStorageSync('token'), options.goodsId, options.buyNumber, options.sku)
+  //   if (res.code == 30002) {
+  //     // 需要选择规格尺寸
+  //     const skuCurGoodsRes = await WXAPI.goodsDetail(options.goodsId)
+  //     if (skuCurGoodsRes.code != 0) {
+  //       wx.showToast({
+  //         title: skuCurGoodsRes.msg,
+  //         icon: 'none'
+  //       })
+  //       return
+  //     }
+  //     const skuCurGoods = skuCurGoodsRes.data
+  //     skuCurGoods.basicInfo.storesBuy = 1
+  //     this.setData({
+  //       skuCurGoods
+  //     })
+  //     return
+  //   }
+  //   if (res.code != 0) {
+  //     wx.showToast({
+  //       title: res.msg,
+  //       icon: 'none'
+  //     })
+  //     return
+  //   }
+  //   wx.showToast({
+  //     title: '加入成功',
+  //     icon: 'success'
+  //   })
+  //   this.setData({
+  //     skuCurGoods: null
+  //   })
+  // },
+  async addShopCarDone(options){
     const res = await WXAPI.shippingCarInfoAddItem(wx.getStorageSync('token'), options.goodsId, options.buyNumber, options.sku)
     if (res.code == 30002) {
       // 需要选择规格尺寸
@@ -161,6 +217,7 @@ Page({
         })
         return
       }
+      // wx.hideTabBar()
       const skuCurGoods = skuCurGoodsRes.data
       skuCurGoods.basicInfo.storesBuy = 1
       this.setData({
@@ -168,7 +225,7 @@ Page({
       })
       return
     }
-    if (res.code != 0) {
+    if (res.retcode != 0) {
       wx.showToast({
         title: res.msg,
         icon: 'none'
@@ -181,6 +238,35 @@ Page({
     })
     this.setData({
       skuCurGoods: null
+    })
+    // wx.showTabBar()
+    // TOOLS.showTabBarBadge() // 获取购物车数据，显示TabBarBadge
+  },
+  async delItem(e) {
+    const key = e.currentTarget.dataset.key
+    this.delItemDone(key)
+  },
+  async delItemDone(key){
+    const that=this;
+    wx.showModal({
+      title: '提示',
+      content: '确定要删除吗？',
+      success: async function (res) {
+        if (res.confirm) {
+          const token = wx.getStorageSync('token')
+          const res = await WXAPI.delProduct(token, key)
+          if (res.retcode != 0) {
+            wx.showToast({
+              title: res.msg,
+              icon:'none'
+            })
+          } else {
+            that.search()
+          }
+        }else {
+          console.log('用户点击取消')
+        }
+      }
     })
   },
   storesJia() {

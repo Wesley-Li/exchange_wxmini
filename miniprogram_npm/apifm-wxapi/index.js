@@ -95,7 +95,7 @@ module.exports =
 /* eslint-disable */
 // 小程序开发api接口工具包，https://github.com/gooking/wxapi
 // var API_BASE_URL = 'https://api.it120.cc';
-var API_BASE_URL = 'http://192.168.1.246:8082';
+const API_BASE_URL = 'http://192.168.1.246:8082';
 var subDomain = '';
 
 var request = function request(url, needSubDomain, method, data) {
@@ -140,6 +140,7 @@ Promise.prototype.finally = function (callback) {
 };
 
 module.exports = {
+  API_BASE_URL: API_BASE_URL,
   init2: function init2(a, b) {
     API_BASE_URL = a;
     subDomain = b;
@@ -355,9 +356,29 @@ module.exports = {
   goods: function goods(data) {
     return request('/api/product/bycid/', false, 'get', data);
   },
+  mygoods: function mygoods(data) {
+    return request('/api/product/listmy/', false, 'get', data);
+  },
   goodsDetail: function goodsDetail(id) {
     return request('/api/product/info', false, 'get', {
       id: id
+    });
+  },
+  addProduct: function addProduct(name, cid, pic, credprice, content, status, pics, videourl) {
+    return request('/api/product/addviaurl', false, 'post', {
+      name,
+      cid,
+      pic,
+      credprice,
+      content,
+      status,
+      pics,
+      videourl
+    });
+  },
+  delProduct: function delProduct(token, key) {
+    return request('/api/product/delete', false, 'post', {
+      token: token, pid: key
     });
   },
   goodsLimitations: function goodsLimitations(goodsId) {
@@ -675,15 +696,18 @@ module.exports = {
   uploadFile: function uploadFile(token, tempFilePath) {
     var expireHours = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
 
-    var uploadUrl = API_BASE_URL + '/' + subDomain + '/dfs/upload/file';
+    var uploadUrl = API_BASE_URL + '/' + subDomain + '/api/qiniu/upfile';
     return new Promise(function (resolve, reject) {
       wx.uploadFile({
         url: uploadUrl,
         filePath: tempFilePath,
-        name: 'upfile',
+        name: 'file',
         formData: {
           'token': token,
           expireHours: expireHours
+        },
+        header: {
+          'Cookie': 'JSESSIONID=' + token
         },
         success: function success(res) {
           resolve(JSON.parse(res.data));
