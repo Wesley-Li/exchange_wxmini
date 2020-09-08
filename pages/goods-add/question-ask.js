@@ -16,7 +16,8 @@ Page({
     videos: [],
     gallery: '', //封面图,
     index: 0,
-    videourl: null,
+    videourl: "",
+    pid: 0,
 
     // rcontent: '',
     formats: {},
@@ -55,8 +56,7 @@ Page({
     if(options.id){
       this.setData({
         pid: options.id
-      })
-      this.getGoodsDetail(options.id)
+      },()=>{this.getGoodsDetail(options.id)})
     }
 
   },
@@ -85,7 +85,7 @@ Page({
         title: goodsDetailRes.data.name,
         gallery: goodsDetailRes.data.pic,
         content: goodsDetailRes.data.content,
-        videos: [goodsDetailRes.data.video],
+        videos: goodsDetailRes.data.video ? [goodsDetailRes.data.video] : [],
         images: goodsDetailRes.data.pics,
       }
       this.data.categories.forEach((item, index) => {
@@ -223,13 +223,33 @@ Page({
     const content = this.data.content
     let token = wx.getStorageSync('token');
     //此处要加判断必选项
+    if(!title || !this.data.credprice || !this.data.gallery){
+      wx.showToast({
+        title: "标题，信用币和缩略图必须填写!",
+        icon: 'none',
+        duration: 3000
+      })
+      return
+    }
+    if(this.data.videos.length==0 && this.data.images.length==0){
+      wx.showToast({
+        title: "视频和滚动图至少需设置一项!",
+        icon: 'none',
+        duration: 3000
+      })
+      return
+    }
 
-
-    if (title && content) {
-      
       // 将选择的图片组成一个Promise数组，准备进行并行上传
+      // wni: 注意，已经是网络图的，证明用户未修改， 过滤出来，因为wx.uploadFile只能上传本地图片，坑爹
+      const netpics = this.data.images.filter((item,index)=>{
+        return item.indexOf("http://tmp")==-1
+      })
       const arr = []
-      for (let path of this.data.images) {
+      const localpics = this.data.images.filter((item,index)=>{
+        return item.indexOf("http://tmp")>-1
+      })
+      for (let path of localpics) {
         arr.push(wxUploadFile({
           url: WXAPI.API_BASE_URL + '/api/qiniu/upfile',
           filePath: path,
@@ -245,7 +265,8 @@ Page({
         mask: true
       })
       //wni: 传缩略图
-      if(this.data.gallery.indexOf("http://tmp")>=-1){ //说明是本地选的文件
+      if(this.data.gallery.indexOf("http://tmp")>-1){ //说明是本地选的文件
+        
         let res = await WXAPI.uploadFile(wx.getStorageSync('token'), this.data.gallery)
         console.log("upgallery res is " + res)
         if (res.retcode == 0) {
@@ -313,7 +334,7 @@ Page({
         // console.log('vi url 2' + this.data.videourl)
         // "http://cdn-qa-static.zgyjyx.net/def30629/FpPB-wrNUugo_wejjG-J_6ekOy3U.jpg"
         const res = await WXAPI.addProduct(title, parseInt(this.data.categories[this.data.index].id), this.data.gallery, parseInt(this.data.credprice), 
-                                this.data.content, 1, JSON.stringify(urls), this.data.videourl, this.data.pid)
+                                this.data.content, 1, JSON.stringify(urls.concat(netpics)), this.data.videourl, this.data.pid)
         if(res.retcode==0){
           wx.showToast({
             title: "创建成功!",
@@ -321,7 +342,7 @@ Page({
             duration: 2000
           })
           // wx.navigateBack()
-          wx.navigateTo({
+          wx.redirectTo({
             url: '/pages/goods/list?onlymy=true',
           })
         }else{
@@ -360,7 +381,7 @@ Page({
       //     })
       //   }
       // })
-    }
+    
   },
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////

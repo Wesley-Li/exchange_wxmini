@@ -364,7 +364,7 @@ module.exports = {
       id: id
     });
   },
-  addProduct: function addProduct(name, cid, pic, credprice, content, status, pics, videourl) {
+  addProduct: function addProduct(name, cid, pic, credprice, content, status, pics, videourl, pid) {
     return request('/api/product/addviaurl', false, 'post', {
       name,
       cid,
@@ -373,7 +373,8 @@ module.exports = {
       content,
       status,
       pics,
-      videourl
+      videourl,
+      pid
     });
   },
   delProduct: function delProduct(token, key) {

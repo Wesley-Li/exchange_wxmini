@@ -180,7 +180,7 @@
       <view class="address">{{shopSubdetail.info.address}}</view>
     </view>
   </view>
-  <view class="goods-des-info">
+  <view class="goods-des-info" wx:if="{{goodsDetail.content}}">
     <view class="label-title">商品介绍</view>
     <view class="goods-text">
       <parser html="{{goodsDetail.content}}" />
