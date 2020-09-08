@@ -16,17 +16,49 @@ Page({
     videos: [],
     gallery: '', //封面图,
     index: 0,
+    videourl: null,
 
-    rcontent: '',
-    formats: {}, // 样式
-    placeholder: '开始输入...',
+    // rcontent: '',
+    formats: {},
+    readOnly: false,
+    placeholder: '请输入物品的详情内容...',
+    editorHeight: 300,
+    keyboardHeight: 0,
+    isIOS: false,
+    showToolbar: false,
   },
 
   onLoad(options) {
-    const that = this;
+    const platform = wx.getSystemInfoSync().platform
+    const isIOS = platform === 'ios'
+    this.setData({ isIOS})
+    const that = this
+    this.updatePosition(0)
+    let keyboardHeight = 0
+    wx.onKeyboardHeightChange(res => {
+      if (res.height === keyboardHeight) return
+      const duration = res.height > 0 ? res.duration * 1000 : 0
+      keyboardHeight = res.height
+      setTimeout(() => {
+        wx.pageScrollTo({
+          scrollTop: 0,
+          success() {
+            that.updatePosition(keyboardHeight)
+            that.editorCtx.scrollIntoView()
+          }
+        })
+      }, duration)
+
+    })
     $init(this);
-    
     this.categories();
+    if(options.id){
+      this.setData({
+        pid: options.id
+      })
+      this.getGoodsDetail(options.id)
+    }
+
   },
   async categories() {
     wx.showLoading({
@@ -38,6 +70,36 @@ Page({
       this.setData({
         categories: res.data,
       });
+    }
+  },
+  async getGoodsDetail(goodsId) {
+    const that = this;
+    const goodsDetailRes = await WXAPI.goodsDetail(goodsId)
+    
+    if (goodsDetailRes.retcode == 0) {
+      console.log(goodsDetailRes.data.video)
+
+      let _data = {
+        // goodsDetail: goodsDetailRes.data,
+        credprice: goodsDetailRes.data.credprice,
+        title: goodsDetailRes.data.name,
+        gallery: goodsDetailRes.data.pic,
+        content: goodsDetailRes.data.content,
+        videos: [goodsDetailRes.data.video],
+        images: goodsDetailRes.data.pics,
+      }
+      this.data.categories.forEach((item, index) => {
+        if(item.id==goodsDetailRes.data.cid){
+          _data.index = index;
+          return 
+        }
+      });
+      that.setData(_data,()=>{
+        that.editorCtx.setContents({
+          html: that.data.content
+        })
+      });
+      
     }
   },
   bindPickerChange: function (e) {
@@ -133,7 +195,10 @@ Page({
   removeVideo(e) {
     const idx = e.target.dataset.idx
     this.data.videos.splice(idx, 1)
-    $digest(this)
+    // $digest(this)
+    this.setData({
+      videos: this.data.videos
+    })
   },
 
   handleImagePreview(e) {
@@ -157,6 +222,8 @@ Page({
     const title = this.data.title
     const content = this.data.content
     let token = wx.getStorageSync('token');
+    //此处要加判断必选项
+
 
     if (title && content) {
       
@@ -178,27 +245,11 @@ Page({
         mask: true
       })
       //wni: 传缩略图
-      let res = await WXAPI.uploadFile(wx.getStorageSync('token'), this.data.gallery)
-      console.log("upgallery res is " + res)
-      if (res.retcode == 0) {
-        this.data.gallery = res.data;
-        // console.log('vi url 1' + res.data)
-      }else{
-        wx.showToast({
-          title: res.msg,
-          icon: 'none',
-          duration: 2000
-        })
-        return
-      }
-      
-      //wni: 传视频
-      // await this.uploadVideo();
-      for (let i = 0; i< this.data.videos.length; i++) {
-        const res = await WXAPI.uploadFile(wx.getStorageSync('token'), this.data.videos[i])
-        // console.log("upvideo res is " + res)
+      if(this.data.gallery.indexOf("http://tmp")>=-1){ //说明是本地选的文件
+        let res = await WXAPI.uploadFile(wx.getStorageSync('token'), this.data.gallery)
+        console.log("upgallery res is " + res)
         if (res.retcode == 0) {
-          this.data.videourl = res.data;
+          this.data.gallery = res.data;
           // console.log('vi url 1' + res.data)
         }else{
           wx.showToast({
@@ -207,6 +258,28 @@ Page({
             duration: 2000
           })
           return
+        }
+      }
+      
+      //wni: 传视频
+      // await this.uploadVideo();
+      for (let i = 0; i< this.data.videos.length; i++) {
+        if(this.data.videos[i].indexOf("http://tmp")==-1){
+          this.data.videourl = this.data.videos[i];
+        }else{
+          const res = await WXAPI.uploadFile(wx.getStorageSync('token'), this.data.videos[i])
+          // console.log("upvideo res is " + res)
+          if (res.retcode == 0) {
+            this.data.videourl = res.data;
+            // console.log('vi url 1' + res.data)
+          }else{
+            wx.showToast({
+              title: res.msg,
+              icon: 'none',
+              duration: 2000
+            })
+            return
+          }
         }
       }
       // 开始并行上传图片
@@ -240,7 +313,7 @@ Page({
         // console.log('vi url 2' + this.data.videourl)
         // "http://cdn-qa-static.zgyjyx.net/def30629/FpPB-wrNUugo_wejjG-J_6ekOy3U.jpg"
         const res = await WXAPI.addProduct(title, parseInt(this.data.categories[this.data.index].id), this.data.gallery, parseInt(this.data.credprice), 
-                                content, 1, JSON.stringify(urls), this.data.videourl)
+                                this.data.content, 1, JSON.stringify(urls), this.data.videourl, this.data.pid)
         if(res.retcode==0){
           wx.showToast({
             title: "创建成功!",
@@ -290,18 +363,8 @@ Page({
     }
   },
 
-  // 初始化编辑器
-  onEditorReady() {
-    const that = this;
-    wx.createSelectorQuery().select('#editor').context(function(res) {
-      that.editorCtx = res.context
-
-      if (wx.getStorageSync("rcontent")) { // 设置~历史值
-        that.editorCtx.insertText(wx.getStorageSync("rcontent")) // 注意：插入的是对象
-      }
-
-    }).exec()
-  },
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////
+  
   // 返回选区已设置的样式
   onStatusChange(e) {
     // console.log(e.detail)
@@ -314,9 +377,9 @@ Page({
   onContentChange(e) {
     // console.log("内容改变")
     // console.log(e.detail)
-    // that.setData({
-    //   content: e.detail
-    // })
+    this.setData({
+      content: e.detail.html
+    })
     // wx.setStorageSync("content", e.detail)
   },
   // 失去焦点
@@ -327,37 +390,121 @@ Page({
     //   content: e.detail
     // })
     // wx.setStorageSync("content", e.detail)
+    this.setData({
+      showToolbar: false
+    })
   },
-  // 获取内容
-  clickLogText(e) {
-    that.editorCtx.getContents({
-      success: function(res) {
-        console.log(res.html)
-        wx.setStorageSync("rcontent", res.html); // 缓存本地
-        // < p > 备注说明：</p > <p>1、评分规则</p> <p>2、注意事项</p> <p>3、哈哈呵呵</p> <p><br></p><p><br></p>
+  onFocus(e) {
+
+    this.setData({
+      showToolbar: true
+    })
+  },
+
+  //////////////////////////////////////////
+  readOnlyChange() {
+    this.setData({
+      readOnly: !this.data.readOnly
+    })
+  },
+  updatePosition(keyboardHeight) {
+    const toolbarHeight = 50
+    const { windowHeight, platform } = wx.getSystemInfoSync()
+    let editorHeight = keyboardHeight > 0 ? (windowHeight - keyboardHeight - toolbarHeight)/2 : windowHeight/2
+    this.setData({ editorHeight, keyboardHeight })
+  },
+  calNavigationBarAndStatusBar() {
+    const systemInfo = wx.getSystemInfoSync()
+    const { statusBarHeight, platform } = systemInfo
+    const isIOS = platform === 'ios'
+    const navigationBarHeight = isIOS ? 44 : 48
+    return statusBarHeight + navigationBarHeight
+  },
+  onEditorReady() {
+    const that = this
+    wx.createSelectorQuery().select('#editor').context(function (res) {
+      // wx.setStorageSync("rcontent", '<p wx:nodeid="162">测试图片，看看效果如何</p><p wx:nodeid="25"><img src="http://cdn-qa-static.zgyjyx.net/FoGT9dhtCsEJZ0C0LrR9o2MlPPIj.gif" width="192" data-custom="id=abcd&amp;role=god" wx:nodeid="83" style=""></p><p wx:nodeid="87"><br wx:nodeid="88"></p>')
+      that.editorCtx = res.context
+      // if (wx.getStorageSync("rcontent")) { // 设置~历史值
+      //   // that.editorCtx.insertText(wx.getStorageSync("rcontent")) // 注意：插入的是对象
+      //   that.editorCtx.setContents({
+      //     html: wx.getStorageSync("rcontent")
+      //   })
+      // }
+      if (that.data.pid && that.data.content) { // 设置~历史值
+        // that.editorCtx.insertText(wx.getStorageSync("rcontent")) // 注意：插入的是对象
+        that.editorCtx.setContents({
+          html: that.data.content
+        })
+      }
+    }).exec()
+  },
+
+  blur() {
+    this.editorCtx.blur()
+  },
+  format(e) {
+    let { name, value } = e.target.dataset
+    if (!name) return
+    // console.log('format', name, value)
+    this.editorCtx.format(name, value)
+
+  },
+  // onStatusChange(e) {
+  //   const formats = e.detail
+  //   this.setData({ formats })
+  // },
+  insertDivider() {
+    this.editorCtx.insertDivider({
+      success: function () {
+        console.log('insert divider success')
       }
     })
   },
-  // 清空所有
   clear() {
     this.editorCtx.clear({
-      success: function(res) {
-        console.log("清空成功")
+      success: function (res) {
+        console.log("clear success")
       }
     })
   },
-  // 清除样式
   removeFormat() {
     this.editorCtx.removeFormat()
   },
-  // 记录样式
-  format(e) {
-    let {
-      name,
-      value
-    } = e.target.dataset
-    if (!name) return
-    this.editorCtx.format(name, value)
+  insertDate() {
+    const date = new Date()
+    const formatDate = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`
+    this.editorCtx.insertText({
+      text: formatDate
+    })
   },
-
+  insertImage() {
+    const that = this
+    wx.chooseImage({
+      count: 1,
+      success: async res => {
+        let ret = await WXAPI.uploadFile(wx.getStorageSync('token'), res.tempFilePaths[0])
+        // console.log("upgallery res is " + res)
+        if (ret.retcode == 0) {
+          that.editorCtx.insertImage({
+            src: ret.data,
+            data: {
+              id: 'abcd',
+              role: 'god'
+            },
+            width: '80%',
+            success: function () {
+              console.log('insert image success')
+            }
+          })
+        }else{
+          wx.showToast({
+            title: ret.msg,
+            icon: 'none',
+            duration: 2000
+          })
+        }
+      }
+    })
+  }
 })

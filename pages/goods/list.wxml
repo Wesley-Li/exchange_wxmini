@@ -34,7 +34,10 @@
       <view class="buy-info">
         <!-- <view class="num">{{item.numberOrders}}人已购{{item.numberSells}}件</view> -->
         <image wx:if="{{!onlymy}}" class="car" src="/images/icon/car.svg" data-id="{{item.id}}" bindtap="addShopCar"></image>
-        <image wx:else class="car" src="/images/del.png" data-key="{{item.id}}" catchtap="delItem"></image>
+        <block wx:else>
+          <navigator url="/pages/goods-add/question-ask?id={{item.id}}"><image class="car-left" src="/images/edit.jpg"></image></navigator>
+          <image class="car" src="/images/del.png" data-key="{{item.id}}" catchtap="delItem"></image>
+        </block>
       </view>
     </view>
   </view>

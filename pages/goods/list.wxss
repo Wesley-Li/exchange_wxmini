@@ -151,7 +151,13 @@ page,view,image,input {
   right: 16rpx;
   bottom: 16rpx;
 }
-
+.list2 .goods-info .buy-info .car-left {
+  width: 50rpx;
+  height: 50rpx;
+  position: absolute;
+  right: 70rpx;
+  bottom: 16rpx;
+}
 
 .sku-mask {
   width: 100vw;
