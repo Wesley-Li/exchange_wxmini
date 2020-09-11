@@ -341,7 +341,7 @@ Page({
       return
     }
     const token = wx.getStorageSync('token')
-    const goodsId = this.data.goodsDetail.basicInfo.id
+    const goodsId = this.data.goodsDetail.id
     const sku = []
     if (this.data.goodsDetail.properties) {
       this.data.goodsDetail.properties.forEach(p => {
@@ -352,7 +352,7 @@ Page({
       })
     }
     const res = await WXAPI.shippingCarInfoAddItem(token, goodsId, this.data.buyNumber, sku)
-    if (res.code != 0) {
+    if (res.retcode != 0) {
       wx.showToast({
         title: res.msg,
         icon: 'none'
@@ -362,7 +362,7 @@ Page({
 
     this.closePopupTap();
     wx.showToast({
-      title: '加入购物车',
+      title: '加入购物车成功',
       icon: 'success'
     })
     this.shippingCartInfo()
@@ -401,10 +401,7 @@ Page({
     //组建立即购买信息
     var buyNowInfo = this.buliduBuyNowInfo(shoptype);
     // 写入本地存储
-    wx.setStorage({
-      key: "buyNowInfo",
-      data: buyNowInfo
-    })
+    wx.setStorageSync("buyNowInfo", JSON.stringify(buyNowInfo));
     this.closePopupTap();
     if (shoptype == 'toPingtuan') {
       if (this.data.pingtuanopenid) {
@@ -443,14 +440,18 @@ Page({
    * 组建立即购买信息
    */
   buliduBuyNowInfo: function(shoptype) {
-    var shopCarMap = {};
-    shopCarMap.goodsId = this.data.goodsDetail.basicInfo.id;
-    shopCarMap.pic = this.data.goodsDetail.basicInfo.pic;
-    shopCarMap.name = this.data.goodsDetail.basicInfo.name;
+    let shopCarMap = {};
+    shopCarMap.goodsId = this.data.goodsDetail.id;
+    shopCarMap.pid = this.data.goodsDetail.id;
+    shopCarMap.pic = this.data.goodsDetail.pic;
+    shopCarMap.name = this.data.goodsDetail.name;
     // shopCarMap.label=this.data.goodsDetail.basicInfo.id; 规格尺寸 
     shopCarMap.propertyChildIds = this.data.propertyChildIds;
     shopCarMap.label = this.data.propertyChildNames;
+    console.log("before set");
+    console.log(this.data.selectSizePrice);
     shopCarMap.price = this.data.selectSizePrice;
+    console.log("after set")
     // if (shoptype == 'toPingtuan') { // 20190714 拼团价格注释掉
     //   shopCarMap.price = this.data.goodsDetail.basicInfo.pingtuanPrice;
     // }
@@ -462,7 +463,7 @@ Page({
     shopCarMap.logistics = this.data.goodsDetail.logistics;
     shopCarMap.weight = this.data.goodsDetail.basicInfo.weight;
 
-    var buyNowInfo = {};
+    let buyNowInfo = {};
     buyNowInfo.shopNum = 0;
     buyNowInfo.shopList = [];
     

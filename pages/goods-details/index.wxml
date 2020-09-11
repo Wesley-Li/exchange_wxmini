@@ -130,7 +130,7 @@
     </view>
   </view>
   <button wx:if="{{curGoodsKanjia && (!curKanjiaprogress || curKanjiaprogress.kanjiaInfo.uid != curuid)}}" class="weui-btn" type="warn" bindtap="joinKanjia" style='width:700rpx;'>我也要报名参与</button>
-  <view class='space'></view>
+  <!-- <view class='space'></view> -->
   <view class="goods-des-info" style="margin-top:35rpx;" wx:if="{{pingtuanList}}">
     <view class="label-title" style="border-bottom:1px solid #eee;">{{pingtuanList.length}}人在拼单，可直接参与</view>
     <view class="goods-text" style="margin-top:15rpx;border-bottom:1px solid #eee;overflow:hidden;" wx:for="{{pingtuanList}}" wx:key="id">
@@ -151,7 +151,7 @@
     <image src="/images/icon/next.png"></image>
   </view>
   <view class="size-label-box2" wx:if="{{goodsDetailSkuShowType==1}}">
-    <view class="label-title">选择商品规格</view>
+    <!-- <view class="label-title">选择商品规格</view>
     <view class="size-label-box">
       <block wx:for="{{goodsDetail.properties}}" wx:for-item="property" wx:for-index="idx" wx:key="id">
         <view class="label">{{property.name}}</view>
@@ -161,7 +161,7 @@
           </view>
         </view>
       </block>
-    </view>
+    </view> -->
     <view class="buy-num-box">
       <view class="num-label">购买数量</view>
       <view class="num-box">
@@ -220,10 +220,10 @@
     <button class="weui-btn" type="warn" bindtap="tobuy">用当前价购买</button>
   </view>
   <view wx:if="{{!curGoodsKanjia}}" class="footer-box">
-    <view class="contact">
+    <!-- <view class="contact">
       <button type="primary" open-type="contact" />
       <image src="/images/icon/kf.svg"></image>
-    </view>
+    </view> -->
     <view class="shop-cart-btn" bindtap="goShopCar">
       <view class="shop-num">{{shopNum}}</view>
       <image src="/images/nav/cart-off.png"></image>
@@ -242,7 +242,7 @@
           <image src="{{skuGoodsPic}}" class="goods-thumbnail" bindtap="previewImage" data-url="{{skuGoodsPic}}" />
         </view>
         <view class="pop-goods-des">
-          <view class="pop-goods-title">{{goodsDetail.basicInfo.name}}</view>
+          <view class="pop-goods-title">{{goodsDetail.name}}</view>
           <view class="pop-goods-price">
             ¥ <text class="t1">{{selectSizePrice}}</text>
             <text wx:if="{{goodsDetail.basicInfo.originalPrice && goodsDetail.basicInfo.originalPrice > 0}}" class="pop-goods-price-original"><text>¥</text> {{selectSizeOPrice}}</text>

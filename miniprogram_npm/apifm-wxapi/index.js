@@ -492,8 +492,11 @@ module.exports = {
       token: token
     });
   },
+  setDefaultAddress: function setDefaultAddress(data) {
+    return request('/api/address/setdefault', false, 'post', data);
+  },
   defaultAddress: function defaultAddress(token) {
-    return request('/user/shipping-address/default/v2', true, 'get', {
+    return request('/api/address/getdefault', false, 'get', {
       token: token
     });
   },
@@ -573,12 +576,12 @@ module.exports = {
     });
   },
   userAmount: function userAmount(token) {
-    return request('/user/amount', true, 'get', {
+    return request('/api/user/account', false, 'get', {
       token: token
     });
   },
   orderCreate: function orderCreate(data) {
-    return request('/order/create', true, 'post', data);
+    return request('/api/order/create', false, 'post', data);
   },
   orderList: function orderList(data) {
     return request('/order/list', true, 'post', data);

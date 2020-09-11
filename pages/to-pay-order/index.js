@@ -45,22 +45,26 @@ Page({
     const token = wx.getStorageSync('token')
     //立即购买下单
     if ("buyNow" == this.data.orderType) {
-      var buyNowInfoMem = wx.getStorageSync('buyNowInfo');
+      let buyNowInfoMem = JSON.parse(wx.getStorageSync('buyNowInfo'));
       this.data.kjId = buyNowInfoMem.kjId;
       if (buyNowInfoMem && buyNowInfoMem.shopList) {
-        shopList = buyNowInfoMem.shopList
+        shopList = buyNowInfoMem.shopList;
+        this.setData({
+          goodsList: shopList,
+          allGoodsPrice: shopList[0].price
+        });
       }
     } else {
       //购物车下单
       const res = await WXAPI.shippingCarInfo(token)
-      if (res.code == 0) {
-        shopList = res.data.items
+      if (res.retcode == 0) {
+        this.setData({
+          goodsList: res.data.items,
+          peisongType: this.data.peisongType,
+          allGoodsPrice: res.data.price
+        });
       }
     }
-    this.setData({
-      goodsList: shopList,
-      peisongType: this.data.peisongType
-    });
     this.initShippingAddress()
   },
 
@@ -110,14 +114,17 @@ Page({
   },
   createOrder: function (e) {
     var that = this;
-    var loginToken = wx.getStorageSync('token') // 用户登录 token
+    var loginToken = wx.getStorageSync('token')
     var remark = this.data.remark; // 备注信息
 
     let postData = {
       token: loginToken,
       goodsJsonStr: that.data.goodsJsonStr,
       remark: remark,
-      peisongType: that.data.peisongType
+      peisongType: that.data.peisongType,
+      goodlist: this.data.goodsList,
+      status: 0,
+      total: this.data.allGoodsPrice
     };
     if (that.data.kjId) {
       postData.kjid = that.data.kjId
@@ -135,15 +142,15 @@ Page({
         return;
       }
       if (postData.peisongType == 'kd') {
-        postData.provinceId = that.data.curAddressData.provinceId;
-        postData.cityId = that.data.curAddressData.cityId;
-        if (that.data.curAddressData.districtId) {
-          postData.districtId = that.data.curAddressData.districtId;
-        }
-        postData.address = that.data.curAddressData.address;
-        postData.linkMan = that.data.curAddressData.linkMan;
-        postData.mobile = that.data.curAddressData.mobile;
-        postData.code = that.data.curAddressData.code;
+        postData.provincecode = that.data.curAddressData.provincecode;
+        postData.province = that.data.curAddressData.provincename;
+        postData.citycode = that.data.curAddressData.citycode;
+        postData.city = that.data.curAddressData.cityname;
+        postData.districtcode = that.data.curAddressData.districtcode;
+        postData.district = that.data.curAddressData.districtname;
+        postData.address = that.data.curAddressData.detail;
+        postData.shippingusername = that.data.curAddressData.username;
+        postData.shippingmobile = that.data.curAddressData.mobile;
       }      
     }
     if (that.data.curCoupon) {
@@ -167,7 +174,7 @@ Page({
 
     WXAPI.orderCreate(postData).then(function (res) {
       that.data.pageIsEnd = true
-      if (res.code != 0) {
+      if (res.retcode != 0) {
         that.data.pageIsEnd = false
         wx.showModal({
           title: '错误',
@@ -210,7 +217,7 @@ Page({
   async processAfterCreateOrder(res) {
     // 直接弹出支付，取消支付的话，去订单列表
     const res1 = await WXAPI.userAmount(wx.getStorageSync('token'))
-    if (res1.code != 0) {
+    if (res1.retcode != 0) {
       wx.showToast({
         title: '无法获取用户资金信息',
         icon: 'none'
@@ -221,12 +228,12 @@ Page({
       this.data.pageIsEnd = false
       return
     }
-    const money = res.data.amountReal * 1 - res1.data.balance*1
+    const money = res.total * 1 - res1.data.score*1
     if (money <= 0) {
       // 直接用余额支付
       wx.showModal({
         title: '请确认支付',
-        content: `您当前可用余额¥${res1.data.balance}，使用余额支付¥${res.data.amountReal}？`,
+        content: `您当前可用信用币¥${res1.data.score}，支付¥${res.total}？`,
         confirmText: "确认支付",
         cancelText: "暂不付款",
         success: res2 => {
@@ -252,21 +259,38 @@ Page({
         }
       })      
     } else {
-      wxpay.wxpay('order', money, res.data.id, "/pages/order-list/index");
+      // wxpay.wxpay('order', money, res.data.id, "/pages/order-list/index");
+      wx.showModal({
+        title: '信用币不足！',
+        content: `订单金额¥${res.total}，但您当前仅有信用币¥${res1.data.score}`,
+        confirmText: "确认",
+        cancelText: "取消",
+        success: res2 => {
+          if (res2.confirm) {
+            wx.redirectTo({
+              url: "/pages/order-list/index"
+            })
+          } else {
+            wx.redirectTo({
+              url: "/pages/order-list/index"
+            })
+          }
+        }
+      })
     }
   },
   async initShippingAddress() {
     const res = await WXAPI.defaultAddress(wx.getStorageSync('token'))
-    if (res.code == 0) {
+    if (res.retcode == 0) {
       this.setData({
-        curAddressData: res.data.info
+        curAddressData: res.data
       });
     } else {
       this.setData({
         curAddressData: null
       });
     }
-    this.processYunfei();
+    // this.processYunfei(); //暂不考虑运费
   },
   processYunfei() {
     var goodsList = this.data.goodsList
