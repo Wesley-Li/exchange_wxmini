@@ -6,10 +6,10 @@ const AUTH = require('../../utils/auth')
 Page({
   data: {
     statusType: [
-      {
-        status: 9999,
-        label: '全部'
-      },
+      // {
+      //   status: 9999,
+      //   label: ''
+      // },
       {
         status: 0,
         label: '待付款'
@@ -24,12 +24,19 @@ Page({
       },
       {
         status: 3,
-        label: '待评价'
+        label: '待我发货'
       },
+      // {
+      //   status: 4,
+      //   label: '待评价'
+      // },
+      
     ],
-    status: 9999,
+    status: 0,
     hasRefund: false,
-    badges: [0, 0, 0, 0, 0]
+    badges: [0, 0, 0, 0],
+    shipper: false, //填写发货编号等
+    shipperSN: '',
   },
   statusTap: function(e) {
     const status = e.currentTarget.dataset.status;
@@ -47,11 +54,81 @@ Page({
       success: function(res) {
         if (res.confirm) {
           WXAPI.orderClose(wx.getStorageSync('token'), orderId).then(function(res) {
-            if (res.code == 0) {
+            if (res.retcode == 0) {
               that.onShow();
             }
           })
         }
+      }
+    })
+  },
+  revOrderTap: function(e){
+    const that = this;
+    let goodsList = e.currentTarget.dataset.goods
+    let odids = [];
+    goodsList.map((item)=>{odids.push(item.odid)});
+    wx.showModal({
+      title: '确认收货',
+      content: "",
+      confirmText: "确认",
+      cancelText: "取消",
+      success: function (res) {
+        if (res.confirm) {
+          WXAPI.orderShipper(wx.getStorageSync('token'), JSON.stringify(odids), null, true).then(function(res) {
+            if (res.retcode == 0) {
+              that.onShow();
+            }else{
+              wx.showToast({
+                title: res.msg,
+                icon: 'none'
+              })
+              return
+            }
+          })
+        } else {
+          console.log('用户点击取消支付')
+        }
+      }
+    });
+  },
+  shipperOrderTap: function(e) {
+    this.setData({
+      shipper: true,
+      shippinggoods: e.currentTarget.dataset.goods
+    })
+  },
+  cancelShipper: function(){
+    this.setData({
+      shipper: false,
+      shippinggoods: [],
+      shipperSN:''
+    })
+  },
+  shipperSNInput: function(e){
+    const value = e.detail.value;
+    this.setData({
+      shipperSN: value
+    })
+  },
+  shipperConfirm: function(e) {
+    const that = this;
+    let odids = [];
+    this.data.shippinggoods.map((item)=>{odids.push(item.odid)});
+    console.log(this.data.shipperSN);
+    WXAPI.orderShipper(wx.getStorageSync('token'), JSON.stringify(odids), this.data.shipperSN, false).then(function(res) {
+      if (res.retcode == 0) {
+        that.setData({
+          shipper: false,
+          shippinggoods: [],
+          shipperSN:''
+        }, ()=>that.onShow())
+        // that.onShow();
+      }else{
+        wx.showToast({
+          title: res.msg,
+          icon: 'none'
+        })
+        return
       }
     })
   },
@@ -82,26 +159,26 @@ Page({
     let money = e.currentTarget.dataset.money;
     const needScore = e.currentTarget.dataset.score;
     WXAPI.userAmount(wx.getStorageSync('token')).then(function(res) {
-      if (res.code == 0) {
+      if (res.retcode == 0) {
         // 增加提示框
-        if (res.data.score < needScore) {
+        if (res.data.score < money) {
           wx.showToast({
-            title: '您的积分不足，无法支付',
+            title: '您的信用币不足，无法支付',
             icon: 'none'
           })
           return;
         }
-        let _msg = '订单金额: ' + money +' 元'
-        if (res.data.balance > 0) {
-          _msg += ',可用余额为 ' + res.data.balance +' 元'
-          if (money - res.data.balance > 0) {
-            _msg += ',仍需微信支付 ' + (money - res.data.balance) + ' 元'
-          }          
+        let _msg = '订单金额: ' + money +' 信用币'
+        if (res.data.score > 0) {
+          _msg += ',可用信用币为 ' + res.data.score
+          // if (money - res.data.balance > 0) {
+          //   _msg += ',仍需微信支付 ' + (money - res.data.balance) + ' 元'
+          // }          
         }
         if (needScore > 0) {
           _msg += ',并扣除 ' + needScore + ' 积分'
         }
-        money = money - res.data.balance
+        money = money - res.data.score
         wx.showModal({
           title: '请确认支付',
           content: _msg,
@@ -130,10 +207,21 @@ Page({
     if (money <= 0) {
       // 直接使用余额支付
       WXAPI.orderPay(wx.getStorageSync('token'), orderId).then(function (res) {
+        if (res.retcode != 0) {
+          wx.showToast({
+            title: res.msg,
+            icon: 'none'
+          })
+        }else{
+          wx.showToast({
+            title: "支付成功!",
+            icon: 'none'
+          })
+        }
         _this.onShow();
       })
     } else {
-      wxpay.wxpay('order', money, orderId, "/pages/order-list/index");
+      // wxpay.wxpay('order', money, orderId, "/pages/order-list/index");
     }
   },
   onLoad: function(options) {
@@ -155,12 +243,13 @@ Page({
   },
   getOrderStatistics() {
     WXAPI.orderStatistics(wx.getStorageSync('token')).then(res => {
-      if (res.code == 0) {
+      if (res.retcode == 0) {
         const badges = this.data.badges;
-        badges[1] = res.data.count_id_no_pay
-        badges[2] = res.data.count_id_no_transfer
-        badges[3] = res.data.count_id_no_confirm
-        badges[4] = res.data.count_id_no_reputation
+        badges[0] = res.data.count_id_no_pay
+        badges[1] = res.data.count_id_no_transfer
+        badges[2] = res.data.count_id_no_confirm
+        badges[3] = res.data.count_id_needmetrans
+        // badges[5] = res.data.count_id_no_reputation
         this.setData({
           badges
         })
@@ -200,22 +289,22 @@ Page({
       postData.hasRefund = true
     }
     if (!postData.hasRefund) {
-      postData.status = that.data.status;
+      postData.type = that.data.status;
     }
     if (postData.status == 9999) {
-      postData.status = ''
+      postData.type = '-1'
     }
     this.getOrderStatistics();
     WXAPI.orderList(postData).then(function(res) {
-      if (res.code == 0) {
+      if (res.retcode == 0) {
         that.setData({
-          orderList: res.data.orderList,
-          logisticsMap: res.data.logisticsMap,
-          goodsMap: res.data.goodsMap
+          orderList: res.data,
+          // logisticsMap: res.data.logisticsMap,
+          // goodsMap: res.data.goodsMap
         });
       } else {
         that.setData({
-          orderList: null,
+          orderList: [],
           logisticsMap: {},
           goodsMap: {}
         });

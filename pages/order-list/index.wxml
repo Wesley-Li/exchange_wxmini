@@ -5,25 +5,26 @@
       <view wx:if="{{badges[index]}}" class="weui-badge" style="position: absolute;top: 5rpx;right: 5rpx;">{{badges[index]}}</view>
     </view>
   </view>
-  <view class="no-order" hidden="{{orderList ? true : false}}">
+  <view class="no-order" hidden="{{orderList.length>0 ? true : false}}">
     <image src="/images/no-order.png" class="no-order-img"></image>
     <view class="text">暂无订单</view>
   </view>
-  <view class="order-list" hidden="{{orderList ? false : true}}">
+  <view class="order-list" hidden="{{orderList.length>0 ? false : true}}">
     <view class="a-order" wx:for="{{orderList}}" wx:key="index">
-      <navigator url="/pages/order-details/index?id={{item.id}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-        <view class="weui-cell__bd">{{item.orderNumber}}</view>
-        <view class="weui-cell__ft weui-cell__ft_in-access">{{item.statusStr}}</view>
+      <navigator url="/pages/order-details/index?id={{item.oid}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell__bd">编号: {{item.om.ordersn}}</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access">{{item.om.ctime}}</view>
       </navigator>
       <scroll-view class="goods-img-container" scroll-x="true">
-        <view class="img-box" wx:for="{{goodsMap[item.id]}}" wx:key="index">
-          <navigator url="/pages/goods-details/index?id={{item.goodsId}}"><image src="{{item.pic}}" class="goods-img"></image></navigator>
+        <view class="img-box" wx:for="{{item.goodList}}" wx:key="index">
+          <navigator url="/pages/goods-details/index?id={{item.pid}}"><image src="{{item.pic}}" class="goods-img"></image></navigator>
         </view>
       </scroll-view>
       <view class="goods-price">
-        共 {{item.goodsNumber}} 件商品 合计：
-        <text class="p" wx:if="{{item.score <= 0}}">¥ {{item.amountReal}}</text>
-        <text class="p" wx:if="{{item.score > 0}}">¥ {{item.amountReal}} + {{item.score}} 积分</text>
+        共 {{item.number}} 件商品 合计：
+        <text class="p">¥ {{item.total}}</text>
+        <!-- <text class="p" wx:if="{{item.score <= 0}}">¥ {{item.amountReal}}</text>
+        <text class="p" wx:if="{{item.score > 0}}">¥ {{item.amountReal}} + {{item.score}} 积分</text> -->
       </view>
       <view class="goods-info">
         <view class="goods-des">
@@ -32,11 +33,21 @@
         </view>
       </view>
       <view class="price-box">
-        <view class="btn" hidden="{{item.status==0? false : true}}" bindtap="cancelOrderTap" data-id="{{item.id}}">取消订单</view>
-        <view class="btn active" hidden="{{item.status==0? false : true}}" bindtap="toPayTap" data-id="{{item.id}}" data-money="{{item.amountReal}}" data-score="{{item.score}}">马上付款</view>
-        <view class="btn active" hidden="{{(item.status==0 || item.status==-1) ? true : false}}" bindtap="refundApply" data-id="{{item.id}}" data-amount='{{item.amountReal}}'>退换货</view>
+        <view class="btn" hidden="{{item.status==0? false : true}}" bindtap="cancelOrderTap" data-id="{{item.oid}}">取消订单</view>
+        <view class="btn active" hidden="{{item.status==0? false : true}}" bindtap="toPayTap" data-id="{{item.oid}}" data-money="{{item.total}}" data-score="{{item.score}}">马上付款</view>
+        <!-- <view class="btn active" hidden="{{(item.status==0 || item.status==-1) ? true : false}}" bindtap="refundApply" data-id="{{item.id}}" data-amount='{{item.amountReal}}'>退换货</view> -->
+        <view class="btn" hidden="{{status==3? false : true}}" bindtap="shipperOrderTap" data-goods="{{item.goodList}}">发货</view>
+        
+        <view class="btn" hidden="{{status==2? false : true}}" bindtap="revOrderTap" data-goods="{{item.goodList}}">确认收货</view>
+        <view class="shippingsn" hidden="{{status==2? false : true}}">快递号: {{item.shippingsn}}</view>
       </view>
     </view>
+  </view>
+  <view class="modal-mask" catchtouchmove="preventTouchMove" hidden="{{shipper? false : true}}"></view>
+  <view class="modal-dialog" hidden="{{shipper? false : true}}">
+      <input class="sninput" maxlength="20" placeholder="填写快递编号" bindinput="shipperSNInput"/>
+      <view class="btn-wni" bindtap="shipperConfirm">确定</view>
+      <view class="btn-wni" bindtap="cancelShipper">取消</view>
   </view>
   <view class="safeAreaOldMarginBttom safeAreaNewMarginBttom"></view>
 </view>

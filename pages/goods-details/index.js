@@ -443,6 +443,7 @@ Page({
     let shopCarMap = {};
     shopCarMap.goodsId = this.data.goodsDetail.id;
     shopCarMap.pid = this.data.goodsDetail.id;
+    shopCarMap.uid = this.data.goodsDetail.uid;
     shopCarMap.pic = this.data.goodsDetail.pic;
     shopCarMap.name = this.data.goodsDetail.name;
     // shopCarMap.label=this.data.goodsDetail.basicInfo.id; 规格尺寸 

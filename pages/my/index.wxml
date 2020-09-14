@@ -55,6 +55,11 @@
       <view class='text'>待收货</view>
     </view>
     <view class='item' bindtap='goOrder' data-type="3">
+      <view wx:if="{{count_id_needmetrans !== 0}}" class='dot'>{{count_id_needmetrans}}</view>
+      <image class="icon" src="/images/order/shouhuo.png" background-size="cover"></image>
+      <view class='text'>待我发货</view>
+    </view>
+    <!-- <view class='item' bindtap='goOrder' data-type="3">
       <view wx:if="{{count_id_no_reputation !== 0}}" class='dot'>{{count_id_no_reputation}}</view>
       <image class="icon" src="/images/order/pj.png" background-size="cover"></image>
       <view class='text'>待评价</view>
@@ -62,7 +67,7 @@
     <view class='item' bindtap='goOrder' data-type="99">
       <image class="icon" src="/images/order/shouhou.png" background-size="cover"></image>
       <view class='text'>售后</view>
-    </view>
+    </view> -->
   </view>
   <!-- <view wx:if="{{canHX}}" class="line"></view>
   <view wx:if="{{canHX}}" class="menu-item" bindtap="scanOrderCode">

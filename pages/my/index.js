@@ -20,6 +20,7 @@ Page({
     count_id_no_pay: 0,
     count_id_no_reputation: 0,
     count_id_no_transfer: 0,
+    count_id_needmetrans: 0
   },
 	onLoad() {
 	},
@@ -121,19 +122,21 @@ Page({
     return count > 99 ? '99+' : count;
   },
   orderStatistics: function () {
-    WXAPI.orderStatistics(wx.getStorageSync('token')).then((res) => {
-      if (res.code == 0) {
+    WXAPI.orderStatistics(wx.getStorageSync('token')).then(res => {
+      if (res.retcode == 0) {
         const {
           count_id_no_confirm,
           count_id_no_pay,
           count_id_no_reputation,
           count_id_no_transfer,
+          count_id_needmetrans
         } = res.data || {}
         this.setData({
           count_id_no_confirm: this.handleOrderCount(count_id_no_confirm),
           count_id_no_pay: this.handleOrderCount(count_id_no_pay),
           count_id_no_reputation: this.handleOrderCount(count_id_no_reputation),
           count_id_no_transfer: this.handleOrderCount(count_id_no_transfer),
+          count_id_needmetrans: this.handleOrderCount(count_id_needmetrans),
         })
       }
     })

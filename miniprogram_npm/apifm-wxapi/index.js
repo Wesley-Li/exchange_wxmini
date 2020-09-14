@@ -584,7 +584,7 @@ module.exports = {
     return request('/api/order/create', false, 'post', data);
   },
   orderList: function orderList(data) {
-    return request('/order/list', true, 'post', data);
+    return request('/api/order/listmy', false, 'get', data);
   },
   orderDetail: function orderDetail(token, id) {
     var hxNumber = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
@@ -605,10 +605,21 @@ module.exports = {
     return request('/order/reputation', true, 'post', data);
   },
   orderClose: function orderClose(token, orderId) {
-    return request('/order/close', true, 'post', {
-      orderId: orderId,
+    return request('/api/order/cancel', false, 'post', {
+      orderid: orderId,
       token: token
     });
+  },
+  orderShipper: function orderShipper(token, ids, shipping_sn, setrev) {
+    let data = {
+      token,
+      ids,
+      setrev
+    };
+    if(shipping_sn){
+      data.shipping_sn=shipping_sn;
+    }
+    return request('/api/order/srorder', false, 'post', data);
   },
   orderDelete: function orderDelete(token, orderId) {
     return request('/order/delete', true, 'post', {
@@ -617,8 +628,8 @@ module.exports = {
     });
   },
   orderPay: function orderPay(token, orderId) {
-    return request('/order/pay', true, 'post', {
-      orderId: orderId,
+    return request('/api/order/pay', false, 'post', {
+      id: orderId,
       token: token
     });
   },
@@ -628,7 +639,7 @@ module.exports = {
     });
   },
   orderStatistics: function orderStatistics(token) {
-    return request('/order/statistics', true, 'get', {
+    return request('/api/order/statistic', false, 'get', {
       token: token
     });
   },

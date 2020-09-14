@@ -118,6 +118,11 @@
     margin-left: 20rpx;
     font-size:26rpx;
 }
+.price-box .shippingsn{
+    position: absolute;
+    left: 30rpx;
+    line-height: 60rpx;
+}
 .price-box .active{
     border:1px solid #e64340;
     color: #e64340;
@@ -125,4 +130,48 @@
 .remark {
   color:#e64340;
   margin-bottom: 20rpx;
+}
+
+/* 模态框 */
+  
+.modal-mask {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #000;
+    opacity: 0.5;
+    overflow: hidden;
+    z-index: 9000;
+   }
+     
+   .modal-dialog {
+    box-sizing:border-box;
+    width: 85%;
+    padding:30rpx;
+    overflow: hidden;
+    position: fixed;
+    top: 40%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    z-index: 9999;
+    background: white;
+    border-radius: 5rpx;
+    display: flex;
+    text-align: center;
+   }
+
+.sninput{
+    border: 1rpx solid #ccc;
+    height: 100%;
+    text-align: center;
+    flex: 3
+}
+.btn-wni{
+    border: 1rpx solid #ccc;
+    padding: 0 10rpx;
+    margin-left: 10rpx;
+    flex:1
 }

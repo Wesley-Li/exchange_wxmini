@@ -122,7 +122,7 @@ Page({
       goodsJsonStr: that.data.goodsJsonStr,
       remark: remark,
       peisongType: that.data.peisongType,
-      goodlist: this.data.goodsList,
+      goodlist: JSON.stringify(this.data.goodsList),
       status: 0,
       total: this.data.allGoodsPrice
     };
@@ -146,8 +146,8 @@ Page({
         postData.province = that.data.curAddressData.provincename;
         postData.citycode = that.data.curAddressData.citycode;
         postData.city = that.data.curAddressData.cityname;
-        postData.districtcode = that.data.curAddressData.districtcode;
-        postData.district = that.data.curAddressData.districtname;
+        postData.distinctcode = that.data.curAddressData.districtcode;
+        postData.distinct = that.data.curAddressData.districtname;
         postData.address = that.data.curAddressData.detail;
         postData.shippingusername = that.data.curAddressData.username;
         postData.shippingmobile = that.data.curAddressData.mobile;
@@ -239,8 +239,8 @@ Page({
         success: res2 => {
           if (res2.confirm) {
             // 使用余额支付
-            WXAPI.orderPay(wx.getStorageSync('token'), res.data.id).then(res3 => {
-              if (res3.code != 0) {
+            WXAPI.orderPay(wx.getStorageSync('token'), res.orderid).then(res3 => {
+              if (res3.retcode != 0) {
                 wx.showToast({
                   title: res3.msg,
                   icon: 'none'
@@ -248,12 +248,12 @@ Page({
                 return
               }
               wx.redirectTo({
-                url: "/pages/order-list/index"
+                url: "/pages/order-list/index?type=1"
               })
             })
           } else {
             wx.redirectTo({
-              url: "/pages/order-list/index"
+              url: "/pages/order-list/index?type=0"
             })
           }
         }
