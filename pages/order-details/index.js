@@ -6,15 +6,23 @@ import wxbarcode from 'wxbarcode'
 Page({
     data:{
       orderId:0,
+      type: -2, //从列表页传来的，用户所见的订单状态
+      odids: [], //列表页传来的， 订单详情表的id
       goodsList:[]
     },
     onLoad:function(e){
       // e.id = 478785
       const accountInfo = wx.getAccountInfoSync()
       var orderId = e.id;
-      this.data.orderId = orderId;
+      // this.data.orderId = orderId;
+      let type = e.type;
+      let odids = JSON.parse(decodeURIComponent(e.odids));
+      // console.log(type)
+      // console.log(odids);
       this.setData({
         orderId: orderId,
+        type: type,
+        odids: odids,
         appid: accountInfo.miniProgram.appId
       });
     },

@@ -1,3 +1,4 @@
+<!-- <wxs src="../../wxs/utils.wxs" module="tools" /> -->
 <view class="container">
   <view wx:if='{{!hasRefund}}' class="status-box">
     <view bindtap="statusTap" class="status-label {{item.status == status ? 'active' : ''}}" wx:for="{{statusType}}" wx:key="index" data-status="{{item.status}}">
@@ -11,10 +12,12 @@
   </view>
   <view class="order-list" hidden="{{orderList.length>0 ? false : true}}">
     <view class="a-order" wx:for="{{orderList}}" wx:key="index">
-      <navigator url="/pages/order-details/index?id={{item.oid}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+      <!-- <navigator url="/pages/order-details/index?id={{item.oid}}&type={{status}}&odids={{tools.jsonToUrl(item.odids)}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active"> -->
+      <view bindtap="goToOrderDetail" data-oid="{{item.oid}}" data-odids="{{item.odids}}">
         <view class="weui-cell__bd">编号: {{item.om.ordersn}}</view>
         <view class="weui-cell__ft weui-cell__ft_in-access">{{item.om.ctime}}</view>
-      </navigator>
+      </view>
+      <!-- </navigator> -->
       <scroll-view class="goods-img-container" scroll-x="true">
         <view class="img-box" wx:for="{{item.goodList}}" wx:key="index">
           <navigator url="/pages/goods-details/index?id={{item.pid}}"><image src="{{item.pic}}" class="goods-img"></image></navigator>

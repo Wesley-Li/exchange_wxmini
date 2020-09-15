@@ -1,0 +1,9 @@
+var jsonToUrl = function(value){
+        console.log("shit")
+        console.log(encodeURIComponent(JSON.stringify(value)))
+        return encodeURIComponent(JSON.stringify(value))
+}
+
+module.export = {
+    jsonToUrl: jsonToUrl
+}

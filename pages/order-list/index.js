@@ -132,6 +132,13 @@ Page({
       }
     })
   },
+  goToOrderDetail: function(e){
+    let oid = e.currentTarget.dataset.oid;
+    let odids = encodeURIComponent(JSON.stringify(e.currentTarget.dataset.odids));
+    wx.navigateTo({
+      url: `/pages/order-details/index?id=${oid}&type=${this.data.status}&odids=${odids}`
+    })
+  },
   refundApply (e) {
     // 申请售后
     const orderId = e.currentTarget.dataset.id;
