@@ -65,7 +65,7 @@ App({
     //   }
     // })
     wx.setStorageSync('mallName', "蚁库");
-    wx.setStorageSync('share_profile', "蚁库，绝对放心的交易!")
+    wx.setStorageSync('share_profile', "绝对放心的闲置物品交易!")
   },
 
   onShow (e) {
