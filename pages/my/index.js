@@ -47,7 +47,7 @@ Page({
   aboutUs : function () {
     wx.showModal({
       title: '关于我们',
-      content: '蚁库信用交换平台，大家放心交换！',
+      content: '蚁库信用交易，让闲置物品得以重生！',
       showCancel:false
     })
   },

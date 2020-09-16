@@ -586,12 +586,13 @@ module.exports = {
   orderList: function orderList(data) {
     return request('/api/order/listmy', false, 'get', data);
   },
-  orderDetail: function orderDetail(token, id) {
+  orderDetail: function orderDetail(token, orderid, odids) {
     var hxNumber = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
 
-    return request('/order/detail', true, 'get', {
-      id: id,
-      token: token,
+    return request('/api/order/info', false, 'get', {
+      orderid,
+      token,
+      odids,
       hxNumber: hxNumber
     });
   },

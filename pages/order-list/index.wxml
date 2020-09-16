@@ -13,7 +13,7 @@
   <view class="order-list" hidden="{{orderList.length>0 ? false : true}}">
     <view class="a-order" wx:for="{{orderList}}" wx:key="index">
       <!-- <navigator url="/pages/order-details/index?id={{item.oid}}&type={{status}}&odids={{tools.jsonToUrl(item.odids)}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active"> -->
-      <view bindtap="goToOrderDetail" data-oid="{{item.oid}}" data-odids="{{item.odids}}">
+      <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap="goToOrderDetail" data-oid="{{item.oid}}" data-odids="{{item.odids}}">
         <view class="weui-cell__bd">编号: {{item.om.ordersn}}</view>
         <view class="weui-cell__ft weui-cell__ft_in-access">{{item.om.ctime}}</view>
       </view>

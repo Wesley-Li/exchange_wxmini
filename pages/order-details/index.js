@@ -1,12 +1,14 @@
 const app = getApp();
-const CONFIG = require('../../config.js')
-const WXAPI = require('apifm-wxapi')
-import wxbarcode from 'wxbarcode'
+const CONFIG = require('../../config.js');
+const WXAPI = require('apifm-wxapi');
+import wxbarcode from 'wxbarcode';
+const COMMON = require('../../utils/common.js');
 
 Page({
     data:{
       orderId:0,
-      type: -2, //从列表页传来的，用户所见的订单状态
+      type: -2, //从列表页传来的，用户所见的订单状态,
+      typeStr: '',
       odids: [], //列表页传来的， 订单详情表的id
       goodsList:[]
     },
@@ -28,8 +30,8 @@ Page({
     },
     onShow : function () {
       var that = this;
-      WXAPI.orderDetail(wx.getStorageSync('token'), that.data.orderId).then(function (res) {
-        if (res.code != 0) {
+      WXAPI.orderDetail(wx.getStorageSync('token'), that.data.orderId, JSON.stringify(that.data.odids)).then(function (res) {
+        if (res.retcode != 0) {
           wx.showModal({
             title: '错误',
             content: res.msg,
@@ -38,11 +40,12 @@ Page({
           return;
         }
         // 绘制核销码
-        if (res.data.orderInfo.hxNumber && res.data.orderInfo.status > 0) {
-          wxbarcode.qrcode('qrcode', res.data.orderInfo.hxNumber, 650, 650);
-        }        
+        // if (res.data.orderInfo.hxNumber && res.data.orderInfo.status > 0) {
+        //   wxbarcode.qrcode('qrcode', res.data.orderInfo.hxNumber, 650, 650);
+        // }        
         that.setData({
-          orderDetail: res.data
+          orderDetail: res.data,
+          typeStr: COMMON.OrderTypeStr[that.data.type]
         });
       })
     },
@@ -60,14 +63,26 @@ Page({
           content: '',
           success: function(res) {
             if (res.confirm) {
-              WXAPI.orderDelivery(wx.getStorageSync('token'), orderId).then(function (res) {
-                if (res.code == 0) {
-                  that.onShow();                  
+              WXAPI.orderShipper(wx.getStorageSync('token'), JSON.stringify(that.data.odids), null, true).then(function(res) {
+                if (res.retcode == 0) {
+                  // wx.navigateTo({
+                  //   url: "/pages/order-list/index?type=3"
+                  // })
+                  that.setData({
+                    type: 4 //我已收货，待评价状态
+                  })
+                  that.onShow();
+                }else{
+                  wx.showToast({
+                    title: res.msg,
+                    icon: 'none'
+                  })
+                  return
                 }
               })
             }
           }
-      })
+        })
     },
     submitReputation: function (e) {
       let that = this;

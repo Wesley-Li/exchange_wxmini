@@ -146,8 +146,8 @@ Page({
         postData.province = that.data.curAddressData.provincename;
         postData.citycode = that.data.curAddressData.citycode;
         postData.city = that.data.curAddressData.cityname;
-        postData.distinctcode = that.data.curAddressData.districtcode;
-        postData.distinct = that.data.curAddressData.districtname;
+        postData.distinctcode = that.data.curAddressData.distinctcode;
+        postData.distinct = that.data.curAddressData.distinctname;
         postData.address = that.data.curAddressData.detail;
         postData.shippingusername = that.data.curAddressData.username;
         postData.shippingmobile = that.data.curAddressData.mobile;
