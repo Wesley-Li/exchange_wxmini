@@ -44,11 +44,19 @@
       <input name="credprice" maxlength="10" class="weui-input" type="digit" placeholder="填写信用币金额" value="{{credprice}}" bindinput="handleCredprice"/>
     </view>
   </view>
+  <view class="tip-small">(人民币和蚁库信用币比例为1:10, 请根据原价和旧损情况自行评估)</view>
   <view class="question-images-area">
 
     <!-- 添加图片按钮  -->
-    <view class="question-images-tool">
-      <button type="default" size="mini" bindtap="chooseGallery" wx:if="{{!gallery}}">添加缩略图</button>
+    <view class="weui-cell">
+      <view class="weui-cell__hd">
+        <view class="weui-label">缩略图</view>
+      </view>
+      <view class="weui-cell__hd">
+        <view class="question-images-tool">
+          <button type="default" size="mini" bindtap="chooseGallery" wx:if="{{!gallery}}">添加缩略图</button>
+        </view>
+      </view>
     </view>
 
     <!-- 图片缩略图  -->
@@ -64,8 +72,15 @@
   <view class="question-images-area">
 
     <!-- 添加图片按钮  -->
-    <view class="question-images-tool">
-      <button type="default" size="mini" bindtap="chooseVideo" wx:if="{{videos.length < 1}}">添加短视频</button>
+    <view class="weui-cell">
+      <view class="weui-cell__hd">
+        <view class="weui-label">短视频</view>
+      </view>
+      <view class="weui-cell__hd">
+        <view class="question-images-tool">
+          <button type="default" size="mini" bindtap="chooseVideo" wx:if="{{videos.length < 1}}">添加短视频</button>
+        </view>
+      </view>
     </view>
 
     <view class="question-images">
@@ -82,8 +97,15 @@
   <view class="question-images-area">
 
     <!-- 添加图片按钮  -->
-    <view class="question-images-tool">
-      <button type="default" size="mini" bindtap="chooseImage" wx:if="{{images.length < 3}}">添加滚动图</button>
+    <view class="weui-cell">
+      <view class="weui-cell__hd">
+        <view class="weui-label">滚动图</view>
+      </view>
+      <view class="weui-cell__hd">
+        <view class="question-images-tool">
+          <button type="default" size="mini" bindtap="chooseImage" wx:if="{{images.length < 3}}">添加滚动图</button>
+        </view>
+      </view>
     </view>
 
     <!-- 图片 -->

@@ -69,7 +69,7 @@
             <view class="text-box">
               <view class="arow arow01">
                 <view class="goods-name">{{item.pname}}</view>
-                <view class="goods-price">¥ {{item.price}}</view>
+                <view class="goods-price">信用币: {{item.price}}</view>
               </view>
               <view class="arow">
                 <view class="goods-label">{{item.property}}</view>
@@ -134,7 +134,7 @@
     </view>
     <view class="row-box">
       <view class="row-label">订单金额</view>
-      <view class="right-text">¥ {{orderDetail.total}}</view>
+      <view class="right-text">信用币: {{orderDetail.total}}</view>
     </view>
     <!-- <view class="row-box">
       <view class="row-label">运费</view>

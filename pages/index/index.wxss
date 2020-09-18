@@ -226,6 +226,11 @@
   margin-left: 24rpx;
 }
 
+.goods-box .icon{
+  height: 40rpx;
+  width: 20rpx;
+}
+
 .pos-fiexd{
   position: fixed;
   top: 0;

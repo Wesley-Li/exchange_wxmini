@@ -129,7 +129,7 @@ Page({
     const _data = {}
     // 读取头部轮播图
     const res1 = await WXAPI.banners({
-      type: 'index'
+      type: 1
     })
     if (res1.code == 700) {
       wx.showModal({

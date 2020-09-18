@@ -27,7 +27,7 @@ Page({
     } else {
       // 展示启动页
       WXAPI.banners({
-        type: 'app'
+        type: 0
       }).then(function (res) {
         if (res.code == 700) {
           if (CONFIG.shopMod) {

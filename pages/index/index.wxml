@@ -13,7 +13,7 @@
 <view class="swiper-container">
   <swiper class="swiper1" indicator-dots="true" indicator-active-color="#fff" autoplay circular>
     <swiper-item wx:for="{{banners}}" wx:key="id">
-      <image  mode="aspectFill" bindtap="tapBanner" data-url="{{item.linkUrl}}" src="{{item.picUrl}}" />
+      <image  mode="aspectFill" bindtap="tapBanner" data-url="{{item.url}}" src="{{item.pic}}" />
     </swiper-item>
   </swiper>
   <view class="search">
@@ -182,7 +182,8 @@
       </view>
       <view class="goods-title">{{item.name}}</view>
       <view style='display:flex;'>
-        <view class="goods-price">¥ {{item.credprice}}</view>
+        <!-- <image class="icon" src="/images/icon/ic.jpg"></image> -->
+        <view class="goods-price">信用币: {{item.credprice}}</view>
         <!-- <view wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="goods-price" style='color:#aaa;text-decoration:line-through'>¥ {{item.originalPrice}}</view> -->
       </view>
     </view>

@@ -25,11 +25,11 @@ async function checkHasLogined() {
     wx.removeStorageSync('token')
     return false
   }
-  // const checkTokenRes = await WXAPI.checkToken(token)
-  // if (checkTokenRes.code != 0) {
-  //   wx.removeStorageSync('token')
-  //   return false
-  // }
+  const checkTokenRes = await WXAPI.checkToken(token)
+  if (checkTokenRes.retcode != 0) {
+    wx.removeStorageSync('token')
+    return false
+  }
   return true
 }
 

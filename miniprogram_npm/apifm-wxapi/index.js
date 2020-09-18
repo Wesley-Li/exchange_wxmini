@@ -250,7 +250,7 @@ module.exports = {
     });
   },
   checkToken: function checkToken(token) {
-    return request('/user/check-token', true, 'get', {
+    return request('/api/user/check-token', false, 'get', {
       token: token
     });
   },
@@ -345,7 +345,7 @@ module.exports = {
     return request('/user/m/register', true, 'post', data);
   },
   banners: function banners(data) {
-    return request('/banner/list', true, 'get', data);
+    return request('/api/banner/list', false, 'get', data);
   },
   goodsCategory: function goodsCategory() {
     return request('/api/product/categories/', false, 'get');

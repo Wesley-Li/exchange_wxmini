@@ -37,7 +37,7 @@ page {
 }
 
 .question-images-area {
-  padding: 40rpx 0;
+  padding: 10rpx 0;
 }
 
 .question-images-tool {
@@ -128,4 +128,8 @@ page {
   border: 1px solid #ECECEC;
   border-left: none;
   border-right: none;
+}
+.tip-small{
+  padding-left: 16px;
+  font-size: 12px;
 }
