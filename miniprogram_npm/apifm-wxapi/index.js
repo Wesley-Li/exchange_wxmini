@@ -95,7 +95,8 @@ module.exports =
 /* eslint-disable */
 // 小程序开发api接口工具包，https://github.com/gooking/wxapi
 // var API_BASE_URL = 'https://api.it120.cc';
-const API_BASE_URL = 'http://192.168.1.246:8082';
+// const API_BASE_URL = 'http://192.168.1.246:8082';
+const API_BASE_URL = 'https://yiku.airiot.net';
 var subDomain = '';
 
 var request = function request(url, needSubDomain, method, data) {
@@ -115,6 +116,12 @@ var request = function request(url, needSubDomain, method, data) {
       },
       fail: function fail(error) {
         reject(error);
+        wx.showToast({
+          title: error.errMsg,
+          icon: 'none',
+          duration: 2000
+        })
+        return
       },
       complete: function complete(aaa) {
         // 加载完成
@@ -718,6 +725,7 @@ module.exports = {
         url: uploadUrl,
         filePath: tempFilePath,
         name: 'file',
+        duration: 120000,
         formData: {
           'token': token,
           expireHours: expireHours
@@ -730,6 +738,12 @@ module.exports = {
         },
         fail: function fail(error) {
           reject(error);
+          wx.showToast({
+            title: error.errMsg,
+            icon: 'none',
+            duration: 2000
+          })
+          return
         },
         complete: function complete(aaa) {
           // 加载完成

@@ -175,7 +175,15 @@ Page({
       sourceType: ['album','camera'],
       maxDuration: 60,
       camera: 'back',
+      compressed: true,
       success: res => {
+        if(res.duration>60){
+          wx.showToast({
+            title: "只能添加一分钟以内短视频!",
+            icon: "none"
+          })
+          return
+        }
         this.data.videos = [res.tempFilePath]
         $digest(this)
       }
@@ -242,12 +250,13 @@ Page({
 
       // 将选择的图片组成一个Promise数组，准备进行并行上传
       // wni: 注意，已经是网络图的，证明用户未修改， 过滤出来，因为wx.uploadFile只能上传本地图片，坑爹
+      // 开发者工具的临时文件开头是http://tmp, 但是真机调试发现手机的临时文件叫wxfile://tmp, 擦
       const netpics = this.data.images.filter((item,index)=>{
-        return item.indexOf("http://tmp")==-1
+        return item.indexOf("//tmp")==-1
       })
       const arr = []
       const localpics = this.data.images.filter((item,index)=>{
-        return item.indexOf("http://tmp")>-1
+        return item.indexOf("//tmp")>-1
       })
       for (let path of localpics) {
         arr.push(wxUploadFile({
@@ -265,7 +274,7 @@ Page({
         mask: true
       })
       //wni: 传缩略图
-      if(this.data.gallery.indexOf("http://tmp")>-1){ //说明是本地选的文件
+      if(this.data.gallery.indexOf("//tmp")>-1){ //说明是本地选的文件
         
         let res = await WXAPI.uploadFile(wx.getStorageSync('token'), this.data.gallery)
         console.log("upgallery res is " + res)
@@ -285,7 +294,7 @@ Page({
       //wni: 传视频
       // await this.uploadVideo();
       for (let i = 0; i< this.data.videos.length; i++) {
-        if(this.data.videos[i].indexOf("http://tmp")==-1){
+        if(this.data.videos[i].indexOf("//tmp")==-1){
           this.data.videourl = this.data.videos[i];
         }else{
           const res = await WXAPI.uploadFile(wx.getStorageSync('token'), this.data.videos[i])

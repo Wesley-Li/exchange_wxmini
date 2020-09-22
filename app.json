@@ -1,4 +1,10 @@
 {
+  "networkTimeout": {
+    "request": 10000,
+    "connectSocket": 10000,
+    "uploadFile": 120000,
+    "downloadFile": 120000
+  },
   "pages": [
     "pages/start/start",
     "pages/shop/select",
