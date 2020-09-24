@@ -1,3 +1,5 @@
+const COMMON = require('../../utils/common');
+
 module.exports =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -95,20 +97,36 @@ module.exports =
 /* eslint-disable */
 // 小程序开发api接口工具包，https://github.com/gooking/wxapi
 // var API_BASE_URL = 'https://api.it120.cc';
-// const API_BASE_URL = 'http://192.168.1.246:8082';
-const API_BASE_URL = 'https://yiku.airiot.net';
+const API_BASE_URL = 'http://192.168.1.246:8082';
+// const API_BASE_URL = 'https://yiku.airiot.net';
 var subDomain = '';
 
-var request = function request(url, needSubDomain, method, data) {
-  var _url = API_BASE_URL + (needSubDomain ? '/' + subDomain : '') + url;
+var request = function request(url, needSubDomain, method, data, isfile) {
+  if(url.indexOf("http")==-1){
+    var _url = API_BASE_URL + (needSubDomain ? '/' + subDomain : '') + url;
+  }else{
+    var _url = url;
+  }
   let sid = wx.getStorageSync('token'); //? wx.getStorageSync('token') : getApp().globalData.sessionid;
   return new Promise(function (resolve, reject) {
     wx.request({
       url: _url,
       method: method,
-      data: data,
+      data: isfile!="file"?data:'\r\n--XXX' +
+        '\r\nContent-Disposition: form-data; name="file"' +
+        '\r\n' +
+        '\r\n' + data.file +
+        '\r\n--XXX' +
+        '\r\nContent-Disposition: form-data; name="token"' +
+        '\r\n' +
+        '\r\n' + data.token +
+        '\r\n--XXX' +
+        '\r\nContent-Disposition: form-data; name="key"' +
+        '\r\n' +
+        '\r\n' + "test.mp4" +
+        '\r\n--XXX--',
       header: {
-        'Content-Type': 'application/x-www-form-urlencoded',
+        'Content-Type': isfile!="file"?'application/x-www-form-urlencoded':'multipart/form-data; boundary=XXX',
         'Cookie': 'JSESSIONID=' + sid
       },
       success: function success(request) {
@@ -761,6 +779,21 @@ module.exports = {
     var path = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
 
     return request('/dfs/upload/list', true, 'post', { path: path });
+  },
+  // 获取七牛上传图片需要的token
+  getUploadToken(params){
+    return request('/api/qiniu/uptoken', "GET", params);
+  },
+  uploadOneFileDirectToQiniu(file, uptoken, index){
+
+    // let formData = new FormData();
+    // formData.append("token", uptoken);
+    // formData.append("file", file);
+    let formData = {
+      token: uptoken,
+      file: file
+    }
+    return request(COMMON.uploadUrl, false, "POST", formData, "file")
   },
   refundApply: function refundApply(data) {
     return request('/order/refundApply/apply', true, 'post', data);

@@ -1,6 +1,7 @@
 import { promisify } from '../../utils/promise.util'
 import { $init, $digest } from '../../utils/common.util'
 const WXAPI = require('apifm-wxapi')
+const COMMON = require('../../utils/common');
 
 const wxUploadFile = promisify(wx.uploadFile)
 
@@ -227,6 +228,7 @@ Page({
   },
 
   async submitForm(e) {
+    const that = this;
     const title = this.data.title
     const content = this.data.content
     let token = wx.getStorageSync('token');
@@ -297,19 +299,53 @@ Page({
         if(this.data.videos[i].indexOf("//tmp")==-1){
           this.data.videourl = this.data.videos[i];
         }else{
-          const res = await WXAPI.uploadFile(wx.getStorageSync('token'), this.data.videos[i])
-          // console.log("upvideo res is " + res)
+          // const res = await WXAPI.uploadFile(wx.getStorageSync('token'), this.data.videos[i])
+          const res = await WXAPI.getUploadToken();
+
           if (res.retcode == 0) {
-            this.data.videourl = res.data;
-            // console.log('vi url 1' + res.data)
-          }else{
-            wx.showToast({
-              title: res.msg,
-              icon: 'none',
-              duration: 2000
-            })
-            return
+            const ret = await WXAPI.uploadOneFileDirectToQiniu(that.data.videos[i], res.data, i);
+            if(ret.key){
+              that.data.videourl = COMMON.pictureUrl + ret.key
+            }else{
+              wx.showToast({
+                  title: "视频上传失败!",
+                  icon: 'none',
+                  duration: 2000
+                })
+                return
+            }
           }
+          //   .then((res)=>{
+          //     that.data.videourl = COMMON.pictureUrl + res.returnFile.key
+          //   }).catch((err)=>{
+          //     wx.showToast({
+          //       title: err,
+          //       icon: 'none',
+          //       duration: 2000
+          //     })
+          //     return
+          //   })
+          // }else{
+          //   wx.showToast({
+          //     title: res.msg,
+          //     icon: 'none',
+          //     duration: 2000
+          //   })
+          //   return
+          // }
+          
+          // console.log("upvideo res is " + res)
+          // if (res.retcode == 0) {
+          //   this.data.videourl = res.data;
+          //   // console.log('vi url 1' + res.data)
+          // }else{
+          //   wx.showToast({
+          //     title: res.msg,
+          //     icon: 'none',
+          //     duration: 2000
+          //   })
+          //   return
+          // }
         }
       }
       // 开始并行上传图片
