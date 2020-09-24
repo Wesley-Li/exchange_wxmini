@@ -6,9 +6,9 @@
   "dependencies": {
     "@vant/weapp": "^1.2.1",
     "apifm-wxapi": "^3.7.0",
+    "qiniu-js": "^3.1.1",
     "wxa-plugin-canvas": "^1.1.12",
-    "wxbarcode": "^1.0.2",
-    "qiniu-js": "^3.1.1"
+    "wxbarcode": "^1.0.2"
   },
   "devDependencies": {},
   "scripts": {

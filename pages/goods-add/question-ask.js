@@ -2,6 +2,7 @@ import { promisify } from '../../utils/promise.util'
 import { $init, $digest } from '../../utils/common.util'
 const WXAPI = require('apifm-wxapi')
 const COMMON = require('../../utils/common');
+const qiniu = require('qiniu-js');
 
 const wxUploadFile = promisify(wx.uploadFile)
 
@@ -303,51 +304,47 @@ Page({
           const res = await WXAPI.getUploadToken();
 
           if (res.retcode == 0) {
-            const ret = await WXAPI.uploadOneFileDirectToQiniu(that.data.videos[i], res.data, i);
-            if(ret.key){
-              that.data.videourl = COMMON.pictureUrl + ret.key
-            }else{
+            const observable = qiniu.upload(file, null, uptoken);
+             observable.subscribe({
+              next(res){
+                // ...
+              },
+              error(err){
+                console.log(err.message);
+                wx.showToast({
+                    title: "视频上传失败!",
+                    icon: 'none',
+                    duration: 2000
+                  })
+                  return
+              },
+              complete(res){
+                console.log(res.returnBody);
+              }
+            })
+            return
+            // const ret = await WXAPI.uploadOneFileDirectToQiniu(that.data.videos[i], res.data, i);
+            // if(ret.key){
+            //   that.data.videourl = COMMON.pictureUrl + ret.key
+            // }else{
+            //   wx.showToast({
+            //       title: "视频上传失败!",
+            //       icon: 'none',
+            //       duration: 2000
+            //     })
+            //     return
+            // }
+          }else{
               wx.showToast({
-                  title: "视频上传失败!",
-                  icon: 'none',
-                  duration: 2000
-                })
-                return
+                title: res.msg,
+                icon: 'none',
+                duration: 2000
+              })
+              return
             }
-          }
-          //   .then((res)=>{
-          //     that.data.videourl = COMMON.pictureUrl + res.returnFile.key
-          //   }).catch((err)=>{
-          //     wx.showToast({
-          //       title: err,
-          //       icon: 'none',
-          //       duration: 2000
-          //     })
-          //     return
-          //   })
-          // }else{
-          //   wx.showToast({
-          //     title: res.msg,
-          //     icon: 'none',
-          //     duration: 2000
-          //   })
-          //   return
-          // }
-          
-          // console.log("upvideo res is " + res)
-          // if (res.retcode == 0) {
-          //   this.data.videourl = res.data;
-          //   // console.log('vi url 1' + res.data)
-          // }else{
-          //   wx.showToast({
-          //     title: res.msg,
-          //     icon: 'none',
-          //     duration: 2000
-          //   })
-          //   return
-          // }
         }
       }
+      
       // 开始并行上传图片
       Promise.all(arr).then(res => {
         // 上传成功，获取这些图片在服务器上的地址，组成一个数组

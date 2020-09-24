@@ -784,16 +784,41 @@ module.exports = {
   getUploadToken(params){
     return request('/api/qiniu/uptoken', "GET", params);
   },
+  // initQiniu(uptoken) {
+  //   var options = {
+  //     region: 'ECN', 
+  //     // ECN, SCN, NCN, NA, ASG，分别对应七牛的：华东，华南，华北，北美，新加坡 5 个区域
+  //     uptoken: uptoken,
+  //     // uptokenURL: 'https://[yourserver.com]/api/uptoken',
+  //     // uptoken: 'xxxx',
+  //     // domain: 'bzkdlkaf.bkt.clouddn.com', // bucket 域名，下载资源时用到。如果设置，会在 success callback 的 res 参数加上可以直接使用的 ImageURL 字段。否则需要自己拼接。
+  //     shouldUseQiniuFileName: false
+  //   };
+  //   qiniu.init(options);
+  // }
+  
   uploadOneFileDirectToQiniu(file, uptoken, index){
 
     // let formData = new FormData();
     // formData.append("token", uptoken);
     // formData.append("file", file);
-    let formData = {
-      token: uptoken,
-      file: file
-    }
-    return request(COMMON.uploadUrl, false, "POST", formData, "file")
+    // let formData = {
+    //   token: uptoken,
+    //   file: file
+    // }
+    const observable = qiniu.upload(file, null, uptoken)
+    return observable.subscribe({
+      next(res){
+        // ...
+      },
+      error(err){
+        // ...
+      },
+      complete(res){
+        // ...
+      }
+    })
+    // return request(COMMON.uploadUrl, false, "POST", formData, "file")
   },
   refundApply: function refundApply(data) {
     return request('/order/refundApply/apply', true, 'post', data);
