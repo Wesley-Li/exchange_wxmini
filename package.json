@@ -1,32 +1,24 @@
 {
-  "name": "蚁库",
+  "name": "exchange_wxmini",
   "version": "1.0.0",
-  "description": "蚁库信用闲置物品交易",
+  "description": "蚁库信用交换",
   "main": "app.js",
-  "dependencies": {
-    "@vant/weapp": "^1.2.1",
-    "apifm-wxapi": "^3.7.0",
-    "qiniu-js": "^3.1.1",
-    "wxa-plugin-canvas": "^1.1.12",
-    "wxbarcode": "^1.0.2"
-  },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+"
+    "url": "git+https://github.com/Wesley-Li/exchange_wxmini.git"
   },
-  "keywords": [
-    "信用",
-    "交换",
-    "蚁库"
-  ],
-  "author": "gooking",
+  "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/"
+    "url": "https://github.com/Wesley-Li/exchange_wxmini/issues"
   },
-  "homepage": "https://github.com"
+  "homepage": "https://github.com/Wesley-Li/exchange_wxmini#readme",
+  "dependencies": {
+    "@babel/runtime": "^7.11.2",
+    "@babel/runtime-corejs2": "^7.11.2",
+    "qiniu-js": "^3.1.1"
+  }
 }
