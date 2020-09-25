@@ -1,6 +1,6 @@
 {
   "name": "exchange_wxmini",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "蚁库信用交换",
   "main": "app.js",
   "scripts": {

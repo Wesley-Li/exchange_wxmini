@@ -35,6 +35,7 @@
         <!-- <view class="num">{{item.numberOrders}}人已购{{item.numberSells}}件</view> -->
         <image wx:if="{{!onlymy}}" class="car" src="/images/icon/car.svg" data-id="{{item.id}}" bindtap="addShopCar"></image>
         <block wx:else>
+          <view class="sellout" wx:if="{{item.stores<1}}">已售罄</view>
           <navigator url="/pages/goods-add/question-ask?id={{item.id}}"><image class="car-left" src="/images/edit.jpg"></image></navigator>
           <image class="car" src="/images/del.png" data-key="{{item.id}}" catchtap="delItem"></image>
         </block>

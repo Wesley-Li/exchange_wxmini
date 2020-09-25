@@ -135,6 +135,14 @@ page,view,image,input {
   color: #FF3B30;
   font-size: 34rpx;
 }
+.list2 .goods-info .sellout {
+  color: #FF3B30;
+  position: absolute;
+  font-size:34rpx;
+  font-weight: 600;
+  right: 130rpx;
+  bottom: 16rpx;
+}
 .list2 .goods-info .buy-info {
   display: flex;
   justify-content: space-between;
