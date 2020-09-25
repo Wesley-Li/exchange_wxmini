@@ -43,10 +43,10 @@ Page({
       this.setData({
         wxlogin: isLogined
       })
-      if(isLogined){
-        this.search()
-        return
-      }
+      // if(isLogined){
+      //   this.search()
+      //   return
+      // }
     })
    }
    this.search()
