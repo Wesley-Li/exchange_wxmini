@@ -385,15 +385,33 @@ Page({
         const res = await WXAPI.addProduct(title, parseInt(this.data.categories[this.data.index].id), this.data.gallery, parseInt(this.data.credprice), 
                                 this.data.content, 1, JSON.stringify(urls.concat(netpics)), this.data.videourl, this.data.pid)
         if(res.retcode==0){
-          wx.showToast({
-            title: "创建成功!",
-            icon: 'none',
-            duration: 2000
-          })
-          // wx.navigateBack()
-          wx.redirectTo({
-            url: '/pages/goods/list?onlymy=true',
-          })
+          let msg = this.data.pid ? "更改成功!": "创建成功！感谢对蚁库的支持，新增商品获得信用币"+res.data+"奖励!"
+          if(this.data.pid){
+            wx.showToast({
+              title: msg,
+              icon: 'none',
+              duration: 2000
+            })
+            // wx.navigateBack()
+            wx.redirectTo({
+              url: '/pages/goods/list?onlymy=true',
+            })
+          }else{
+            wx.showToast({
+              title: msg,
+              icon: 'none',
+              duration: 5000,
+              mask: true,
+              success: function() {
+                setTimeout(function() {
+                  //要延时执行的代码
+                  wx.redirectTo({
+                    url: '/pages/goods/list?onlymy=true',
+                  })
+                }, 5000) //延迟时间
+              },
+            });
+          }
         }else{
           wx.showToast({
             title: res.msg,
