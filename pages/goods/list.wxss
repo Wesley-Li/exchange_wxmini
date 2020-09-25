@@ -137,7 +137,7 @@ page,view,image,input {
 }
 .list2 .goods-info .sellout {
   color: #FF3B30;
-  position: absolute;
+  /* position: absolute; */
   font-size:34rpx;
   font-weight: 600;
   right: 130rpx;
