@@ -95,8 +95,8 @@ page,view,image,input {
 
 .goods-container .goods .pic {
   float: left;
-  width: 140rpx;
-  height: 140rpx;
+  width: 110rpx;
+  height: 110rpx;
   margin-right: 20rpx;
   border-radius: 6rpx;
   display: flex;

@@ -1,0 +1,16 @@
+<view class="us">
+    <!-- <text >点击下面微信号即可复制，然后去添加好友的地方粘贴即可</text> -->
+    <!-- <button class='button' bindtap='tianjiaweixin'>客服微信:2501902696</button> -->
+    <!-- <button class='button' bindtap='bodadianhua'>点击拨打客服电话</button> -->
+    <view class="title">蚁库信用交易，让闲置物品得以重生！</view>
+    <view>
+        客服电话： <view class="phone" bindtap="bodadianhua" data-phone="02586183909">025-86183909</view>   <!-- <view class="space"></view> -->
+        <view bindtap="bodadianhua" class="phone" data-phone="02586181666">025-86181666</view>
+    </view>
+
+    <view class="weixin">
+        <view class="l" bindtap='tianjiaweixin'>客服小二微信: caishen401918</view>
+        <!-- <image class="erwei" src="/images/kefu.jpg"></image> -->
+        <text class="copytip">(点击上面微信号即可复制，然后去添加好友的地方粘贴即可)</text>
+    </view>
+</view>

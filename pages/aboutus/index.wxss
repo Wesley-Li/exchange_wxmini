@@ -1,0 +1,23 @@
+.us{
+    text-align: center;
+    margin-top: 2rem;
+}
+.title{
+    font-weight: 600;
+    margin-bottom: 2rem;
+}
+.phone{
+    text-decoration: underline;
+    color: blue;
+    margin: 1rem 0;
+}
+.weixin{
+    margin-top: 2rem;
+}
+.erwei{
+    width: 10rem;
+    height: 10rem;
+}
+.copytip{
+    font-size: 0.8rem;
+}
