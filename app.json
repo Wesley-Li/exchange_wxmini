@@ -43,7 +43,9 @@
     "pages/invoice/apply",
     "pages/deposit/pay",
     "pages/live/index",
-    "pages/aboutus/index"
+    "pages/aboutus/index",
+    "pages/message/index",
+    "pages/message-detail/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
