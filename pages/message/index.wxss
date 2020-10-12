@@ -1,0 +1,131 @@
+/* pages/message/index.wxss */
+page{
+    background-color: #fff;
+  }
+  .item{
+    border-bottom: 1px solid #EDEDED;
+    height: 149rpx;
+    display: flex;
+    position: relative;
+    align-items: center;
+  }
+  .item:nth-of-type(1) {
+    border-top: 1px solid #EDEDED;
+  }
+  .avatar{
+    width: 89rpx;
+    height: 89rpx;
+    border-radius: 50%;
+    margin-left: 40rpx;
+    margin-right: 22rpx;
+    box-sizing: content-box;
+  }
+  .right .name {
+    font-size:32rpx;
+    color:rgba(35,35,35,1);
+    margin-bottom: 8rpx;
+    display: flex;
+    align-items: center;
+  }
+  .right .name .tag{
+    width:114rpx;
+    height:30rpx;
+    background:rgba(246,247,248,1);
+    border-radius:15rpx;
+    color: #9EA2AC;
+    font-size: 22rpx;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 4rpx;
+    margin-left: 10rpx;
+  }
+  .right .text {
+    color: #A2A3A4;
+    font-size: 24rpx;
+    width: 466rpx;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .item .time{
+    position: absolute;
+    right: 34rpx;
+    top: 44rpx;
+    color: #9EA2AC;
+    font-size: 20rpx;
+  }
+  .unreadCount {
+    position: absolute;
+    right: 34rpx;
+    top: 79rpx;
+    color: #fff;
+    background-color: #F00C22;
+    font-size: 20rpx;
+    border-radius: 50rpx;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 10rpx;
+    height: 32rpx;
+    min-width: 32rpx;
+  }
+  .middle_box{
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 999;
+    height: 100%;
+    width: 100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    /* justify-content: center; */
+    background-color: #fff;
+  }
+  .middle_box .line{
+    width:750rpx;
+    box-shadow:0px 1px 0px 0px rgba(239,239,239,1);
+  }
+  .yzz_logo{
+    width: 104rpx;
+    height: 165rpx;
+    margin-top: 290rpx;
+    margin-bottom: 50rpx;
+  }
+  .middle_box .des{
+    width:373rpx;
+    height:55rpx;
+    font-size:24rpx;
+    color:rgba(160,160,160,1);
+    margin-bottom: 140rpx;
+    line-height: 38rpx;
+    text-align: left;
+  }
+  .login_btn{
+    width:548rpx;
+    height:88rpx;
+    background:rgba(255,147,40,1);
+    border-radius:6rpx;
+    font-size: 28rpx;
+    color: #FFFFFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .empty{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-top: 1px solid #efefef;
+  }
+  .msg_empty{
+    width: 350rpx;
+    height: 246rpx;
+    margin-top: 198rpx;
+  }
+  .empty_text{
+    font-size: 24rpx;
+    color: #AAAAAA;
+    margin-top: 52rpx;
+  }

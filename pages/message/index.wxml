@@ -1,0 +1,31 @@
+<!--pages/message/index.wxml-->
+<wxs src="../../utils/filter.wxs" module="filter"/>
+<view style='padding-top: calc({{height}}px + 18rpx)'>
+  // 自定义头部
+  <nav-bar title="消息" showIcon="0"></nav-bar>
+  <block wx:for="{{msg}}" wx:key="index">
+    <view class="item" bindtap="contactsClick" data-conversationid="{{item.conversationID}}" data-name="{{item.userProfile.nick}}" data-avatar="{{item.userProfile.avatar}}">
+      <image src="{{item.userProfile.avatar ? item.userProfile.avatar : '/images/avatar.png'}}" class="avatar"></image>
+      <view class="right">
+        <view class="name"><text>{{item.userProfile.nick}}</text><text class="tag" wx:if="{{filter.consultant(item.userProfile.userID)}}">置业顾问</text></view>
+        <view class="text" wx:if="{{item.lastMessage.type != 'TIMCustomElem'}}">{{item.lastMessage.payload.text}}</view>
+        <view class="text" wx:if="{{item.lastMessage.type == 'TIMCustomElem'}}">[房源]{{item.lastMessage.payload.data.title || item.lastMessage.payload.description}}<text style="padding-left: 10rpx">{{item.lastMessage.payload.data.price || item.lastMessage.payload.extension}}元/m²·月</text></view>
+      </view>
+      <view class="time">{{filter.getDateDiff(item.lastMessage.lastTime, now)}}</view>
+      <view class="unreadCount" wx:if="{{item.unreadCount > 0}}">{{item.unreadCount * 1 > 99 ? '99+' : item.unreadCount}}</view>
+    </view>
+  </block>
+  <!-- 使用消息需要授权登录 根据需要 自己封装-->
+  <login wx:if="{{!hasUserInfo}}" bind:closePage="closePage">
+    <view class="middle_box">
+      <view class="line" style="height: calc({{height}}px + 16rpx)"></view>
+      <image class="yzz_logo" src="/images/yzz_logo.png"></image>
+      <view class="des">为了给您提供更好的服务，壹直租申请获取您的昵称、头像信息</view>
+      <view class="login_btn">授权登录</view>
+    </view>
+  </login>
+</view>
+<view wx:if="{{ empty_show }}" class="empty">
+  <image src="/images/msg_empty.png" class="msg_empty"></image>
+  <view class="empty_text">暂无聊天记录</view>
+</view>

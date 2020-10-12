@@ -77,6 +77,12 @@
         "text": "购物车"
       },
       {
+        "text": "消息",
+        "pagePath": "pages/message/index",
+        "iconPath": "images/nav/chat.png",
+        "selectedIconPath": "images/nav/chat-on.png"
+      },
+      {
         "pagePath": "pages/my/index",
         "iconPath": "images/nav/my-off.png",
         "selectedIconPath": "images/nav/my-on.png",
