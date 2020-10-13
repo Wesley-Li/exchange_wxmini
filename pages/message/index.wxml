@@ -1,8 +1,7 @@
 <!--pages/message/index.wxml-->
-<!-- <wxs src="../../utils/filter.wxs" module="filter"/> -->
+<wxs src="../../wxs/filter.wxs" module="filter"/>
 <import src="/template/login/index.wxml" />
 <view>
-  // 自定义头部
   <nav-bar title="消息" showIcon="0"></nav-bar>
   <block wx:for="{{msg}}" wx:key="index">
     <view class="item" bindtap="contactsClick" data-conversationid="{{item.conversationID}}" data-name="{{item.userProfile.nick}}" data-avatar="{{item.userProfile.avatar}}">
@@ -28,7 +27,7 @@
 
 </view>
 <view wx:if="{{ empty_show }}" class="empty">
-  <image src="/images/msg_empty.png" class="msg_empty"></image>
+  <!-- <image src="/images/msg_empty.png" class="msg_empty"></image> -->
   <view class="empty_text">暂无聊天记录</view>
 </view>
-<template is="apifmLogin" data="{{wxlogin: hasUserInfo}}" />
+<template is="apifmLogin" data="{{wxlogin: wxlogin}}" />

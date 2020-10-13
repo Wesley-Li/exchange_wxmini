@@ -1,4 +1,6 @@
 /* pages/message/index.wxss */
+@import "/template/login/index.wxss";
+
 page{
     background-color: #fff;
   }

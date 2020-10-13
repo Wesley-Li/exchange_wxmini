@@ -1,5 +1,7 @@
 import TIM from 'tim-wx-sdk'
-import http from '../../utils/api.js'
+// import http from '../../utils/api.js'
+const WXAPI = require('apifm-wxapi')
+
 const app = getApp()
 Page({
 
@@ -116,38 +118,58 @@ Page({
       inputHeight: 0,
     })
   },
-  getPassword() {
+  async getPassword() {
     var that = this
-    http.getUserSign({
-      header: {
-        'Authorization': 'bearer ' + wx.getStorageSync('tokenAdmin').access_token
-      },
-      data: {
-        openId: wx.getStorageSync('tokenAdmin').openId,
-        nickName: app.globalData.userInfo ? app.globalData.userInfo.nickName : '',
-        faceUrl: app.globalData.userInfo ? app.globalData.userInfo.avatarUrl : ''
-      },
-      success: res => {
+    // http.getUserSign({
+    //   header: {
+    //     'Authorization': 'bearer ' + wx.getStorageSync('tokenAdmin').access_token
+    //   },
+    //   data: {
+    //     openId: wx.getStorageSync('tokenAdmin').openId,
+    //     nickName: app.globalData.userInfo ? app.globalData.userInfo.nickName : '',
+    //     faceUrl: app.globalData.userInfo ? app.globalData.userInfo.avatarUrl : ''
+    //   },
+    //   success: res => {
+    //     that.setData({
+    //       userSign: res.data.sign,
+    //       userId: res.data.tid
+    //     })
+    //     app.globalData.accountTid = res.data.tid
+    //     var tim = app.globalData.tim
+    //     let promise = tim.login({userID: res.data.tid, userSig: res.data.sign})
+    //     promise.then(res => {
+    //       console.log('登录成功')
+    //       wx.setStorageSync('isImLogin', true)
+    //       app.globalData.isImLogin = true
+    //       setTimeout(() => {
+    //         that.getMsgList()
+    //       }, 1000);
+    //     })
+    //   },
+    //   fail: err => {
+    //     console.log(err)
+    //   }
+    // })
+    const res = await WXAPI.getUserSign();
+    if(res.retcode==0){
         that.setData({
-          userSign: res.data.sign,
-          userId: res.data.tid
-        })
-        app.globalData.accountTid = res.data.tid
-        var tim = app.globalData.tim
-        let promise = tim.login({userID: res.data.tid, userSig: res.data.sign})
-        promise.then(res => {
-          console.log('登录成功')
-          wx.setStorageSync('isImLogin', true)
-          app.globalData.isImLogin = true
-          setTimeout(() => {
-            that.getMsgList()
-          }, 1000);
-        })
-      },
-      fail: err => {
-        console.log(err)
-      }
-    })
+            userSign: res.data,
+            userId: res.tid
+          })
+          app.globalData.accountTid = res.data.tid
+          var tim = app.globalData.tim
+          let promise = tim.login({userID: res.data.tid, userSig: res.data.sign})
+          promise.then(res => {
+            console.log('登录成功')
+            wx.setStorageSync('isImLogin', true)
+            app.globalData.isImLogin = true
+            setTimeout(() => {
+              that.getMsgList()
+            }, 1000);
+          })
+    }else{
+        console.log('获取tim user sig失败!')
+    }
   },
   getMsgList() {
     console.log('获取会话列表')
@@ -200,25 +222,25 @@ Page({
   getSingleMsg() {
     var that = this
     var text = '您好，我是天安置业顾问' + that.data.nav_title + '，很高兴为您服务，请问有什么可以帮到您？'
-    http.sendSingleMsg({
-      header: {
-        'Content-Type': 'application/json',
-        'Authorization': 'bearer ' + wx.getStorageSync('tokenAdmin').access_token
-      },
-      data: {
-        fromAccount: that.data.conversationID.slice(3),
-        toAccount: app.globalData.accountTid,
-        text: text,
-        isSuperSend: that.data.isSuperSend,
-      },
-      success: res => {
-        console.log('发送欢迎语')
-        that.pageScrollToBottom()
-      },
-      fail: err=> {
-        console.log(err)
-      }
-    })
+    // http.sendSingleMsg({
+    //   header: {
+    //     'Content-Type': 'application/json',
+    //     'Authorization': 'bearer ' + wx.getStorageSync('tokenAdmin').access_token
+    //   },
+    //   data: {
+    //     fromAccount: that.data.conversationID.slice(3),
+    //     toAccount: app.globalData.accountTid,
+    //     text: text,
+    //     isSuperSend: that.data.isSuperSend,
+    //   },
+    //   success: res => {
+    //     console.log('发送欢迎语')
+    //     that.pageScrollToBottom()
+    //   },
+    //   fail: err=> {
+    //     console.log(err)
+    //   }
+    // })
   },
   // 下来加载更多聊天历史记录
   getMoreMsgList() {
@@ -283,122 +305,122 @@ Page({
     // console.log('创建自定义房源消息体')
     var that = this;
     var id = that.data.houseId
-    http.xzlDetail(id, {
-      data: {
-        timestamp: Date.parse(new Date())
-      },
-      success: res => {
-        if(res.code == 200) {
-          var house_pic = res.data.coverUrl ? res.data.coverUrl : '/images/detail_default.jpg' // 房源图片
-          var area = res.data.areaConstruction // 面积
-          var price = res.data.unitPrice // 单价
-          var park = res.data.parkName // 园区名称
-          var city = res.data.parkArea // 城市
-          var title = res.data.title // 标题
-          var type = 0 // 类型 // 0：写字楼，1：商铺，2：广告位
-          const params =  {
-            house_pic: house_pic,
-            area: area,
-            price: price,
-            park: park,
-            city: city,
-            title: title,
-            type: type,
-            id: id
-          }
-          const option = {
-            to: that.data.conversationID.slice(3), // 消息的接收方
-            conversationType: TIM.TYPES.CONV_C2C, // 会话类型取值TIM.TYPES.CONV_C2C或TIM.TYPES.CONV_GROUP
-            payload: {
-              data: JSON.stringify(params),// 自定义消息的数据字段
-              description: params.title, // 自定义消息的说明字段
-              extension: params.price // 自定义消息的扩展字段
-            } // 消息内容的容器
-          }
-          const tim = app.globalData.tim
-          // 2. 创建消息实例，接口返回的实例可以上屏
-          let message = tim.createCustomMessage(option)
-          // 2. 发送消息
-          let promise = tim.sendMessage(message)
-          promise.then(function(res){
-            // 发送成功
-            // console.log('自定义消息发送成功')
-            var new_data = JSON.parse(res.data.message.payload.data) 
-            res.data.message.payload.data = new_data
-            var messageList = that.data.myMessages
-            messageList.push(res.data.message)
-            that.setData({
-              myMessages: messageList
-            })
-            // 发送自定义欢迎语
-            that.getSingleMsg()
-          })
-        }
-      },
-      fail: err => {
-        console.log(err)
-      }
-    })
+    // http.xzlDetail(id, {
+    //   data: {
+    //     timestamp: Date.parse(new Date())
+    //   },
+    //   success: res => {
+    //     if(res.code == 200) {
+    //       var house_pic = res.data.coverUrl ? res.data.coverUrl : '/images/detail_default.jpg' // 房源图片
+    //       var area = res.data.areaConstruction // 面积
+    //       var price = res.data.unitPrice // 单价
+    //       var park = res.data.parkName // 园区名称
+    //       var city = res.data.parkArea // 城市
+    //       var title = res.data.title // 标题
+    //       var type = 0 // 类型 // 0：写字楼，1：商铺，2：广告位
+    //       const params =  {
+    //         house_pic: house_pic,
+    //         area: area,
+    //         price: price,
+    //         park: park,
+    //         city: city,
+    //         title: title,
+    //         type: type,
+    //         id: id
+    //       }
+    //       const option = {
+    //         to: that.data.conversationID.slice(3), // 消息的接收方
+    //         conversationType: TIM.TYPES.CONV_C2C, // 会话类型取值TIM.TYPES.CONV_C2C或TIM.TYPES.CONV_GROUP
+    //         payload: {
+    //           data: JSON.stringify(params),// 自定义消息的数据字段
+    //           description: params.title, // 自定义消息的说明字段
+    //           extension: params.price // 自定义消息的扩展字段
+    //         } // 消息内容的容器
+    //       }
+    //       const tim = app.globalData.tim
+    //       // 2. 创建消息实例，接口返回的实例可以上屏
+    //       let message = tim.createCustomMessage(option)
+    //       // 2. 发送消息
+    //       let promise = tim.sendMessage(message)
+    //       promise.then(function(res){
+    //         // 发送成功
+    //         // console.log('自定义消息发送成功')
+    //         var new_data = JSON.parse(res.data.message.payload.data) 
+    //         res.data.message.payload.data = new_data
+    //         var messageList = that.data.myMessages
+    //         messageList.push(res.data.message)
+    //         that.setData({
+    //           myMessages: messageList
+    //         })
+    //         // 发送自定义欢迎语
+    //         that.getSingleMsg()
+    //       })
+    //     }
+    //   },
+    //   fail: err => {
+    //     console.log(err)
+    //   }
+    // })
   },
   //创建自定义房源消息体（商铺）
   createShopmsg(){
     var that = this;
     var id = that.data.houseId
-    http.shopDetail(id, {
-      data: {
-        timestamp: Date.parse(new Date())
-      },
-      success: res => {
-        if(res.code == 200) {
-          var house_pic = res.data.coverUrl ? res.data.coverUrl : '/images/detail_default.jpg' // 房源图片
-          var area = res.data.areaConstruction // 面积
-          var price = res.data.unitPrice || '0' // 单价
-          var park = res.data.parkName // 园区名称
-          var city = res.data.parkArea // 城市
-          var title = res.data.title // 标题
-          var type = 1 // 类型
-          const params =  {
-            house_pic: house_pic,
-            area: area,
-            price: price,
-            park: park,
-            city: city,
-            title: title,
-            type: type,
-            id: id
-          }
-          const option = {
-            to: that.data.conversationID.slice(3), // 消息的接收方
-            conversationType: TIM.TYPES.CONV_C2C, // 会话类型取值TIM.TYPES.CONV_C2C或TIM.TYPES.CONV_GROUP
-            payload: {
-              data: JSON.stringify(params),// 自定义消息的数据字段
-              description: params.title, // 自定义消息的说明字段
-              extension: params.price // 自定义消息的扩展字段
-            } // 消息内容的容器
-          }
-          const tim = app.globalData.tim
-          // 2. 创建消息实例，接口返回的实例可以上屏
-          let message = tim.createCustomMessage(option)
-          // 2. 发送消息
-          let promise = tim.sendMessage(message)
-          promise.then(function(res){
-            // 发送成功
-            var new_data = JSON.parse(res.data.message.payload.data) 
-            res.data.message.payload.data = new_data
-            var messageList = that.data.myMessages
-            messageList.push(res.data.message)
-            that.setData({
-              myMessages: messageList
-            })
-            // 发送自定义欢迎语
-            that.getSingleMsg()
-          })
-        }
-      },
-      fail: err => {
-        console.log(err)
-      }
-    })
+    // http.shopDetail(id, {
+    //   data: {
+    //     timestamp: Date.parse(new Date())
+    //   },
+    //   success: res => {
+    //     if(res.code == 200) {
+    //       var house_pic = res.data.coverUrl ? res.data.coverUrl : '/images/detail_default.jpg' // 房源图片
+    //       var area = res.data.areaConstruction // 面积
+    //       var price = res.data.unitPrice || '0' // 单价
+    //       var park = res.data.parkName // 园区名称
+    //       var city = res.data.parkArea // 城市
+    //       var title = res.data.title // 标题
+    //       var type = 1 // 类型
+    //       const params =  {
+    //         house_pic: house_pic,
+    //         area: area,
+    //         price: price,
+    //         park: park,
+    //         city: city,
+    //         title: title,
+    //         type: type,
+    //         id: id
+    //       }
+    //       const option = {
+    //         to: that.data.conversationID.slice(3), // 消息的接收方
+    //         conversationType: TIM.TYPES.CONV_C2C, // 会话类型取值TIM.TYPES.CONV_C2C或TIM.TYPES.CONV_GROUP
+    //         payload: {
+    //           data: JSON.stringify(params),// 自定义消息的数据字段
+    //           description: params.title, // 自定义消息的说明字段
+    //           extension: params.price // 自定义消息的扩展字段
+    //         } // 消息内容的容器
+    //       }
+    //       const tim = app.globalData.tim
+    //       // 2. 创建消息实例，接口返回的实例可以上屏
+    //       let message = tim.createCustomMessage(option)
+    //       // 2. 发送消息
+    //       let promise = tim.sendMessage(message)
+    //       promise.then(function(res){
+    //         // 发送成功
+    //         var new_data = JSON.parse(res.data.message.payload.data) 
+    //         res.data.message.payload.data = new_data
+    //         var messageList = that.data.myMessages
+    //         messageList.push(res.data.message)
+    //         that.setData({
+    //           myMessages: messageList
+    //         })
+    //         // 发送自定义欢迎语
+    //         that.getSingleMsg()
+    //       })
+    //     }
+    //   },
+    //   fail: err => {
+    //     console.log(err)
+    //   }
+    // })
   },
   //获取普通文本消息
   bindKeyInput(e){

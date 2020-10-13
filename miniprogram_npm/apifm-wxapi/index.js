@@ -97,8 +97,8 @@ module.exports =
 /* eslint-disable */
 // 小程序开发api接口工具包，https://github.com/gooking/wxapi
 // var API_BASE_URL = 'https://api.it120.cc';
-// const API_BASE_URL = 'http://192.168.1.246:8082';
-const API_BASE_URL = 'https://yiku.airiot.net';
+const API_BASE_URL = 'http://192.168.1.246:8082';
+// const API_BASE_URL = 'https://yiku.airiot.net';
 var subDomain = '';
 
 var request = function request(url, needSubDomain, method, data, isfile) {
@@ -320,7 +320,10 @@ module.exports = {
             iv: info_res.iv //解密算法的向量
         });
   },
-
+  getUserSign: function getUserSign(code, info_res) {
+    return  request('/api/user/getUserSig', false, 'get', {
+        });
+  },
   loginWxaMobile: function loginWxaMobile(code, encryptedData, iv) {
     return request('/user/wxapp/login/mobile', true, 'post', {
       code: code,

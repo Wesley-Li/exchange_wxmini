@@ -1,0 +1,1 @@
+{"version":3,"sources":["index.js"],"names":[],"mappings":";;;;;;;AAAA;AACA;AACA;AACA;AACA;AACA;AACA;AACA","file":"index.js","sourcesContent":["var crypto = require('crypto')\n\nexports.createSign = crypto.createSign\nexports.Sign = crypto.Sign\n\nexports.createVerify = crypto.createVerify\nexports.Verify = crypto.Verify\n"]}
