@@ -44,9 +44,15 @@
     "pages/deposit/pay",
     "pages/live/index",
     "pages/aboutus/index",
-    "pages/message/index",
-    "pages/message-detail/index"
+    "pages/message/index"
   ],
+  "subpackages": [
+    {
+      "root": "subpackages",
+      "pages": [
+        "message-detail/index"
+      ]
+    }],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",

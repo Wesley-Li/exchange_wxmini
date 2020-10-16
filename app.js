@@ -3,6 +3,10 @@ const CONFIG = require('config.js')
 const AUTH = require('utils/auth')
 import TIM from 'tim-wx-sdk'
 import COS from "cos-wx-sdk-v5"
+import Event from './utils/event.js'
+//挂载到wx对象上
+wx.event=new Event();
+
 App({
   onLaunch: function() {
     WXAPI.init(CONFIG.subDomain)
@@ -285,5 +289,9 @@ App({
     isImLogin: false,
     msgList: [],
     myMessages: new Map(),
+    tabBottom: 0, // 全面屏底部黑条高度
+    isDetail: true,
+    nick_name: null,
+    avatar: null
   }
 })

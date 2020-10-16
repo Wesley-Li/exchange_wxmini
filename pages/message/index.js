@@ -1,5 +1,6 @@
 const AUTH = require('../../utils/auth');
 const WXAPI = require('apifm-wxapi');
+import TIM from 'tim-wx-sdk';
 const app = getApp();
 Page({
     data: {
@@ -18,7 +19,7 @@ Page({
     var avatar= e.currentTarget.dataset.avatar
     var name= e.currentTarget.dataset.name
     wx.navigateTo({
-      url: '/pages/message-detail/index?conversationID=' + conversationID + '&avatar=' + avatar  + '&name=' + name,
+      url: '/subpackages/message-detail/index?conversationID=' + conversationID + '&avatar=' + avatar  + '&name=' + name,
     })
   },
   // 获取会话列表 （必须要在SDK处于ready状态调用（否则会报错））
@@ -64,12 +65,12 @@ Page({
       })
       if(number>0) {
         wx.setTabBarBadge({
-          index: 2,
+          index: 3,
           text: number.toString()
         })
       } else {
         wx.hideTabBarRedDot({
-          index: 2
+          index: 3
         })
       }
     }).catch(function(imError) {
@@ -173,13 +174,29 @@ loginIm() {
     console.log('TIM登录成功')
     wx.setStorageSync('isImLogin', true)
     app.globalData.isImLogin = true
-    wx.showLoading();
+    
     // wni: 如果直接去 获取消息， 经常报错说TIM SDK没好， 回头再看看是否有回调方式吧
     setTimeout(() => {
       // 拉取会话列表
       that.initRecentContactList()
     }, 1000);
-    
+    // 修改个人标配资料
+    let promise = tim.updateMyProfile({
+      nick: app.globalData.nick_name,
+      avatar: app.globalData.avatar,
+      gender: TIM.TYPES.GENDER_UNKNOWN,
+      selfSignature: '',
+      allowType: TIM.TYPES.ALLOW_TYPE_ALLOW_ANY
+    });
+    promise.then(function(imResponse) {
+      console.log(imResponse.data); // 更新资料成功
+    }).catch(function(imError) {
+      console.warn('updateMyProfile error:', imError); // 更新资料失败的相关信息
+    });
+    wx.showLoading({
+      title: '加载中...',
+      icon: 'none'
+    });
     // that.initRecentContactList();
   }).catch(function(imError) {
     // util.sLoadingHide()

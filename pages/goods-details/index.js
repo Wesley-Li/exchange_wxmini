@@ -100,6 +100,21 @@ Page({
       }
     })
   },
+  contactSeller(){
+    AUTH.checkHasLogined().then( async isLogined => {
+      this.setData({
+        wxlogin: isLogined
+      })
+      if (isLogined) {
+        const sellerRes = await WXAPI.goodsSeller(this.data.goodsId)
+        if (sellerRes.retcode == 0) {
+          wx.navigateTo({
+            url: '/subpackages/message-detail/index?conversationID=C2C' + sellerRes.data.id + '&avatar=' + sellerRes.data.avatar  + '&name=' + sellerRes.data.nick_name + '&houseid=' + this.data.goodsId,
+          })
+        }
+      }
+    })
+  },
   async getGoodsDetailAndKanjieInfo(goodsId) {
     const that = this;
     const goodsDetailRes = await WXAPI.goodsDetail(goodsId)

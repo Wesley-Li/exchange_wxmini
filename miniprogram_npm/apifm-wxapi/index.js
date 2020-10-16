@@ -392,6 +392,11 @@ module.exports = {
       id: id
     });
   },
+  goodsSeller: function goodsSeller(id) {
+    return request('/api/open/getproductseller', false, 'get', {
+      pid: id
+    });
+  },
   addProduct: function addProduct(name, cid, pic, credprice, content, status, pics, videourl, pid) {
     return request('/api/product/addviaurl', false, 'post', {
       name,

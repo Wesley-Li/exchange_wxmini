@@ -80,6 +80,8 @@ async function login(page){
               wx.setStorageSync('token', res.token);
               wx.setStorageSync('uid', res.uid);
               getApp().globalData.sessionid = res.token;
+              getApp().globalData.nick_name = res.nick_name;
+              getApp().globalData.avatar = res.avatar;
               if ( page ) {
                 page.onShow()
               }

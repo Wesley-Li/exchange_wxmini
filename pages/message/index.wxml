@@ -5,9 +5,12 @@
   <nav-bar title="消息" showIcon="0"></nav-bar>
   <block wx:for="{{msg}}" wx:key="index">
     <view class="item" bindtap="contactsClick" data-conversationid="{{item.conversationID}}" data-name="{{item.userProfile.nick}}" data-avatar="{{item.userProfile.avatar}}">
-      <image src="{{item.userProfile.avatar ? item.userProfile.avatar : '/images/avatar.png'}}" class="avatar"></image>
+      <image src="{{item.userProfile.avatar ? item.userProfile.avatar : '/images/avatar.jpg'}}" class="avatar"></image>
       <view class="right">
-        <view class="name"><text>{{item.userProfile.nick}}</text><text class="tag" wx:if="{{filter.consultant(item.userProfile.userID)}}">置业顾问</text></view>
+        <view class="name">
+          <text>{{item.userProfile.nick}}</text>
+          <!-- <text class="tag" wx:if="{{filter.consultant(item.userProfile.userID)}}">置业顾问</text> -->
+        </view>
         <view class="text" wx:if="{{item.lastMessage.type != 'TIMCustomElem'}}">{{item.lastMessage.payload.text}}</view>
         <view class="text" wx:if="{{item.lastMessage.type == 'TIMCustomElem'}}">[房源]{{item.lastMessage.payload.data.title || item.lastMessage.payload.description}}<text style="padding-left: 10rpx">{{item.lastMessage.payload.data.price || item.lastMessage.payload.extension}}元/m²·月</text></view>
       </view>
