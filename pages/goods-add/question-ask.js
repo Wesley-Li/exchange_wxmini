@@ -176,13 +176,13 @@ Page({
   chooseVideo(e) {
     wx.chooseVideo({
       sourceType: ['album','camera'],
-      maxDuration: 60,
+      maxDuration: 120,
       camera: 'back',
       compressed: true,
       success: res => {
         if(res.duration>60){
           wx.showToast({
-            title: "只能添加一分钟以内短视频!",
+            title: "只能添加两分钟以内短视频!",
             icon: "none"
           })
           return

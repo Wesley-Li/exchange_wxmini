@@ -79,7 +79,7 @@
       </view>
       <view class="weui-cell__hd">
         <view class="question-images-tool">
-          <button type="default" size="mini" bindtap="chooseVideo" wx:if="{{videos.length < 1}}">添加短视频(一分钟内)</button>
+          <button type="default" size="mini" bindtap="chooseVideo" wx:if="{{videos.length < 1}}">添加短视频(2分钟内)</button>
         </view>
       </view>
     </view>
