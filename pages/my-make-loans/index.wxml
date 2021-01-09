@@ -1,0 +1,51 @@
+<view class="make-loans-container">
+  <view class="tabs">
+    <view bindtap="onTabClick" class="tabs-item {{item.type == tabkey ? 'tabs-item-active' : ''}}" wx:for="{{tabList}}" wx:key="index" data-type="{{item.type}}">
+      {{item.label}}
+    </view>
+  </view>
+  <view class="data-list-container">
+    <view class="no-order" hidden="{{dataList.length && dataList.length > 0}}">
+      <image src="/images/no-order.png" class="no-order-img"></image>
+      <view class="text">{{'暂无记录'}}</view>
+    </view>
+    <view class="data-list" wx:for="{{dataList}}" wx:key="index">
+      <view class="data-content {{tabkey == 0 && 'data-content1' || ''}}">
+        <span class="data-num">放款总额：{{item.total}}</span>
+        <span class="data-rate">放款日利率：{{item.rate}}</span>
+        <span class="data-time">{{tabkey == 1 ? '放款时间' : '收回时间'}}：{{item.ctime}}</span>
+      </view>
+      <view wx:if="{{tabkey == 1}}" class="data-btn" bindtap="onModalShow" data-dialogtype="closeDialogShow" data-id="{{item.id}}">收回放款</view>
+    </view>
+  </view>
+
+  <view class="bottom-container" bindtap="onModalShow" data-dialogtype="dialogShow">
+    <view class="add-btn">
+      <image src="/images/add-addr.png"></image>
+      <view>我要放款</view>
+    </view>
+    <image class="next" src="/images/icon/next.png"></image>
+  </view>
+
+  <mp-dialog title="请输入放款金额" show="{{dialogShow}}" buttons="{{[]}}" ext-class="lending-dialog">
+    <!-- <form catchsubmit="onSubmit" catchreset="onClose">
+      <input name="total" class="weui-input weui-input-lending" type="digit" placeholder="填写金额" bindinput="onInputChange"/>
+      <span class="hint">请输入金额</span>
+      <view class="btn-area">
+        <button formType="reset">取消</button>
+        <button class="submit-btn" formType="submit">确认</button>
+      </view>
+    </form> -->
+    <mp-form id="form" rules="{{rules}}" models="{{formData}}">
+      <input class="weui-input weui-input-lending" data-field='total' placeholder="输入金额" bindinput="onInputChange" type="number" value="{{formData.total}}"/>
+      <view class="btn-area">
+        <button formType="reset" bindtap="onClose">取消</button>
+        <button class="submit-btn" formType="submit" bindtap="onSubmit">确定</button>
+      </view>
+    </mp-form>
+  </mp-dialog>
+  <mp-dialog title="提示" show="{{closeDialogShow}}" buttons="{{buttons}}" bindbuttontap="onLendingClose">
+    确定收回放款吗？
+  </mp-dialog>
+  <mp-toptips msg="{{error}}" type="error" show="{{error}}"></mp-toptips>
+</view>

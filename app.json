@@ -26,6 +26,8 @@
     "pages/order/refundApply",
     "pages/wuliu/index",
     "pages/my/index",
+    "pages/my-borrow-money/index",
+    "pages/my-make-loans/index",
     "pages/withdraw/index",
     "pages/score-excharge/index",
     "pages/score-excharge/growth",
@@ -106,6 +108,10 @@
   "navigateToMiniProgramAppIdList": [
     "wx1ba02f8cf900d43f"
   ],
+  "useExtendedLib": {
+    "kbone": true,
+    "weui": true
+  },
   "usingComponents": {
     "float-menu": "/components/float-menu/index",
     "parser":"/components/parser.20200414.min/parser",
@@ -117,7 +123,9 @@
     "van-button": "@vant/weapp/button/index",
     "van-cell": "@vant/weapp/cell/index",
     "van-cell-group": "@vant/weapp/cell-group/index",
-    "van-tag": "@vant/weapp/tag/index"
+    "van-tag": "@vant/weapp/tag/index",
+    "mp-dialog": "weui-miniprogram/dialog/dialog",
+    "mp-form": "weui-miniprogram/form/form"
   },
   "sitemapLocation": "sitemap.json"
 }

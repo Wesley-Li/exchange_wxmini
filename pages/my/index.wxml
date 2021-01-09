@@ -165,6 +165,22 @@
   </navigator>
 
   <view class="space"></view>
+  <navigator url="/pages/my-make-loans/index">
+    <view class="menu-item">
+      <view class="l">我的放款</view>
+      <image class="next" src="/images/icon/next.png"></image>
+    </view>
+  </navigator>
+
+  <view class="space"></view>
+  <navigator url="/pages/my-borrow-money/index">
+    <view class="menu-item">
+      <view class="l">我的借款</view>
+      <image class="next" src="/images/icon/next.png"></image>
+    </view>
+  </navigator>
+
+  <view class="space"></view>
   <navigator url="/pages/select-address/index">
     <view class="menu-item">
       <view class="l">收货地址</view>

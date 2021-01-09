@@ -1,0 +1,172 @@
+/* pages/my-make-loans/index.wxss */
+
+.make-loans-container {
+  width: 100%;
+  height: 100vh;
+  background: #F2f2f2;
+}
+
+.tabs {
+  display: flex;
+  width: 100%;
+  background: #fff;
+  text-align: center;
+  justify-items: center;
+}
+.tabs-item {
+  flex: 1;
+  padding: 22rpx;
+  font-size: 28rpx;
+}
+.tabs-item-active {
+  position: relative;
+  color: #e64340;
+}
+.tabs-item-active::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%);
+  width: 150rpx;
+  height: 6rpx;
+  background: #e64340;
+}
+
+.data-list-container {
+  width: 100%;
+  height: calc(100% - 85rpx - 100rpx);
+}
+.data-list {
+  display: flex;
+  margin: 20rpx 0;
+  padding: 20rpx 0 20rpx 30rpx;
+  width: 100%;
+  font-size: 28rpx;
+  background: #fff;
+  border-radius: 10rpx;
+  box-sizing: border-box;
+}
+.data-list .data-content {
+  width: calc(100% - 180rpx);
+}
+.data-list .data-content {
+  width: 100%;
+}
+.data-list span {
+  display: inline-block;
+  padding: 10rpx 0;
+}
+.data-list .data-num {
+  width: 45%;
+}
+.data-list .data-rate {
+  width: 55%;
+}
+.data-list .data-time {
+  width: 100%;
+}
+.data-list .data-btn {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  text-align: center;
+  width: 180rpx;
+  color: #e64340;
+}
+
+.no-order{
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  top: 88rpx;
+  left: 0;
+  right: 0;
+  text-align: center;
+  padding-top: 203rpx;
+  background-color: #F2f2f2;
+}
+.no-order-img{
+  width: 90rpx;
+  height: 96rpx;
+  margin-bottom: 25rpx;
+}
+.no-order .text{
+  font-size: 28rpx;
+  color: #999;
+  text-align: center
+}
+
+.bottom-container {
+  position: fixed;
+  width: 100vw;
+  bottom: 0;
+  font-size: 28rpx;
+  color: #333;
+  border-top: 1rpx solid #eee;
+  height: 100rpx;
+  background: #fff;
+  line-height: 100rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.bottom-container .next {
+  margin-right: 32rpx;
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.bottom-container .add-btn {
+  display: flex;
+  align-items: center;
+  margin-left: 32rpx;
+}
+.bottom-container .add-btn image {
+  width: 40rpx;
+  height: 40rpx;
+}
+.bottom-container .add-btn view {
+  margin-left: 16rpx;
+}
+
+.lending-dialog .weui-dialog__bd {
+  margin: 12px 0 20px 0;
+}
+.lending-dialog .weui-dialog__bd .weui-input-lending {
+  height: 75rpx;
+  line-height: 75rpx;
+  border: 1px solid rgba(204, 204, 204, 0.5);
+  border-radius: 5px;
+}
+.lending-dialog .hint {
+  font-size: 12px;
+  color: #e64340;
+  padding: 20rpx 0;
+}
+.lending-dialog .btn-area {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  width: 100%;
+  z-index: 999;
+}
+.lending-dialog .btn-area button {
+  width: 50%;
+  height: 60px;
+  line-height: 60px;
+  font-weight: 600;
+  background: none;
+  border: none;
+  border-top: 1px solid rgba(0, 0, 0, .1);
+  border-radius: 0;
+}
+.lending-dialog .btn-area button::after {
+  border: none;
+  border-radius: 0;
+}
+.lending-dialog .btn-area .submit-btn {
+  color: #576B95;
+  border-left: 1px solid rgba(0, 0, 0, .1);
+}

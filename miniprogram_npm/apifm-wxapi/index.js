@@ -97,8 +97,9 @@ module.exports =
 /* eslint-disable */
 // 小程序开发api接口工具包，https://github.com/gooking/wxapi
 // var API_BASE_URL = 'https://api.it120.cc';
-// const API_BASE_URL = 'http://127.0.0.1:8082';
-const API_BASE_URL = 'https://yiku.airiot.net';
+// const API_BASE_URL = 'http://192.168.1.246:8082';
+// const API_BASE_URL = 'https://yiku.airiot.net';
+const API_BASE_URL = 'http://yiku2.airiot.net';
 var subDomain = '';
 
 var request = function request(url, needSubDomain, method, data, isfile) {
@@ -108,6 +109,10 @@ var request = function request(url, needSubDomain, method, data, isfile) {
     var _url = url;
   }
   let sid = wx.getStorageSync('token'); //? wx.getStorageSync('token') : getApp().globalData.sessionid;
+  
+  if(data && !data.token && sid) {
+    data.token = sid;
+  }
   return new Promise(function (resolve, reject) {
     wx.request({
       url: _url,
@@ -1182,6 +1187,24 @@ module.exports = {
     return request('/wx/live/his', true, 'get', {
       roomId: roomId
     });
+  },
+  // 我的放款列表
+  myLendingList: function myLendingList(params) {
+    return request('/api/lending/list', true, 'get', {
+      ...params
+    })
+  },
+  // 发起放款
+  onLending: function onLending(params) {
+    return request('/api/lending/add', true, 'post', {
+      ...params
+    })
+  },
+  // 收回放款
+  onCloseLending: function onCloseLending(params) {
+    return request('/api/lending/close', true, 'post', {
+      ...params
+    })
   }
 };
 

@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "mp-dialog": "weui-miniprogram/dialog/dialog",
+    "mp-toptips": "weui-miniprogram/toptips/toptips",
+    "mp-form": "weui-miniprogram/form/form"
+  },
+  "navigationBarTitleText": "我的放款"
+}
