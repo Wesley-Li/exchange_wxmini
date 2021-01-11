@@ -16,7 +16,7 @@
         <span class="data-rate">放款日利率：{{item.rate}}</span>
         <span class="data-time">{{tabkey == 1 ? '放款时间' : '收回时间'}}：{{item.ctime}}</span>
       </view>
-      <view wx:if="{{tabkey == 1}}" class="data-btn" bindtap="onModalShow" data-dialogtype="closeDialogShow" data-id="{{item.id}}">收回放款</view>
+      <view wx:if="{{tabkey == 1}}" class="data-btn" bindtap="onModalShow" data-dialogtype="closeDialogShow" data-id="{{item.id}}"><span>收回放款</span></view>
     </view>
     <view wx:if="{{!hasMore}}" class="no-more">没有更多了~</view>
   </view>
@@ -40,6 +40,7 @@
     </form> -->
     <mp-form id="form" rules="{{rules}}" models="{{formData}}">
       <input class="weui-input weui-input-lending" data-field='total' placeholder="输入金额" bindinput="onInputChange" type="number" value="{{formData.total}}"/>
+      <view class="placeholder"></view>
       <view class="btn-area">
         <button formType="reset" bindtap="onClose">取消</button>
         <button class="submit-btn" formType="submit" bindtap="onSubmit">确定</button>

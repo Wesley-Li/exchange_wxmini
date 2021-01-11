@@ -81,7 +81,16 @@
   align-items: center;
   justify-content: center;
   width: 180rpx;
-  color: #e64340;
+}
+.data-list .data-btn span {
+  display: inline-block;
+  padding: 6rpx;
+  width: 82%;
+  color: #fff;
+  background: #e64340;
+  font-size: 24rpx;
+  border-radius: 5rpx;
+  text-align: center;
 }
 
 .no-order{
@@ -145,7 +154,7 @@
 }
 
 .lending-dialog .weui-dialog__bd {
-  margin: 12px 0 20px 0;
+  margin: 12px 0 0 0;
 }
 .lending-dialog .weui-dialog__bd .weui-input-lending {
   height: 75rpx;
@@ -157,6 +166,10 @@
   font-size: 12px;
   color: #e64340;
   padding: 20rpx 0;
+}
+.lending-dialog .placeholder {
+  margin-top: 36rpx;
+  height: 64px;
 }
 .lending-dialog .btn-area {
   position: absolute;
@@ -173,7 +186,7 @@
   font-weight: 600;
   background: none;
   border: none;
-  /* border-top: 1px solid rgba(0, 0, 0, .1); */
+  border-top: 1px solid rgba(0, 0, 0, .1);
   border-radius: 0;
 }
 .lending-dialog .btn-area button::after {
@@ -182,5 +195,8 @@
 }
 .lending-dialog .btn-area .submit-btn {
   color: #576B95;
-  /* border-left: 1px solid rgba(0, 0, 0, .1); */
+  border-left: 1px solid rgba(0, 0, 0, .1);
+}
+.lending-dialog .weui-dialog__ft {
+  display: none;
 }

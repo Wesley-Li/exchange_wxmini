@@ -83,6 +83,15 @@
   width: 140rpx;
   color: #e64340;
 }
+.data-list .data-btn span {
+  display: inline-block;
+  padding: 6rpx 28rpx;
+  color: #fff;
+  background: #e64340;
+  font-size: 24rpx;
+  border-radius: 5rpx;
+  text-align: center;
+}
 
 .no-order{
   width: 100%;
@@ -145,7 +154,7 @@
 }
 
 .borrowing-dialog .weui-dialog__bd {
-  margin: 12px 0 20px 0;
+  margin: 12px 0 0 0;
 }
 .borrowing-dialog .weui-dialog__bd .weui-input-borrowing, .borrowing-dialog .weui-dialog__bd .weui-picker-borrowing {
   height: 75rpx;
@@ -161,6 +170,10 @@
   color: #e64340;
   padding: 20rpx 0;
 }
+.borrowing-dialog .placeholder {
+  margin-top: 36rpx;
+  height: 64px;
+}
 .borrowing-dialog .btn-area {
   position: absolute;
   left: 0;
@@ -170,14 +183,13 @@
   z-index: 999;
 }
 .borrowing-dialog .btn-area button {
-  margin: 0 10rpx;
   width: 50%;
   height: 64px;
   line-height: 64px;
   font-weight: 600;
   background: none;
   border: none;
-  /* border-top: 1px solid rgba(0, 0, 0, .1); */
+  border-top: 1px solid rgba(0, 0, 0, .1);
   border-radius: 0;
 }
 .borrowing-dialog .btn-area button::after {
@@ -186,5 +198,8 @@
 }
 .borrowing-dialog .btn-area .submit-btn {
   color: #576B95;
-  /* border-left: 1px solid rgba(0, 0, 0, .1); */
+  border-left: 1px solid rgba(0, 0, 0, .1);
+}
+.borrowing-dialog .weui-dialog__ft {
+  display: none;
 }

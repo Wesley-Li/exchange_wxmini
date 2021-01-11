@@ -18,7 +18,7 @@
         <span class="data-time" wx:if="{{item.status == 1}}">最迟还款时间：{{item.etime}}</span>
         <span class="data-time" wx:if="{{item.status == 0}}">还款时间：{{item.mtime}}</span>
       </view>
-      <view wx:if="{{tabkey == 1}}" class="data-btn" bindtap="onModalShow" data-dialogtype="closeDialogShow" data-id="{{item.id}}">还款</view>
+      <view wx:if="{{tabkey == 1}}" class="data-btn" bindtap="onModalShow" data-dialogtype="closeDialogShow" data-id="{{item.id}}"><span>还款</span></view>
     </view>
     <view wx:if="{{!hasMore}}" class="no-more">没有更多了~</view>
   </view>
@@ -36,6 +36,7 @@
         <view wx:if="{{!formData.date}}">最迟还款日期</view>
         <view wx:if="{{formData.date}}">{{formData.date}}</view>
       </picker>
+      <view class="placeholder"></view>
       <view class="btn-area">
         <button formType="reset" bindtap="onClose">取消</button>
         <button class="submit-btn" formType="submit" bindtap="onSubmit">确定</button>
