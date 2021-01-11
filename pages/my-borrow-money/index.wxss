@@ -7,7 +7,10 @@
 }
 
 .tabs {
+  position: fixed;
   display: flex;
+  top: 0;
+  left: 0;
   width: 100%;
   background: #fff;
   text-align: center;
@@ -33,25 +36,52 @@
   background: #e64340;
 }
 
+.placeholder {
+  height: 88rpx;
+}
+
 .data-list-container {
+  margin-bottom: 90rpx;
+  padding-bottom: 10rpx;
   width: 100%;
+  height: auto;
+  background: #F2f2f2;
 }
 .data-list {
+  display: flex;
   margin: 20rpx 0;
-  padding: 20rpx 30rpx;
+  padding: 20rpx 0 20rpx 30rpx;
   width: 100%;
+  font-size: 28rpx;
   background: #fff;
   border-radius: 10rpx;
+  box-sizing: border-box;
+}
+.data-list .data-content {
+  width: calc(100% - 140rpx);
+}
+.data-list .data-content1 {
+  width: 100%;
 }
 .data-list span {
   display: inline-block;
-  font-size: 28rpx;
+  padding: 10rpx 0;
 }
 .data-list .data-money {
   width: 45%;
 }
-.data-list .data-time {
+.data-list .data-rate {
   width: 55%;
+}
+.data-list .data-time {
+  width: 100%;
+}
+.data-list .data-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 140rpx;
+  color: #e64340;
 }
 
 .no-order{
@@ -74,6 +104,11 @@
   font-size: 28rpx;
   color: #999;
   text-align: center
+}
+.no-more {
+  padding-bottom: 20rpx;
+  font-size: 28rpx;
+  text-align: center;
 }
 
 .bottom-container {
@@ -107,4 +142,49 @@
 }
 .bottom-container .add-btn view {
   margin-left: 16rpx;
+}
+
+.borrowing-dialog .weui-dialog__bd {
+  margin: 12px 0 20px 0;
+}
+.borrowing-dialog .weui-dialog__bd .weui-input-borrowing, .borrowing-dialog .weui-dialog__bd .weui-picker-borrowing {
+  height: 75rpx;
+  line-height: 75rpx;
+  border: 1px solid rgba(204, 204, 204, 0.5);
+  border-radius: 5px;
+}
+.borrowing-dialog .weui-dialog__bd .weui-picker-borrowing {
+  margin-top: 30rpx;
+}
+.borrowing-dialog .hint {
+  font-size: 12px;
+  color: #e64340;
+  padding: 20rpx 0;
+}
+.borrowing-dialog .btn-area {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  width: 100%;
+  z-index: 999;
+}
+.borrowing-dialog .btn-area button {
+  margin: 0 10rpx;
+  width: 50%;
+  height: 64px;
+  line-height: 64px;
+  font-weight: 600;
+  background: none;
+  border: none;
+  /* border-top: 1px solid rgba(0, 0, 0, .1); */
+  border-radius: 0;
+}
+.borrowing-dialog .btn-area button::after {
+  border: none;
+  border-radius: 0;
+}
+.borrowing-dialog .btn-area .submit-btn {
+  color: #576B95;
+  /* border-left: 1px solid rgba(0, 0, 0, .1); */
 }

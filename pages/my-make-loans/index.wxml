@@ -4,6 +4,7 @@
       {{item.label}}
     </view>
   </view>
+  <view class="placeholder"></view>
   <view class="data-list-container">
     <view class="no-order" hidden="{{dataList.length && dataList.length > 0}}">
       <image src="/images/no-order.png" class="no-order-img"></image>
@@ -17,6 +18,7 @@
       </view>
       <view wx:if="{{tabkey == 1}}" class="data-btn" bindtap="onModalShow" data-dialogtype="closeDialogShow" data-id="{{item.id}}">收回放款</view>
     </view>
+    <view wx:if="{{!hasMore}}" class="no-more">没有更多了~</view>
   </view>
 
   <view class="bottom-container" bindtap="onModalShow" data-dialogtype="dialogShow">
@@ -27,7 +29,7 @@
     <image class="next" src="/images/icon/next.png"></image>
   </view>
 
-  <mp-dialog title="请输入放款金额" show="{{dialogShow}}" buttons="{{[]}}" ext-class="lending-dialog">
+  <mp-dialog title="放款金额填写" show="{{dialogShow}}" buttons="{{[{text: ''}, {text: ''}]}}" ext-class="lending-dialog">
     <!-- <form catchsubmit="onSubmit" catchreset="onClose">
       <input name="total" class="weui-input weui-input-lending" type="digit" placeholder="填写金额" bindinput="onInputChange"/>
       <span class="hint">请输入金额</span>

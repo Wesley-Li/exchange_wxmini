@@ -97,6 +97,11 @@
     </view>
     <button class="to-pay-btn" bindtap="goCreateOrder">提交订单</button>
   </view>
+
+  <mp-dialog title="信用币不足" show="{{dialogShow}}" buttons="{{buttons}}" bindbuttontap="onHandleDialog" ext-class="insufficient-dialog">
+    <view>订单金额{{hintInfo.total}}，但您当前仅有信用币{{hintInfo.surplusMoney}}</view>
+    <view class="go-borrowing" bindtap="goBorrowing">去借款</view>
+  </mp-dialog>
 </view>
 
 <import src="/template/login/index.wxml" />

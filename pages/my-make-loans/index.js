@@ -23,23 +23,36 @@ Page({
   },
   currentPage: 1,
   onTabClick(e) {
+    this.currentPage = 1;
     this.setData({
       tabkey: e.currentTarget.dataset.type,
+      dataList: [],
+      hasMore: true,
     }, () => {
       this.getDataList();
     })
   },
   getDataList() {
     let t = this;
-    WXAPI.myLendingList({page: t.currentPage, pageSize: 5, status: t.data.tabkey}).then(res => {
-      console.log(res, 44444);
-      t.setData({
-        dataList: res.data,
-      })
+    WXAPI.myLendingList({page: t.currentPage, pageSize: 10, status: t.data.tabkey}).then(res => {
+      if(res.retcode == 0) {
+        let dataList = [], hasMore = true;
+        if(t.currentPage == 1) {
+          dataList = res.data;
+        } else {
+          dataList = t.data.dataList.concat(res.data);
+          if(!res.data.length) {
+            hasMore = false;
+          }
+        }
+        t.setData({
+          dataList,
+          hasMore,
+        })
+      }
     })
   },
   onModalShow(e) {
-    console.log(e, 555555);
     let type = e.currentTarget.dataset.dialogtype;
     let lendingId = e.currentTarget.dataset.id;
     this.setData({
@@ -62,7 +75,6 @@ Page({
         }
       } else {
         WXAPI.onLending({...this.data.formData}).then(res => {
-          console.log(res, 44444);
           if(res.retcode == 0) {
             wx.showToast({
               title: '放款成功'
@@ -70,6 +82,7 @@ Page({
             this.setData({
               dialogShow: false,
               formData: {},
+              hasMore: true,
             })
             this.currentPage = 1;
             this.getDataList();
@@ -85,6 +98,7 @@ Page({
   onClose() {
     this.setData({
       dialogShow: false,
+      formData: {},
     })
   },
   onInputChange(e) {
@@ -94,7 +108,6 @@ Page({
   },
   // 收回放款
   onLendingClose(e) {
-    console.log(e, 666666);
     if(e.detail.item.text == '确定') {
       WXAPI.onCloseLending({id: this.data.lendingId}).then(res => {
         if(res.retcode == 0) {
@@ -103,6 +116,9 @@ Page({
           })
           this.currentPage = 1;
           this.getDataList();
+          this.setData({
+            hasMore: true,
+          })
         } else {
           wx.showToast({
             title: res.msg
@@ -181,6 +197,10 @@ Page({
    */
   onReachBottom: function () {
     console.log('到底部了');
+    if(this.data.hasMore) {
+      this.currentPage += 1;
+      this.getDataList();
+    }
   },
 
   /**

@@ -25,7 +25,11 @@ Page({
     peisongType: 'kd', // 配送方式 kd,zq 分别表示快递/到店自取
     remark: '',
     shopIndex: -1,
-    pageIsEnd: false
+    pageIsEnd: false,
+
+    buttons: [{text: '取消'}, {text: '确定'}],
+    hintInfo: {},
+    dialogShow: false,
   },
   onShow(){
     if (this.data.pageIsEnd) {
@@ -260,24 +264,43 @@ Page({
       })      
     } else {
       // wxpay.wxpay('order', money, res.data.id, "/pages/order-list/index");
-      wx.showModal({
-        title: '信用币不足！',
-        content: `订单金额${res.total}，但您当前仅有信用币${res1.data.score}`,
-        confirmText: "确认",
-        cancelText: "取消",
-        success: res2 => {
-          if (res2.confirm) {
-            wx.redirectTo({
-              url: "/pages/order-list/index"
-            })
-          } else {
-            wx.redirectTo({
-              url: "/pages/order-list/index"
-            })
-          }
-        }
+      let hintInfo = {
+        total: res.total,
+        surplusMoney: res1.data.score,
+      }
+      this.setData({
+        hintInfo,
+        dialogShow: true,
       })
+      // wx.showModal({
+      //   title: '信用币不足！',
+      //   content: `订单金额${res.total}，但您当前仅有信用币${res1.data.score}`,
+      //   confirmText: "确认",
+      //   cancelText: "取消",
+      //   success: res2 => {
+      //     if (res2.confirm) {
+      //       wx.redirectTo({
+      //         url: "/pages/order-list/index"
+      //       })
+      //     } else {
+      //       wx.redirectTo({
+      //         url: "/pages/order-list/index"
+      //       })
+      //     }
+      //   }
+      // })
     }
+  },
+  onHandleDialog(e) {
+    wx.redirectTo({
+      url: "/pages/order-list/index"
+    })
+  },
+  // 去借款
+  goBorrowing() {
+    wx.redirectTo({
+      url: "/pages/my-borrow-money/index"
+    })
   },
   async initShippingAddress() {
     const res = await WXAPI.defaultAddress(wx.getStorageSync('token'))

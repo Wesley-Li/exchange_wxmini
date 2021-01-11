@@ -238,3 +238,11 @@ form {
   text-align: right;
 }
 
+.insufficient-dialog .weui-dialog__bd {
+  margin-bottom: 10px;
+}
+.insufficient-dialog .go-borrowing {
+  padding: 20rpx;
+  color: #e64340;
+}
+

@@ -1205,6 +1205,24 @@ module.exports = {
     return request('/api/lending/close', true, 'post', {
       ...params
     })
+  },
+  // 我的借款列表
+  myBorrowingList: function myBorrowingList(params) {
+    return request('/api/borrowing/list', true, 'get', {
+      ...params
+    })
+  },
+  // 发起借款
+  onBorrowing: function onBorrowing(params) {
+    return request('/api/borrowing/add', true, 'post', {
+      ...params
+    })
+  },
+  // 还款
+  onBorrowingClose: function onBorrowingClose(params) {
+    return request('/api/borrowing/close', true, 'post', {
+      ...params
+    })
   }
 };
 
