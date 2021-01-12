@@ -38,6 +38,9 @@ Page({
   },
   getDataList() {
     let t = this;
+    wx.showLoading({
+      title: '加载中',
+    });
     WXAPI.myBorrowingList({page: t.currentPage, pageSize: 5, status: t.data.tabkey}).then(res => {
       if(res.retcode == 0) {
         let dataList = [], hasMore = true;
@@ -54,6 +57,7 @@ Page({
           hasMore,
         })
       }
+      wx.hideLoading();
     })
   },
   onModalShow(e) {
@@ -74,7 +78,17 @@ Page({
       formData: {},
     })
   },
+  isSubmitClick: false,
   onSubmit() {
+    // 节流
+    if(this.isSubmitClick) {
+      setTimeout(() => {
+        this.isSubmitClick = false;
+      }, 2000)
+      return;
+    } else {
+      this.isSubmitClick = true;
+    }
     this.selectComponent('#form').validate((valid, errors) => {
       if (!valid) {
         const firstError = Object.keys(errors)
@@ -85,9 +99,11 @@ Page({
         }
       } else {
         let { formData } = this.data;
-        formData.etime = `${formData.date} 23:59:59`;
-        delete formData.date;
-        WXAPI.onBorrowing({...this.data.formData}).then(res => {
+        let data = {
+          total: formData.total,
+          etime: `${formData.date} 23:59:59`,
+        }
+        WXAPI.onBorrowing({...data}).then(res => {
           if(res.retcode == 0) {
             wx.showToast({
               title: '借款成功'

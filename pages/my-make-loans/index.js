@@ -34,6 +34,9 @@ Page({
   },
   getDataList() {
     let t = this;
+    wx.showLoading({
+      title: '加载中',
+    });
     WXAPI.myLendingList({page: t.currentPage, pageSize: 10, status: t.data.tabkey}).then(res => {
       if(res.retcode == 0) {
         let dataList = [], hasMore = true;
@@ -50,6 +53,7 @@ Page({
           hasMore,
         })
       }
+      wx.hideLoading();
     })
   },
   onModalShow(e) {
@@ -64,7 +68,17 @@ Page({
       })
     }
   },
+  isSubmitClick: false,
   onSubmit() {
+    // 节流
+    if(this.isSubmitClick) {
+      setTimeout(() => {
+        this.isSubmitClick = false;
+      }, 2000)
+      return;
+    } else {
+      this.isSubmitClick = true;
+    }
     this.selectComponent('#form').validate((valid, errors) => {
       if (!valid) {
         const firstError = Object.keys(errors)
