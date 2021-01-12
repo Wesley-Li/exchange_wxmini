@@ -29,7 +29,7 @@
     <image class="next" src="/images/icon/next.png"></image>
   </view>
 
-  <mp-dialog title="放款金额填写" show="{{dialogShow}}" buttons="{{[{text: ''}, {text: ''}]}}" ext-class="lending-dialog">
+  <mp-dialog title="放款金额填写" show="{{dialogShow}}" buttons="{{[{text: ''}, {text: ''}]}}" ext-class="lending-dialog" mask-closable="{{false}}">
     <!-- <form catchsubmit="onSubmit" catchreset="onClose">
       <input name="total" class="weui-input weui-input-lending" type="digit" placeholder="填写金额" bindinput="onInputChange"/>
       <span class="hint">请输入金额</span>
@@ -47,7 +47,7 @@
       </view>
     </mp-form>
   </mp-dialog>
-  <mp-dialog title="提示" show="{{closeDialogShow}}" buttons="{{buttons}}" bindbuttontap="onLendingClose">
+  <mp-dialog title="提示" show="{{closeDialogShow}}" buttons="{{buttons}}" bindbuttontap="onLendingClose" mask-closable="{{false}}">
     确定收回放款吗？
   </mp-dialog>
   <mp-toptips msg="{{error}}" type="error" show="{{error}}"></mp-toptips>

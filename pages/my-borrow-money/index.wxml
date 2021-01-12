@@ -29,7 +29,7 @@
     </view>
     <image class="next" src="/images/icon/next.png"></image>
   </view>
-  <mp-dialog title="借款信息填写" show="{{dialogShow}}" buttons="{{[{text: ''}, {text: ''}]}}" ext-class="borrowing-dialog">
+  <mp-dialog title="借款信息填写" show="{{dialogShow}}" buttons="{{[{text: ''}, {text: ''}]}}" ext-class="borrowing-dialog" mask-closable="{{false}}">
     <mp-form id="form" rules="{{rules}}" models="{{formData}}">
       <input class="weui-input weui-input-borrowing" data-field='total' placeholder="借款金额" bindinput="onInputChange" type="number" value="{{formData.total}}"/>
       <picker class="weui-picker-borrowing" mode="date" value="{{formData.date}}" start="{{startDate}}" bindchange="onDateChange">
@@ -43,7 +43,7 @@
       </view>
     </mp-form>
   </mp-dialog>
-  <mp-dialog title="提示" show="{{closeDialogShow}}" buttons="{{buttons}}" bindbuttontap="onBorrowingClose">
+  <mp-dialog title="提示" show="{{closeDialogShow}}" buttons="{{buttons}}" bindbuttontap="onBorrowingClose" mask-closable="{{false}}">
     确定还款吗？
   </mp-dialog>
   <mp-toptips msg="{{error}}" type="error" show="{{error}}"></mp-toptips>
