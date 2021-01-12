@@ -797,10 +797,36 @@ Page({
       }
     })
   },
-  // 商品详情弹出层点击
-  onPopupClick() {
+  // 商品详情弹出层显示
+  onDetailShow() {
     this.setData({
       popupShrink: !this.data.popupShrink,
+    }, () => {
+      let query = wx.createSelectorQuery();
+      query.select('.goods-popup-placeholder').boundingClientRect(rect => {
+        let clientHeight = rect.height;
+        let clientWidth = rect.width;
+        let ratio = 750 / clientWidth;
+        let height = clientHeight * ratio;
+        console.log(height);
+        this.setData({
+          popupHeight: height,
+          swiperHeight: this.data.swiperInitHeight - height,
+        })
+      }).exec();
     })
+  },
+  onReady: function() {
+    let query = wx.createSelectorQuery();
+    query.select('.swiper_box').boundingClientRect(rect => {
+      let clientHeight = rect.height;
+      let clientWidth = rect.width;
+      let ratio = 750 / clientWidth;
+      let height = clientHeight * ratio;
+      console.log(height);
+      this.setData({
+        swiperInitHeight: height,
+      })
+    }).exec();
   }
 })

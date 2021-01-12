@@ -17,7 +17,11 @@ page,view,image,input,textarea {
 .swiper_box {
   width: 100%;
   /* height:748rpx; */
-  height: calc(100vh - 130rpx);
+  height: calc(100vh - 100rpx);
+  transition: height 0.6s;
+  -moz-transition: height 0.6s; /* Firefox 4 */
+  -webkit-transition: height 0.6s; /* Safari 和 Chrome */
+  -o-transition: height 0.6s; /* Opera */
 }
 
 swiper-item image {
@@ -37,6 +41,10 @@ swiper-item image {
   border-radius: 10px 10px 0 0;
   box-shadow: 0px 6px 16px 0px rgba(0, 0, 0, 0.8);
   transition: height 1s;
+  z-index: 99;
+}
+.goods-popup-placeholder {
+  z-index: 0;
 }
 .goods-popup .popup-header {
   height: 50rpx;
@@ -190,6 +198,7 @@ swiper-item image {
   display: flex;
   box-shadow:0 0 1rpx 0 ;
   align-items: center;
+  z-index: 999;
 }
 .footer-box .contact {
   position: relative;

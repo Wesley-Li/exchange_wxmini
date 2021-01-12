@@ -1,7 +1,7 @@
 <import src="/template/login/index.wxml" />
 <view class="container">
   <view class="swiper-container">
-    <swiper class="swiper_box" indicator-dots="true" indicator-active-color="#fff" autoplay="{{!goodsDetail.video}}" circular>
+    <swiper class="swiper_box" indicator-dots="true" indicator-active-color="#fff" autoplay="{{!goodsDetail.video}}" circular style="height: {{popupShrink ? 'calc(100vh - 100rpx)' : swiperHeight + 'rpx'}}">
       <swiper-item wx:if="{{goodsDetail.video}}">
         <video src="{{goodsDetail.video}}" autoplay="true" loop="true" style='width:100%;height:100%;'></video>
       </swiper-item>
@@ -10,8 +10,9 @@
       </swiper-item>      
     </swiper>
   </view>
+  
   <view class="goods-popup {{popupShrink && 'popup-shrink' || 'popup-show'}}">
-    <view class="popup-header" bindtap="onPopupClick">{{popupShrink ? '︽' : '︾'}}</view>
+    <!-- <view class="popup-header" bindtap="onPopupClick">{{popupShrink ? '︽' : '︾'}}</view> -->
     <view class="popup-body">
       <view class="goods-info">
         <view class="goods-title">{{goodsDetail.name}}</view>
@@ -62,7 +63,44 @@
         </view>
       </view>
     </view>
-    
+  </view>
+
+  <view class="goods-popup goods-popup-placeholder" style="opacity: 0">
+    <view class="popup-body">
+      <view class="goods-info">
+        <view class="goods-title">{{goodsDetail.name}}</view>
+        <view class="goods-share" wx:if="{{goodsDetail.basicInfo.commissionType == 1}}">分享有赏，好友下单后可得 {{goodsDetail.basicInfo.commission}} 积分奖励</view>
+        <view class="goods-share" wx:if="{{goodsDetail.basicInfo.commissionType == 2}}">分享有赏，好友下单后可得 {{goodsDetail.basicInfo.commission}}元 现金奖励</view>
+        <view class="goods-profile">
+          <view class="p"><text>信用币:</text> {{selectSizePrice}}</view>
+          <view wx:if="{{goodsDetail.basicInfo.originalPrice && goodsDetail.basicInfo.originalPrice > 0}}" class="goods-price" style='color:#aaa;text-decoration:line-through;padding: 15rpx 0rpx 0rpx 15rpx;'><text>¥</text> {{selectSizeOPrice}}</view>
+        </view>
+        <view class="goods-info-fx">
+          <view class='item'>
+            <image src='/images/share/share1.png'></image>
+            <button open-type='share'></button>
+          </view>
+        </view>    
+      </view>
+      <view class="size-label-box2" wx:if="{{goodsDetailSkuShowType==1}}">
+        <view class="buy-num-box">
+          <view class="num-label">购买数量</view>
+          <view class="num-box">
+            <view class="num-jian {{buyNumber == buyNumMin ? 'hui': ''}}" bindtap="numJianTap">-</view>
+            <view class="num-input">
+              <input type="number" value="{{buyNumber}}" disabled/>
+            </view>
+            <view class="num-jia {{buyNumber== buyNumMax ? 'hui': ''}}" bindtap="numJiaTap">+</view>
+          </view>
+        </view>
+      </view>
+      <view class="goods-des-info" wx:if="{{goodsDetail.content}}">
+        <view class="label-title">商品介绍</view>
+        <view class="goods-text">
+          <parser html="{{goodsDetail.content}}" />
+        </view>
+      </view>
+    </view>
   </view>
 
   <view class="page__bd" wx:if="{{curGoodsKanjia}}" style='width:750rpx;'>
@@ -238,6 +276,7 @@
       <image src="/images/nav/cart-off.png"></image>
     </view>
     <!-- <image bindtap="addFav" class="fav-icon" src="/images/icon/fav{{faved?'1':'0'}}.svg"></image> -->
+    <image bindtap="contactSeller" class="fav-icon" src="/images/icon/detail.png" bindtap="onDetailShow"></image>
     <image bindtap="contactSeller" class="fav-icon" src="/images/icon/kf.svg"></image>
     <view wx:if="{{!goodsDetail.basicInfo.pingtuan}}" class="join-shop-cart" bindtap="{{goodsDetailSkuShowType==0?'toAddShopCar':'addShopCar'}}">加入购物车</view>
     <view wx:if="{{!goodsDetail.basicInfo.pingtuan}}" class="now-buy"  data-shopType="{{shopType}}" bindtap="{{goodsDetailSkuShowType==0?'tobuy':'buyNow'}}">立即购买</view>
