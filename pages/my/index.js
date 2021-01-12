@@ -39,6 +39,11 @@ Page({
         _this.getUserApiInfo();
         // _this.getUserAmount();
         _this.orderStatistics();
+
+        this.setData({
+          haslend: wx.getStorageSync('haslend'),
+          hasborrow: wx.getStorageSync('hasborrow'),
+        })
       }
     })
     // 获取购物车数据，显示TabBarBadge

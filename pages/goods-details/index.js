@@ -25,6 +25,8 @@ Page({
     propertyChildNames: "",
     canSubmit: false, //  选中规格尺寸时候是否允许加入购物车
     shopType: "addShopCar", //购物类型，加入购物车或立即购买，默认为加入购物车
+
+    popupShrink: true,
   },
   async onLoad(e) {
     // e.id = 235853
@@ -795,4 +797,10 @@ Page({
       }
     })
   },
+  // 商品详情弹出层点击
+  onPopupClick() {
+    this.setData({
+      popupShrink: !this.data.popupShrink,
+    })
+  }
 })

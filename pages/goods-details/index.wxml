@@ -10,25 +10,61 @@
       </swiper-item>      
     </swiper>
   </view>
-  <view class="goods-info">
-    <view class="goods-title">{{goodsDetail.name}}</view>
-    <view class="goods-share" wx:if="{{goodsDetail.basicInfo.commissionType == 1}}">分享有赏，好友下单后可得 {{goodsDetail.basicInfo.commission}} 积分奖励</view>
-    <view class="goods-share" wx:if="{{goodsDetail.basicInfo.commissionType == 2}}">分享有赏，好友下单后可得 {{goodsDetail.basicInfo.commission}}元 现金奖励</view>
-    <view class="goods-profile">
-      <view class="p"><text>信用币:</text> {{selectSizePrice}}</view>
-      <view wx:if="{{goodsDetail.basicInfo.originalPrice && goodsDetail.basicInfo.originalPrice > 0}}" class="goods-price" style='color:#aaa;text-decoration:line-through;padding: 15rpx 0rpx 0rpx 15rpx;'><text>¥</text> {{selectSizeOPrice}}</view>
-      <!-- <view class="r">{{goodsDetail.basicInfo.numberSells}}人已买</view> -->
-    </view>
-    <view class="goods-info-fx">
-      <view class='item'>
-        <image src='/images/share/share1.png'></image>
-        <button open-type='share'></button>
+  <view class="goods-popup {{popupShrink && 'popup-shrink' || 'popup-show'}}">
+    <view class="popup-header" bindtap="onPopupClick">{{popupShrink ? '︽' : '︾'}}</view>
+    <view class="popup-body">
+      <view class="goods-info">
+        <view class="goods-title">{{goodsDetail.name}}</view>
+        <view class="goods-share" wx:if="{{goodsDetail.basicInfo.commissionType == 1}}">分享有赏，好友下单后可得 {{goodsDetail.basicInfo.commission}} 积分奖励</view>
+        <view class="goods-share" wx:if="{{goodsDetail.basicInfo.commissionType == 2}}">分享有赏，好友下单后可得 {{goodsDetail.basicInfo.commission}}元 现金奖励</view>
+        <view class="goods-profile">
+          <view class="p"><text>信用币:</text> {{selectSizePrice}}</view>
+          <view wx:if="{{goodsDetail.basicInfo.originalPrice && goodsDetail.basicInfo.originalPrice > 0}}" class="goods-price" style='color:#aaa;text-decoration:line-through;padding: 15rpx 0rpx 0rpx 15rpx;'><text>¥</text> {{selectSizeOPrice}}</view>
+          <!-- <view class="r">{{goodsDetail.basicInfo.numberSells}}人已买</view> -->
+        </view>
+        <view class="goods-info-fx">
+          <view class='item'>
+            <image src='/images/share/share1.png'></image>
+            <button open-type='share'></button>
+          </view>
+          <!-- <view class='item' bindtap="drawSharePic">
+            <image src='/images/share/share2.png'></image>
+          </view> -->
+        </view>    
       </view>
-      <!-- <view class='item' bindtap="drawSharePic">
-        <image src='/images/share/share2.png'></image>
-      </view> -->
-    </view>    
+      <view class="size-label-box2" wx:if="{{goodsDetailSkuShowType==1}}">
+        <!-- <view class="label-title">选择商品规格</view>
+        <view class="size-label-box">
+          <block wx:for="{{goodsDetail.properties}}" wx:for-item="property" wx:for-index="idx" wx:key="id">
+            <view class="label">{{property.name}}</view>
+            <view class="label-item-box">
+              <view class="label-item {{item.active ? 'active' : '' }}" wx:for="{{property.childsCurGoods}}" wx:key="id" bindtap="labelItemTap" data-propertyindex="{{idx}}" data-propertychildindex="{{index}}">
+                {{item.name}}
+              </view>
+            </view>
+          </block>
+        </view> -->
+        <view class="buy-num-box">
+          <view class="num-label">购买数量</view>
+          <view class="num-box">
+            <view class="num-jian {{buyNumber == buyNumMin ? 'hui': ''}}" bindtap="numJianTap">-</view>
+            <view class="num-input">
+              <input type="number" value="{{buyNumber}}" disabled/>
+            </view>
+            <view class="num-jia {{buyNumber== buyNumMax ? 'hui': ''}}" bindtap="numJiaTap">+</view>
+          </view>
+        </view>
+      </view>
+      <view class="goods-des-info" wx:if="{{goodsDetail.content}}">
+        <view class="label-title">商品介绍</view>
+        <view class="goods-text">
+          <parser html="{{goodsDetail.content}}" />
+        </view>
+      </view>
+    </view>
+    
   </view>
+
   <view class="page__bd" wx:if="{{curGoodsKanjia}}" style='width:750rpx;'>
     <view class="weui-cells__title">商品砍价设置</view>
     <view class="weui-cells weui-cells_after-title">
@@ -150,29 +186,7 @@
     <view>{{selectSize}}</view>
     <image src="/images/icon/next.png"></image>
   </view>
-  <view class="size-label-box2" wx:if="{{goodsDetailSkuShowType==1}}">
-    <!-- <view class="label-title">选择商品规格</view>
-    <view class="size-label-box">
-      <block wx:for="{{goodsDetail.properties}}" wx:for-item="property" wx:for-index="idx" wx:key="id">
-        <view class="label">{{property.name}}</view>
-        <view class="label-item-box">
-          <view class="label-item {{item.active ? 'active' : '' }}" wx:for="{{property.childsCurGoods}}" wx:key="id" bindtap="labelItemTap" data-propertyindex="{{idx}}" data-propertychildindex="{{index}}">
-            {{item.name}}
-          </view>
-        </view>
-      </block>
-    </view> -->
-    <view class="buy-num-box">
-      <view class="num-label">购买数量</view>
-      <view class="num-box">
-        <view class="num-jian {{buyNumber == buyNumMin ? 'hui': ''}}" bindtap="numJianTap">-</view>
-        <view class="num-input">
-          <input type="number" value="{{buyNumber}}" disabled/>
-        </view>
-        <view class="num-jia {{buyNumber== buyNumMax ? 'hui': ''}}" bindtap="numJiaTap">+</view>
-      </view>
-    </view>
-  </view>
+  
   <view wx:if="{{shopSubdetail}}" class="shop-container">
     <image mode="aspectFill" src="{{shopSubdetail.info.pic}}"></image>
     <view class="info">
@@ -180,12 +194,7 @@
       <view class="address">{{shopSubdetail.info.address}}</view>
     </view>
   </view>
-  <view class="goods-des-info" wx:if="{{goodsDetail.content}}">
-    <view class="label-title">商品介绍</view>
-    <view class="goods-text">
-      <parser html="{{goodsDetail.content}}" />
-    </view>
-  </view>
+  
   <view class="goods-des-info" style="margin-top:35rpx;" wx:if="{{!curGoodsKanjia && reputation}}">
     <view class="label-title" style="border-bottom:1px solid #eee;">大家评价
       <text style="color:red">（{{reputation.length}}）</text>

@@ -16,15 +16,55 @@ page,view,image,input,textarea {
 }
 .swiper_box {
   width: 100%;
-  height:748rpx;
+  /* height:748rpx; */
+  height: calc(100vh - 130rpx);
 }
 
 swiper-item image {
   width: 100%;
   display: inline-block;
   overflow: hidden;
-  height:748rpx;
+  /* height:748rpx; */
+  height: 100%;
 }
+
+.goods-popup {
+  position: fixed;
+  left: 0;
+  bottom: 100rpx;
+  width: 100%;
+  background: #fff;
+  border-radius: 10px 10px 0 0;
+  box-shadow: 0px 6px 16px 0px rgba(0, 0, 0, 0.8);
+  transition: height 1s;
+}
+.goods-popup .popup-header {
+  height: 50rpx;
+  color: #333;
+  font-size: 28rpx;
+  text-align: center;
+  line-height: 50rpx;
+}
+.popup-body {
+  max-height: 50vh;
+  overflow-y: auto;
+  transition: max-height 0.6s;
+  -moz-transition: max-height 0.6s; /* Firefox 4 */
+  -webkit-transition: max-height 0.6s; /* Safari 和 Chrome */
+  -o-transition: max-height 0.6s; /* Opera */
+}
+.popup-shrink .popup-body {
+  max-height: 0;
+  transition: max-height 0.6s;
+  -moz-transition: max-height 0.6s; /* Firefox 4 */
+  -webkit-transition: max-height 0.6s; /* Safari 和 Chrome */
+  -o-transition: max-height 0.6s; /* Opera */
+}
+.popup-show .popup-body {
+  max-height: 50vh;
+  transition: max-height 0.6s;
+}
+
 .goods-info{
   background-color: #fff;
   padding: 35rpx 0;

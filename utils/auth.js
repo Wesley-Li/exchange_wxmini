@@ -79,6 +79,8 @@ async function login(page){
               console.log("wni登陆成功!");
               wx.setStorageSync('token', res.token);
               wx.setStorageSync('uid', res.uid);
+              wx.setStorageSync('haslend', res.haslend);
+              wx.setStorageSync('hasborrow', res.hasborrow);
               getApp().globalData.sessionid = res.token;
               getApp().globalData.nick_name = res.nick_name;
               getApp().globalData.avatar = res.avatar;
@@ -121,6 +123,8 @@ async function login_origin(page){
         }
         wx.setStorageSync('token', res.data.token)
         wx.setStorageSync('uid', res.data.uid)
+        wx.setStorageSync('haslend', res.data.haslend);
+        wx.setStorageSync('hasborrow', res.data.hasborrow);
         if ( page ) {
           page.onShow()
         }

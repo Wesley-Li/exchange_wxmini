@@ -3,7 +3,7 @@
 <view class="container">
 	<view wx:if="{{apiUserInfoMap}}" class="userinfo">
 		<image wx:if="{{apiUserInfoMap.avatar}}" class="userinfo-avatar" src="{{ apiUserInfoMap.avatar }}" background-size="cover"></image>
-		<text class="userinfo-nickname">{{ apiUserInfoMap.nickName }}</text>
+		<text class="userinfo-nickname" style="color: {{haslend && '#32CD32' || hasborrow && '#EE0000' || '#000'}}">{{ apiUserInfoMap.nickName }}</text>
 	</view>
   <view wx:else class="userinfo" style="margin-bottom:50rpx;">
 		<image class="userinfo-avatar" src="/images/nologin.png" background-size="cover"></image>
