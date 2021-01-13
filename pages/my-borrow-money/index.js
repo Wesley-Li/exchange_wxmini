@@ -99,6 +99,13 @@ Page({
         }
       } else {
         let { formData } = this.data;
+        if(new Date().valueOf() > new Date(formData.date).valueOf()) {
+          this.setData({
+            error: '最迟还款日期不能早于当前日期',
+          })
+          return;
+        }
+        
         let data = {
           total: formData.total,
           etime: `${formData.date} 23:59:59`,
@@ -125,11 +132,13 @@ Page({
     })
   },
   onInputChange(e) {
+    this.isSubmitClick = false;
     this.setData({
       [`formData.total`]: e.detail.value
     })
   },
   onDateChange(e) {
+    this.isSubmitClick = false;
     this.setData({
       [`formData.date`]: e.detail.value,
     })
