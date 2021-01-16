@@ -39,11 +39,6 @@ Page({
         _this.getUserApiInfo();
         // _this.getUserAmount();
         _this.orderStatistics();
-
-        this.setData({
-          haslend: wx.getStorageSync('haslend'),
-          hasborrow: wx.getStorageSync('hasborrow'),
-        })
       }
     })
     // 获取购物车数据，显示TabBarBadge
@@ -106,7 +101,11 @@ Page({
         if (that.data.order_hx_uids && that.data.order_hx_uids.indexOf(res.data.base.id) != -1) {
           _data.canHX = true // 具有扫码核销的权限
         }
-        that.setData(_data);
+        that.setData({
+          haslend: res.haslend,
+          hasborrow: res.hasborrow,
+          ..._data,
+        });
       }
     })
   },
