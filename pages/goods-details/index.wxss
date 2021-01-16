@@ -44,7 +44,7 @@ swiper-item image {
   z-index: 99;
 }
 .goods-popup-placeholder {
-  z-index: 0;
+  z-index: -100;
 }
 .goods-popup .popup-header {
   height: 50rpx;
