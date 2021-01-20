@@ -175,8 +175,8 @@ Page({
   },
   chooseVideo(e) {
     wx.chooseVideo({
-      sourceType: ['album','camera'],
-      maxDuration: 60,
+      sourceType: ['album'],
+      maxDuration: 120,
       camera: 'back',
       compressed: true,
       success: res => {
