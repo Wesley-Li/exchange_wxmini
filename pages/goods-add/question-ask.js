@@ -180,9 +180,9 @@ Page({
       camera: 'back',
       compressed: true,
       success: res => {
-        if(res.duration>60){
+        if(res.duration>120){
           wx.showToast({
-            title: "只能添加一分钟以内短视频!",
+            title: "只能添加两分钟以内短视频!",
             icon: "none"
           })
           return
