@@ -1,0 +1,111 @@
+/* pages/home-page/index.wxss */
+.container {
+  width: 100%;
+}
+
+.container .map-container {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 410rpx - 10rpx);
+  background: rgba(148, 149, 154, 1);
+  perspective: 1500px;
+  /* 设置景深，这个是3D效果最重要的属性，如果没有，就不会出现3D效果 */
+  transform-style: preserve-3d;
+  /* 让子元素保持 3D 效果 */
+}
+
+.out {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transform: translateZ(850rpx);
+  /* translateZ使用out元素延Z轴移动-800px，相应地可以看到变小效果，如果是正数，会变大 */
+}
+
+.ball {
+  width: 700rpx;
+  height: 650rpx;
+  position: absolute;
+  top: 80rpx;
+  left: 30rpx;
+  transform-style: preserve-3d;
+  animation: rotate 18s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
+.ball li {
+  position: absolute;
+  padding: 8rpx;
+  min-width: 80rpx;
+  height: 25rpx;
+  font-size: 26rpx;
+  color: rgba(252, 206, 9, 1);
+  background: rgba(148, 149, 154, 0.9);
+  border: 1rpx solid rgba(252, 206, 9, 1);
+  border-radius: 7rpx;
+  line-height: 25rpx;
+  text-align: center;
+}
+
+.ball .city24 {
+  transform: translateZ(-45.5px) rotateY(14.451326206513048rad) rotateX(0rad) !important;
+}
+
+.map-container .map {
+  width: 100%;
+  height: 100%;
+}
+
+.footer {
+  width: 100%;
+  height: 410rpx;
+  background: rgba(148, 149, 154, 1);
+}
+.footer .types-header {
+  padding: 25rpx 50rpx;
+  display: flex;
+  justify-content: space-between;
+  font-size: 24rpx;
+  color: #FCCE09;
+}
+.types-header .types-header-left, .types-header .types-header-right {
+  display: flex;
+  align-items: center;
+}
+.types-header .image {
+  margin: 0 2rpx;
+  width: 24rpx;
+  height: 24rpx;
+}
+.footer .types-container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.types-container .type-item {
+  padding: 15rpx 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column;
+  flex-wrap: wrap;
+  width: 25%;
+}
+.type-item .image {
+  width: 50rpx;
+  height: 50rpx;
+}
+.type-item .text {
+  padding: 23rpx 0;
+  font-size: 24rpx;
+}

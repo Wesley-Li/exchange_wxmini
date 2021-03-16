@@ -6,6 +6,7 @@
     "downloadFile": 120000
   },
   "pages": [
+    "pages/home-page/index",
     "pages/start/start",
     "pages/shop/select",
     "pages/index/index",
@@ -26,8 +27,6 @@
     "pages/order/refundApply",
     "pages/wuliu/index",
     "pages/my/index",
-    "pages/my-borrow-money/index",
-    "pages/my-make-loans/index",
     "pages/withdraw/index",
     "pages/score-excharge/index",
     "pages/score-excharge/growth",
@@ -52,7 +51,9 @@
     {
       "root": "subpackages",
       "pages": [
-        "message-detail/index"
+        "message-detail/index",
+        "my-borrow-money/index",
+        "my-make-loans/index"
       ]
     }],
   "window": {
@@ -69,7 +70,7 @@
     "backgroundColor": "#fff",
     "list": [
       {
-        "pagePath": "pages/index/index",
+        "pagePath": "pages/home-page/index",
         "iconPath": "images/nav/home-off.png",
         "selectedIconPath": "images/nav/home-on.png",
         "text": "首页"
