@@ -1223,6 +1223,12 @@ module.exports = {
     return request('/api/borrowing/close', true, 'post', {
       ...params
     })
+  },
+  // 获取学校
+  getSchool: function getSchool(params) {
+    return request('https://oss.momself.club/chinaschool.json', true, 'get', {
+      ...params
+    })
   }
 };
 

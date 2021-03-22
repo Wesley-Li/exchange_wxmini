@@ -37,19 +37,22 @@
         <image mode="aspectFill" class="pic" src="{{item.pic}}" data-id='{{item.id}}' bindtap="toDetailsTap">
           <!-- <image class='fresh-tag' src="/images/goods-description/fresh.png"></image> -->
         </image>
-        <view class="name ellipsis" data-id='{{item.id}}' bindtap="toDetailsTap">{{item.name}}</view>
-        <view class='soldInfo'>
-          <view class='good-price-box'>
-            <text class="price">¥{{item.credprice}}</text>
+        <view class="goods-info">
+          <view class="name ellipsis" data-id='{{item.id}}' bindtap="toDetailsTap">{{item.name}}</view>
+          <view class='soldInfo'>
+            <view class='good-price-box'>
+              <text class="price">{{item.credprice}}元</text>
+            </view>
+            <image data-id="{{item.id}}" bindtap="addShopCar" class="car" src="/images/shooping-cart.png"></image>
           </view>
         </view>
+        
         <!-- <view class='soldInfo'>
           <view class='good-sales-box'>
             <text class="number">已售 {{item.numberSells}}件</text>
             <text>评价 +{{item.gotScore}}积分</text>
           </view>
         </view> -->
-        <image data-id="{{item.id}}" bindtap="addShopCar" class="car" src="/images/icon/car.svg"></image>
       </view>
     </scroll-view>
   </view>
