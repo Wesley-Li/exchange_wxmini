@@ -15,22 +15,39 @@ page,view,image,input {
 .search {
   margin-top: 32rpx;
   position: relative;
-  width: 700rpx;
+  width: 520rpx;
   height: 66rpx;
 }
 .search input {
   border: 1rpx solid #e3e3e3;
-  width: 700rpx;
+  width: 520rpx;
   height: 66rpx;
   border-radius: 30rpx;
-  padding-left: 32rpx; 
+  padding-left: 80rpx;
+  font-size: 28rpx;
 }
 .search image {
   width: 35rpx;
   height: 35rpx;
   position: absolute;
   top: 16rpx;
-  right: 32rpx;
+  left: 28rpx;
+  z-index: 99;
+}
+.search .search-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100rpx;
+  height: 66rpx;
+  font-size: 26rpx;
+  color: #999;
+  background: #DDDDDD;
+  border: 1px solid #666;
+  border-radius: 30px;
+  text-align: center;
+  line-height: 64rpx;
+  box-sizing: border-box;
   z-index: 99;
 }
 
