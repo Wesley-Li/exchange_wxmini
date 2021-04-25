@@ -11,6 +11,34 @@ page,view,image,input {
   overflow-y: hidden;
 }
 
+.my-header {
+  background: #FCCE09;
+}
+.header-btns {
+  display: flex;
+  margin: 25rpx 60rpx 25rpx 32rpx;
+  justify-content: space-around;
+  align-items: center;
+}
+.btns-container {
+  display: flex;
+}
+.btns-container image {
+  padding: 0 21rpx;
+  width: 130rpx;
+  height: 48rpx;
+  box-sizing: content-box;
+}
+.btns-container image:first-child {
+  width: 150rpx;
+}
+.header-btns .set {
+  font-size: 30rpx;
+  font-family: Alibaba PuHuiTi;
+  font-weight: 400;
+  color: #fff;
+}
+
 .userinfo {
 	display: flex;
 	flex-direction: column;
@@ -18,15 +46,61 @@ page,view,image,input {
   width: 750rpx;
 }
 .userinfo-avatar {
-	width: 160rpx;
-	height: 160rpx;
-  border: 1rpx solid #eee;
+	width: 180rpx;
+	height: 180rpx;
   border-radius: 50%;
 }
 .userinfo-nickname {
   margin-top: 20rpx;
-  margin-bottom: 20rpx;
-  font-size: 14px;
+  margin-bottom: 24rpx;
+  font-size: 36rpx;
+  line-height: 36rpx;
+}
+.info-box .info-item {
+  margin: 0 12rpx;
+  padding: 11rpx 22rpx;
+  height: 40rpx;
+  font-size: 20rpx;
+  font-family: Alibaba PuHuiTi;
+  font-weight: 400;
+  color: #333;
+  background: #fff;
+  border-radius: 4rpx;
+}
+.my-header .header-data-box {
+  padding: 30rpx 0;
+  display: flex;
+  width: 100%;
+}
+.header-data-box .data-item {
+  flex: 1;
+  position: relative;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+.header-data-box .data-item:not(:last-child)::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 0;
+  display: inline-block;
+  width: 2rpx;
+  height: 30rpx;
+  background: #fff;
+  transform: translateY(-50%);
+}
+.data-item .data-item-name {
+  font-size: 24rpx;
+  font-family: Alibaba PuHuiTi;
+  font-weight: 400;
+  color: #333;
+}
+.data-item .data-item-value {
+  font-size: 30rpx;
+  font-family: Alibaba PuHuiTi;
+  font-weight: bold;
+  color: #333;
 }
 
 .asset {
@@ -55,6 +129,16 @@ page,view,image,input {
   padding: 32rpx;
 }
 
+.item-title {
+  padding: 28rpx 60rpx;
+  display: flex;
+  width: 100%;
+  font-size: 30rpx;
+  font-family: Alibaba PuHuiTi;
+  font-weight: 400;
+  color: #333;
+  box-sizing: border-box;
+}
 .order-shortcut {
   display: flex;
   padding-top: 20rpx;
@@ -64,7 +148,7 @@ page,view,image,input {
   position: relative;
   display: flex;
   flex-direction: column;
-  width: 150rpx;
+  width: 160rpx;
   text-align: center;
 }
 .order-shortcut .item .dot {
@@ -82,14 +166,14 @@ page,view,image,input {
   text-align: center;
 }
 .order-shortcut .item .icon {
-  width: 67rpx;
-  height: 67rpx;
+  width: 66rpx;
+  height: 66rpx;
   margin-left: 45rpx;
 }
 .order-shortcut .item .text {
-  margin-top: 8rpx;
+  margin-top: 19rpx;
   font-size: 24rpx;
-  color: #666;
+  color: #999;
 }
 .to-authorize{
   padding: 0rpx;
@@ -133,7 +217,7 @@ page,view,image,input {
 }
 .space {
   width: 100vw;
-  height: 16rpx;
+  height: 20rpx;
   background: #F4F5F9;
 }
 .line {

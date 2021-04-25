@@ -94,6 +94,8 @@ Page({
     WXAPI.userDetail(wx.getStorageSync('token')).then(function (res) {
       if (res.retcode == 0) {
         let _data = {score:res.data.score}
+        res.data.genderName = {0: '未知', 1: '男', 2: '女'}[res.data.gender];
+        wx.setStorageSync('user_info', {avatar: res.data.avatar, score: res.data.score});
         _data.apiUserInfoMap = res.data
         if (res.data.mobile) {
           _data.userMobile = res.data.mobile

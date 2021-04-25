@@ -1,0 +1,47 @@
+/* pages/my-borrow-money/index.wxss */
+
+.my-accountant-container {
+  width: 100%;
+  height: 100vh;
+  background: #F2f2f2;
+}
+
+.header {
+  position: relative;
+  margin: 100rpx auto 0;
+  width: 84%;
+  height: 250rpx;
+  background: #FCCE09;
+  border-radius: 10rpx;
+}
+.header .user-avatar {
+  position: absolute;
+  top: -60rpx;
+  left: 50%;
+  width: 180rpx;
+  height: 180rpx;
+  border: 1px solid #FCCE09;
+  border-radius: 50%;
+  transform: translate(-50%);
+}
+.header .coin-box {
+  position: absolute;
+  left: 50%;
+  bottom: 50rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30rpx;
+  font-family: Alibaba PuHuiTi;
+  font-weight: bold;
+  color: #333;
+  transform: translate(-50%);
+}
+.header .coin-box image {
+  width: 40rpx;
+  height: 40rpx;
+}
+.header .coin-box span {
+  padding: 0 10rpx 0 20rpx;
+  font-weight: 400;
+}

@@ -1,0 +1,11 @@
+<!-- 我的账房 -->
+<view class="my-accountant-container">
+  <view class="header">
+    <image class="user-avatar" src="{{ userInfo.avatar }}" />
+    <div class="coin-box">
+      <image src="/images/my/coin.png" />
+      <span>信用码</span>
+      {{ userInfo.score }}
+    </div>
+  </view>
+</view>

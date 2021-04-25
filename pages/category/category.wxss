@@ -15,22 +15,22 @@ page,view,image,input {
 .search {
   margin-top: 32rpx;
   position: relative;
-  width: 520rpx;
-  height: 66rpx;
+  width: 630rpx;
+  height: 60rpx;
 }
 .search input {
   border: 1rpx solid #e3e3e3;
-  width: 520rpx;
-  height: 66rpx;
-  border-radius: 30rpx;
+  width: 630rpx;
+  height: 60rpx;
+  border-radius: 4rpx;
   padding-left: 80rpx;
   font-size: 28rpx;
 }
 .search image {
-  width: 35rpx;
-  height: 35rpx;
+  width: 30rpx;
+  height: 30rpx;
   position: absolute;
-  top: 16rpx;
+  top: 14rpx;
   left: 28rpx;
   z-index: 99;
 }
@@ -38,15 +38,15 @@ page,view,image,input {
   position: absolute;
   top: 0;
   right: 0;
-  width: 100rpx;
-  height: 66rpx;
-  font-size: 26rpx;
+  width: 160rpx;
+  height: 60rpx;
+  font-size: 24rpx;
   color: #999;
-  background: #DDDDDD;
-  border: 1px solid #666;
-  border-radius: 30px;
+  background: #f3f3f3;
+  border: 1px solid #ddd;
+  border-radius: 4rpx;
   text-align: center;
-  line-height: 64rpx;
+  line-height: 58rpx;
   box-sizing: border-box;
   z-index: 99;
 }
@@ -65,7 +65,7 @@ page,view,image,input {
 
 .category-container .category {
   padding: 25rpx 0rpx;
-  background: #ddd;
+  background: #f3f3f3;
   text-align: center;
 }
 
