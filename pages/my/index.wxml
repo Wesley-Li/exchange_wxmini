@@ -51,7 +51,7 @@
     <view class='item' bindtap='goOrder' data-type="0">
       <view wx:if="{{count_id_no_pay !== 0}}" class='dot'>{{count_id_no_pay}}</view>
       <image class="icon" src="/images/my/wdgwc.png" background-size="cover"></image>
-      <view class='text'>我的购物车</view>
+      <view class='text'>购物车</view>
     </view>
     <view class='item' bindtap='goOrder' data-type="1">
       <view wx:if="{{count_id_no_transfer !== 0}}" class='dot'>{{count_id_no_transfer}}</view>
@@ -59,14 +59,24 @@
       <view class='text'>我发布的</view>
     </view>
     <view class='item' bindtap='goOrder' data-type="2">
-      <view wx:if="{{count_id_no_confirm !== 0}}" class='dot'>{{count_id_no_confirm}}</view>
+      <view wx:if="{{count_id_no_pay !== 0}}" class='dot'>{{count_id_no_pay}}</view>
       <image class="icon" src="/images/my/wmcd.png" background-size="cover"></image>
-      <view class='text'>我卖出的</view>
+      <view class='text'>待付款</view>
+    </view>
+    <view class='item' bindtap='goOrder' data-type="3">
+      <view wx:if="{{count_id_no_transfer !== 0}}" class='dot'>{{count_id_no_transfer}}</view>
+      <image class="icon" src="/images/my/wmdd.png" background-size="cover"></image>
+      <view class='text'>待发货</view>
+    </view>
+    <view class='item' bindtap='goOrder' data-type="3">
+      <view wx:if="{{count_id_no_confirm !== 0}}" class='dot'>{{count_id_no_confirm}}</view>
+      <image class="icon" src="/images/my/wmdd.png" background-size="cover"></image>
+      <view class='text'>待收货</view>
     </view>
     <view class='item' bindtap='goOrder' data-type="3">
       <view wx:if="{{count_id_needmetrans !== 0}}" class='dot'>{{count_id_needmetrans}}</view>
-      <image class="icon" src="/images/my/wmdd.png" background-size="cover"></image>
-      <view class='text'>我买到的</view>
+      <image class="icon" src="/images/my/wmcd.png" background-size="cover"></image>
+      <view class='text'>待我发货</view>
     </view>
     <!-- <view class='item' bindtap='goOrder' data-type="0">
       <view wx:if="{{count_id_no_pay !== 0}}" class='dot'>{{count_id_no_pay}}</view>

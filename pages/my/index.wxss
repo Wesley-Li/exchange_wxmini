@@ -148,8 +148,8 @@ page,view,image,input {
   position: relative;
   display: flex;
   flex-direction: column;
-  width: 160rpx;
-  text-align: center;
+  width: 120rpx;
+  align-items: center;
 }
 .order-shortcut .item .dot {
   position: absolute;
@@ -168,7 +168,7 @@ page,view,image,input {
 .order-shortcut .item .icon {
   width: 66rpx;
   height: 66rpx;
-  margin-left: 45rpx;
+  /* margin-left: 45rpx; */
 }
 .order-shortcut .item .text {
   margin-top: 19rpx;

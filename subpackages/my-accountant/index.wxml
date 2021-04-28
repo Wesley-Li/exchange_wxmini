@@ -8,4 +8,46 @@
       {{ userInfo.score }}
     </div>
   </view>
+  <view class="list">
+    <navigator url="/subpackages/my-borrow-money/index">
+      <view class="menu-item">
+        <view class="l">
+          <image src="/images/my/jiema.png"></image>借码
+        </view>
+        <image class="right" src="/images/arrow-right.png"></image>
+      </view>
+    </navigator>
+    <navigator url="/subpackages/my-make-loans/index">
+      <view class="menu-item">
+        <view class="l">
+          <image src="/images/my/fangma.png"></image>放码
+        </view>
+        <image class="right" src="/images/arrow-right.png"></image>
+      </view>
+    </navigator>
+    <!-- <navigator url="/subpackages/my-make-loans/index">
+      <view class="menu-item">
+        <view class="l">
+          <image src="/images/my/gouma.png"></image>购码
+        </view>
+        <image class="right" src="/images/arrow-right.png"></image>
+      </view>
+    </navigator>
+    <navigator url="/subpackages/my-make-loans/index">
+      <view class="menu-item">
+        <view class="l">
+          <image src="/images/my/lingma.png"></image>领码
+        </view>
+        <image class="right" src="/images/arrow-right.png"></image>
+      </view>
+    </navigator>
+    <navigator url="/subpackages/my-make-loans/index">
+      <view class="menu-item">
+        <view class="l">
+          <image src="/images/my/duima.png"></image>兑码
+        </view>
+        <image class="right" src="/images/arrow-right.png"></image>
+      </view>
+    </navigator> -->
+  </view>
 </view>
