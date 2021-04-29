@@ -17,7 +17,6 @@
     "pages/goods/fav",
     "pages/goods-details/index",
     "pages/goods-add/question-ask",
-    "pages/shop-cart/index",
     "pages/to-pay-order/index",
     "pages/select-address/index",
     "pages/address-add/index",
@@ -52,6 +51,8 @@
       "root": "subpackages",
       "pages": [
         "message-detail/index",
+        "shop-cart/index",
+        "my-accountant/index",
         "my-borrow-money/index",
         "my-make-loans/index"
       ]
@@ -82,7 +83,7 @@
         "text": "分类"
       },
       {
-        "pagePath": "pages/shop-cart/index",
+        "pagePath": "pages/index/index",
         "iconPath": "images/nav/cart-off.png",
         "selectedIconPath": "images/nav/cart-on.png",
         "text": "购物车"

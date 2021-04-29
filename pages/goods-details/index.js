@@ -191,7 +191,7 @@ Page({
   },
   goShopCar: function() {
     wx.reLaunch({
-      url: "/pages/shop-cart/index"
+      url: "/subpackages/shop-cart/index"
     });
   },
   toAddShopCar: function() {

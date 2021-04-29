@@ -8,20 +8,23 @@ Page({
 	data: {
     wxlogin: true,
 
-    balance:0.00,
-    freeze:0,
-    score:0,
-    growth:0,
-    score_sign_continuous:0,
+    balance: 0.00,
+    freeze: 0,
+    score: 0,
+    growth: 0,
+    score_sign_continuous: 0,
     rechargeOpen: false, // 是否开启充值[预存]功能
 
+    count_shop_cart: 0,
     // 用户订单统计数据
     count_id_no_confirm: 0,
     count_id_no_pay: 0,
     count_id_no_reputation: 0,
     count_id_no_transfer: 0,
-    count_id_needmetrans: 0
+    count_id_needmetrans: 0,
+    count_myproducts: 0,
   },
+  currentPage: 1,
 	onLoad() {
 	},
   onShow() {
@@ -39,10 +42,12 @@ Page({
         _this.getUserApiInfo();
         // _this.getUserAmount();
         _this.orderStatistics();
+        _this.getMyMoments();
+        _this.getShopCartData();
       }
     })
     // 获取购物车数据，显示TabBarBadge
-    TOOLS.showTabBarBadge();
+    // TOOLS.showTabBarBadge();
   },
   aboutUs : function () {
     wx.showModal({
@@ -135,7 +140,8 @@ Page({
           count_id_no_pay,
           count_id_no_reputation,
           count_id_no_transfer,
-          count_id_needmetrans
+          count_id_needmetrans,
+          count_myproducts
         } = res.data || {}
         this.setData({
           count_id_no_confirm: this.handleOrderCount(count_id_no_confirm),
@@ -143,9 +149,47 @@ Page({
           count_id_no_reputation: this.handleOrderCount(count_id_no_reputation),
           count_id_no_transfer: this.handleOrderCount(count_id_no_transfer),
           count_id_needmetrans: this.handleOrderCount(count_id_needmetrans),
+          count_myproducts: this.handleOrderCount(count_myproducts),
         })
       }
     })
+  },
+  // 获取购物车商品数量
+  getShopCartData: function() {
+    WXAPI.shippingCarInfo(wx.getStorageSync('token'))
+      .then(res => {
+        if(res.retcode == 0) {
+          this.setData({
+            count_shop_cart: res.data.number,
+          })
+        }
+      })
+  },
+  // 获取我的手记
+  getMyMoments: function() {
+    let t = this;
+    wx.showLoading({
+      title: '加载中',
+    });
+    WXAPI.getMyMoments({page: t.currentPage, pageSize: 5, type: 9})
+      .then(res => {
+        if(res.retcode == 0) {
+          let dataList = [], hasMore = true;
+          if(t.currentPage == 1) {
+            dataList = res.data;
+          } else {
+            dataList = t.data.dataList.concat(res.data);
+            if(!res.data.length) {
+              hasMore = false;
+            }
+          }
+          t.setData({
+            dataList,
+            hasMore,
+          })
+        }
+        wx.hideLoading();
+      })
   },
   goAsset: function () {
     wx.navigateTo({
@@ -206,5 +250,14 @@ Page({
       title: '已清除',
       icon: 'success'
     })
+  },
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+   onReachBottom: function () {
+    if(this.data.hasMore) {
+      this.currentPage += 1;
+      this.getMyMoments();
+    }
   },
 })

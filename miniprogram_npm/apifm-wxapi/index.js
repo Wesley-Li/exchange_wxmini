@@ -98,8 +98,8 @@ module.exports =
 // 小程序开发api接口工具包，https://github.com/gooking/wxapi
 // var API_BASE_URL = 'https://api.it120.cc';
 // const API_BASE_URL = 'http://192.168.1.246:8082';
-const API_BASE_URL = 'https://yiku.airiot.net';
-// const API_BASE_URL = 'http://yiku2.airiot.net';
+// const API_BASE_URL = 'https://yiku.airiot.net';
+const API_BASE_URL = 'http://yiku2.airiot.net';
 var subDomain = '';
 
 var request = function request(url, needSubDomain, method, data, isfile) {
@@ -1187,6 +1187,12 @@ module.exports = {
     return request('/wx/live/his', true, 'get', {
       roomId: roomId
     });
+  },
+  // 我的手记
+  getMyMoments: function getMyMoments(params) {
+    return request('/api/moment/getMoments/', false, 'get', {
+      ...params
+    })
   },
   // 我的放款列表
   myLendingList: function myLendingList(params) {

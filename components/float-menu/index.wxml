@@ -15,7 +15,7 @@
       <image src="/images/nav/ic_catefory_normal.png"></image>
     </view>
   </navigator>
-  <navigator url="/pages/shop-cart/index" open-type="switchTab">
+  <navigator url="/subpackages/shop-cart/index" open-type="switchTab">
     <view class="item">
       <image src="/images/nav/cart-off.png"></image>
     </view>
