@@ -1,36 +1,35 @@
 <!--pages/home-page/index.wxml-->
 <view class="container">
+  <view class="go-back-ball" bindtap="goBack" wx:if="{{citySchool}}">返回</view>
   <view class="map-container">
-    <!-- <ec-canvas id="mychart-dom-bar" canvas-id="mychart-bar" ec="{{ ec }}"></ec-canvas> -->
-    <!-- <map
-      class="map"
-      polygons="{{polygons}}"
-      latitude="{{location.latitude}}"
-      longitude="{{location.longitude}}"
-      scale="3"
-      bindtap="getMapData"
-    ></map> -->
-    <div class="out">
+    <div class="bg-box"></div>
+    <div class="out" wx:if="{{!citySchool}}">
       <!-- <div class="ball" style="transform: rotateY({{numm}}deg)"> -->
       <div class="ball">
-        <li wx:for="{{list}}" class="{{item.class}}" wx:key="key" style="{{item.style}}">{{item.cityName}}</li>
+        <li wx:for="{{list}}" class="{{item.class}}" wx:key="key" style="{{item.style}}" bindtap="onCityTap" data-type="{{item.cityName}}">{{item.cityName}}</li>
       </div>
+    </div>
+    
+    <div class="school-box" wx:if="{{citySchool}}">
+      <li wx:for="{{citySchool}}" class="school-item" wx:key="id" style="{{item.style}}" bindtap="onSchoolTap" data-type="{{item.id}}">
+        <p>{{item.name}}</p>
+      </li>
     </div>
   </view>
   <view class="footer">
-    <view class="types-header">
-      <view class="types-header-left">
+    <view class="category-header">
+      <view class="category-header-left" bindtap="onLocation">
         <image class="image" src="/images/homePage/location.png" />
         <span>定位同城</span>
       </view>
-      <view class="types-header-right">
+      <view class="category-header-right">
         <image class="image" src="/images/homePage/pptx.png" />
         <span>匹配同校</span>
       </view>
     </view>
-    <view class="types-container">
-      <view class="type-item" wx:for="{{types}}" wx:key="type" bindtap="toDetailsTap" data-type="{{item.type}}">
-        <image class="image" src="/images/homePage/{{item.type}}.png" alt="" />
+    <view class="category-container">
+      <view class="category-item" wx:for="{{categories}}" wx:key="id" bindtap="tabClick" data-type="{{item.type}}" id="{{item.id}}">
+        <image class="image" mode="aspectFill" src="{{item.icon}}" alt="" />
         <p class="text">{{item.name}}</p>
       </view>
     </view>

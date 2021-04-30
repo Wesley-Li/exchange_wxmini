@@ -1188,6 +1188,12 @@ module.exports = {
       roomId: roomId
     });
   },
+  // 获取朋友圈关注和粉丝数
+  getMomentStats: function getMomentStats(params) {
+    return request('/api/moment/stats', false, 'get', {
+      ...params
+    })
+  },
   // 我的手记
   getMyMoments: function getMyMoments(params) {
     return request('/api/moment/getMoments/', false, 'get', {
@@ -1232,7 +1238,7 @@ module.exports = {
   },
   // 获取学校
   getSchool: function getSchool(params) {
-    return request('https://oss.momself.club/chinaschool.json', true, 'get', {
+    return request('https://yiku-oss.alimom.cn//chinaschool.json', true, 'get', {
       ...params
     })
   }

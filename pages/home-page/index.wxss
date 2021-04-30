@@ -3,17 +3,39 @@
   width: 100%;
 }
 
+.container .go-back-ball {
+  position: fixed;
+  top: 35rpx;
+  left: 65rpx;
+  font-size: 30rpx;
+  color: #FCCE09;
+  z-index: 500;
+}
+
 .container .map-container {
   position: relative;
   width: 100%;
   height: calc(100vh - 410rpx - 10rpx);
   background: rgba(148, 149, 154, 1);
+  /* background: url('../../images/homePage/bg.png') no-repeat 100% 100%; */
   perspective: 1500px;
   /* 设置景深，这个是3D效果最重要的属性，如果没有，就不会出现3D效果 */
   transform-style: preserve-3d;
   /* 让子元素保持 3D 效果 */
+  overflow: auto;
 }
 
+.map-container .bg-box {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: url('https://yiku-oss.alimom.cn/yiku1.png');
+  background-size: 750rpx;
+}
+.map-container .bg-box .ball-bg {
+  width: 100%;
+  height: 100%;
+}
 .out {
   width: 100%;
   height: 100%;
@@ -60,39 +82,71 @@
   transform: translateZ(-45.5px) rotateY(14.451326206513048rad) rotateX(0rad) !important;
 }
 
+.map-container .school-box {
+  padding: 80rpx 0 50rpx;
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 350%;
+  /* height: 100%; */
+  /* background: url('https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1451072745,1416934682&fm=26&gp=0.jpg'); */
+  background: url('https://yiku-oss.alimom.cn/yiku1.png');
+  background-size: 100%;
+}
+
+.school-box .school-item {
+  float: left;
+  font-size: 24rpx;
+  color: #fff;
+  white-space: nowrap;
+}
+.school-box .school-item p::before {
+  content: '';
+  display: inline-block;
+  margin: 2rpx 10rpx;
+  width: 14rpx;
+  height: 14rpx;
+  background: #6CFA87;
+  border-radius: 50%;
+}
+
 .map-container .map {
   width: 100%;
   height: 100%;
 }
 
 .footer {
+  position: relative;
   width: 100%;
   height: 410rpx;
   background: rgba(148, 149, 154, 1);
+  z-index: 500;
 }
-.footer .types-header {
+.footer .category-header {
   padding: 25rpx 50rpx;
   display: flex;
   justify-content: space-between;
   font-size: 24rpx;
   color: #FCCE09;
 }
-.types-header .types-header-left, .types-header .types-header-right {
+.category-header .category-header-left, .category-header .category-header-right {
   display: flex;
   align-items: center;
 }
-.types-header .image {
+.category-header .image {
   margin: 0 2rpx;
   width: 24rpx;
   height: 24rpx;
 }
-.footer .types-container {
+.footer .category-container {
   display: flex;
   width: 100%;
+  height: 310rpx;
   justify-content: center;
   flex-wrap: wrap;
+  overflow: auto;
 }
-.types-container .type-item {
+.category-container .category-item {
   padding: 15rpx 0;
   display: flex;
   justify-content: center;
@@ -101,11 +155,11 @@
   flex-wrap: wrap;
   width: 25%;
 }
-.type-item .image {
+.category-item .image {
   width: 50rpx;
   height: 50rpx;
 }
-.type-item .text {
+.category-item .text {
   padding: 23rpx 0;
   font-size: 24rpx;
 }

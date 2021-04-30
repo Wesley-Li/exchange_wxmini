@@ -1,71 +1,25 @@
 // pages/home-page/index.js
 const WXAPI = require('apifm-wxapi');
+const QQMapWX = require('../../utils/qqmap-wx-jssdk.min.js');
 
+let qqmapsdk;
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    types: [{
-        name: '电子集市',
-        type: 'dzjs'
-      },
-      {
-        name: '家有萌宠',
-        type: 'jymc'
-      },
-      {
-        name: '大鞋小服',
-        type: 'dxxf'
-      },
-      {
-        name: '游戏酷玩',
-        type: 'yxkw'
-      },
-      {
-        name: '小脸扑扑',
-        type: 'xlpp'
-      },
-      {
-        name: '三岁小孩',
-        type: 'ssxh'
-      },
-      {
-        name: '个人创作',
-        type: 'grcz'
-      },
-      {
-        name: '校园美食',
-        type: 'xyms'
-      },
-    ],
     location: {
       latitude: 35.140415,
       longitude: 105.273511
     },
-    numm: 620
+    numm: 620,
+    categories: [],
+    chinaSchool: [],
+    citySchool: null,
   },
-
-  // getMapData: function () {
-  //   WXAPI.getMapData().then(res => {
-  //     let pointsData = [...res];
-  //     let polygons = [];
-  //     pointsData.map(item => {
-  //       polygons.push({
-  //         points: item.points,
-  //         strokeWidth: 1,
-  //         strokeColor: '#3875FF',
-  //         fillColor: '#30BC6B90',
-  //       });
-  //     })
-  //     this.setData({
-  //       polygons,
-  //     })
-  //   })
-  // },
-
-  getBall: function() {
+  // 创建球体
+  createBall: function() {
     let citys = ['青海', '宁夏', '新疆', '台湾', '香港', '澳门', '黑龙江','天津', '河北', '山西', '内蒙古', '辽宁', '吉林', '北京', '上海', '江苏', '浙江', '山东', '福建', '安徽', '江西', '河南', '湖北', '湖南', '广东', '广西', '海南', '重庆', '四川', '贵州', '云南', '西藏', '陕西', '甘肃'];
     let d_ball = new draw_ball(); //实例化对像draw_ball
     d_ball.angle(); // 执行对象的方法 angle()
@@ -187,26 +141,160 @@ Page({
       })
     }
   },
+  // 获取分类
+  async categories() {
+    wx.showLoading({
+      title: '加载中',
+    })
+    const res = await WXAPI.goodsCategory()
+    wx.hideLoading();
+    let categories = [];
+    if (res.retcode == 0) {
+      for (let i = 0; i < res.data.length; i++) {
+        let item = res.data[i];
+        categories.push(item);
+      }
+    }
+    this.setData({
+      categories: categories,
+    });
+  },
+  // 分类点击
+  tabClick: function(e) {
+    wx.setStorageSync("_categoryId", e.currentTarget.id)
+    // wx.switchTab({
+    wx.navigateTo({
+      url: '/subpackages/category/category',
+    })
+  },
+  // 获取学校列表
+  getSchool: function() {
+    WXAPI.getSchool({}).then(res => {
+      this.setData({
+        chinaSchool: res,
+      })
+    })
+  },
+  // 省份点击
+  onCityTap: function(e) {
+    let t = this;
+    let { chinaSchool } = t.data;
+    let citySchool = [];
+    chinaSchool[0].provs.map(item => {
+      if(e.target.dataset.type.indexOf(item.name) > -1) {
+        citySchool = item.univs;
+      }
+    })
+    citySchool.map(item => {
+      item.style = `padding: ${t.GetRandomNum(20, 45)}rpx ${t.GetRandomNum(45, 60)}rpx;`;
+    })
+    
+    t.setData({
+      citySchool,
+    })
+  },
+  GetRandomNum: function(Min,Max) {
+    let Range = Max - Min;
+    let Rand = Math.random();
+    return (Min + Math.round(Rand * Range));
+  },
+  // 定位同城
+  onLocation: function() {
+    let t = this;
+    let { chinaSchool } = t.data;
+    
+    wx.getLocation({
+      success: res => {
+        // 调用接口
+        qqmapsdk.reverseGeocoder({
+          location: {
+            latitude: res.latitude,
+            longitude: res.longitude,
+          },
+          success: function(res) {
+            let citySchool = [];
+            chinaSchool[0].provs.map(item => {
+              if(res.result.address_component.province.indexOf(item.name) > -1) {
+                citySchool = item.univs;
+              }
+            })
+            citySchool.map(item => {
+              item.style = `padding: ${t.GetRandomNum(20, 45)}rpx ${t.GetRandomNum(45, 60)}rpx;`;
+            })
+            
+            t.setData({
+              citySchool,
+            })
+          },
+          fail: function(res) {
+            console.log(res);
+          },
+          complete: function(res) {
+            console.log(res);
+
+          }
+        })
+        this.setData({
+          location: res,
+        })
+      },
+    });
+  },
+  // 获取地理位置
+  getLocation: function() {
+    wx.getLocation({
+      success: res=> {
+        // 调用接口
+        qqmapsdk.reverseGeocoder({
+          location: {
+            latitude: res.latitude,
+            longitude: res.longitude,
+          },
+          success: function (res) {
+            console.log(res, 1111111);
+          },
+          fail: function (res) {
+            console.log(res);
+          },
+          complete: function (res) {
+            console.log(res);
+          }
+        })
+        this.setData({
+          location: res,
+        })
+      },
+    });
+  },
+  goBack: function() {
+    this.setData({
+      citySchool: null,
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    // 实例化API核心类
+    qqmapsdk = new QQMapWX({
+      key: 'BT5BZ-PRWWX-VN24P-T7BM7-ROYTE-SRFBX'
+    });
+    this.categories();
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    // this.getMapData();
-    this.getBall();
+    this.createBall();
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.getSchool();
+    this.getLocation();
   },
 
   /**

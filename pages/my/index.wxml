@@ -19,10 +19,12 @@
     <view wx:if="{{apiUserInfoMap}}" class="userinfo">
       <image wx:if="{{apiUserInfoMap.avatar}}" class="userinfo-avatar" src="{{ apiUserInfoMap.avatar }}" background-size="cover"></image>
       <text class="userinfo-nickname" style="color: {{haslend && '#32CD32' || hasborrow && '#EE0000' || '#fff'}}">{{ apiUserInfoMap.nickName }}</text>
+      <text wx:if="{{apiUserInfoMap.shortDesc}}" class="userinfo-shortDesc">{{ apiUserInfoMap.shortDesc }}</text>
       <div class="info-box">
         <div class="info-item">{{ apiUserInfoMap.genderName }}</div>
         <div class="info-item">{{ apiUserInfoMap.city }}</div>
-        <div class="info-item"></div>
+        <div wx:if="{{apiUserInfoMap.collegeName}}" class="info-item">{{ apiUserInfoMap.collegeName }}</div>
+        <div wx:else class="info-item" bindtap="onJump" data-type="set">+添加学校标签</div>
       </div>
     </view>
     <view wx:else class="userinfo" style="margin-bottom:50rpx;">
@@ -36,11 +38,11 @@
       </div> -->
       <div class="data-item">
         <div class="data-item-name">关注</div>
-        <div class="data-item-value">-</div>
+        <div class="data-item-value">{{ momentStats.following }}</div>
       </div>
       <div class="data-item">
         <div class="data-item-name">粉丝</div>
-        <div class="data-item-value">-</div>
+        <div class="data-item-value">{{ momentStats.followers }}</div>
       </div>
     </div>
   </view>
@@ -51,7 +53,7 @@
     <navigator url="/subpackages/shop-cart/index">
       <view class='item'>
         <view wx:if="{{count_shop_cart !== 0}}" class='dot'>{{count_shop_cart}}</view>
-        <image class="icon" src="/images/my/wdgwc.png" background-size="cover"></image>
+        <image class="icon" src="/images/my/gwc.png" background-size="cover"></image>
         <view class='text'>购物车</view>
       </view>
     </navigator>
@@ -62,22 +64,22 @@
     </view>
     <view class='item' bindtap='goOrder' data-type="0">
       <view wx:if="{{count_id_no_pay !== 0}}" class='dot'>{{count_id_no_pay}}</view>
-      <image class="icon" src="/images/my/wmcd.png" background-size="cover"></image>
+      <image class="icon" src="/images/my/dfk.png" background-size="cover"></image>
       <view class='text'>待付款</view>
     </view>
     <view class='item' bindtap='goOrder' data-type="1">
       <view wx:if="{{count_id_no_transfer !== 0}}" class='dot'>{{count_id_no_transfer}}</view>
-      <image class="icon" src="/images/my/wmdd.png" background-size="cover"></image>
+      <image class="icon" src="/images/my/dfh.png" background-size="cover"></image>
       <view class='text'>待发货</view>
     </view>
     <view class='item' bindtap='goOrder' data-type="2">
       <view wx:if="{{count_id_no_confirm !== 0}}" class='dot'>{{count_id_no_confirm}}</view>
-      <image class="icon" src="/images/my/wmdd.png" background-size="cover"></image>
+      <image class="icon" src="/images/my/dsh.png" background-size="cover"></image>
       <view class='text'>待收货</view>
     </view>
     <view class='item' bindtap='goOrder' data-type="3">
       <view wx:if="{{count_id_needmetrans !== 0}}" class='dot'>{{count_id_needmetrans}}</view>
-      <image class="icon" src="/images/my/wmcd.png" background-size="cover"></image>
+      <image class="icon" src="/images/my/dwfh.png" background-size="cover"></image>
       <view class='text'>待我发货</view>
     </view>
     <!-- <view class='item' bindtap='goOrder' data-type="3">

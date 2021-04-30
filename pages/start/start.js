@@ -21,7 +21,7 @@ Page({
         });
       } else {
         wx.switchTab({
-          url: '/pages/index/index',
+          url: '/pages/home-page/index',
         });
       }
     } else {
@@ -36,7 +36,7 @@ Page({
             });
           } else {
             wx.switchTab({
-              url: '/pages/index/index',
+              url: '/pages/home-page/index',
             });
           }
         } else {
@@ -52,7 +52,7 @@ Page({
           });
         } else {
           wx.switchTab({
-            url: '/pages/index/index',
+            url: '/pages/home-page/index',
           });
         }
       })
@@ -79,7 +79,7 @@ Page({
         });
       } else {
         wx.switchTab({
-          url: '/pages/index/index',
+          url: '/pages/home-page/index',
         });
       }
     } else {

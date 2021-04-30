@@ -12,7 +12,6 @@
     "pages/index/index",
     "pages/notice/index",
     "pages/notice/show",
-    "pages/category/category",
     "pages/goods/list",
     "pages/goods/fav",
     "pages/goods-details/index",
@@ -51,6 +50,7 @@
       "root": "subpackages",
       "pages": [
         "message-detail/index",
+        "category/category",
         "shop-cart/index",
         "my-accountant/index",
         "my-borrow-money/index",
@@ -89,7 +89,7 @@
         "text": "购物车"
       },
       {
-        "pagePath": "pages/category/category",
+        "pagePath": "pages/index/index",
         "iconPath": "images/nav/fair.png",
         "selectedIconPath": "images/nav/fair-on.png",
         "text": "市集"

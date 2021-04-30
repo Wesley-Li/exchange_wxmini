@@ -10,7 +10,7 @@
       <image src="/images/nav/home-off.png"></image>
     </view>
   </navigator>
-  <navigator url="/pages/category/category" open-type="switchTab">
+  <navigator url="/subpackages/category/category" open-type="switchTab">
     <view class="item">
       <image src="/images/nav/ic_catefory_normal.png"></image>
     </view>

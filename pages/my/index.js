@@ -15,6 +15,7 @@ Page({
     score_sign_continuous: 0,
     rechargeOpen: false, // 是否开启充值[预存]功能
 
+    momentStats: {},
     count_shop_cart: 0,
     // 用户订单统计数据
     count_id_no_confirm: 0,
@@ -41,6 +42,7 @@ Page({
       if (isLogined) {
         _this.getUserApiInfo();
         // _this.getUserAmount();
+        _this.getMomentStats();
         _this.orderStatistics();
         _this.getMyMoments();
         _this.getShopCartData();
@@ -129,9 +131,23 @@ Page({
   //     }
   //   })
   // },
+  // 获取朋友圈关注和粉丝数
+  getMomentStats: function() {
+    WXAPI.getMomentStats({})
+      .then(res => {
+        if(res.retcode == 0) {
+          res.followers = res.followers == null ? '-' : res.followers;
+          res.following = res.following == null ? '-' : res.following;
+          this.setData({
+            momentStats: res,
+          })
+        }
+      })
+  },
   handleOrderCount: function (count) {
     return count > 99 ? '99+' : count;
   },
+  // 获取市集统计
   orderStatistics: function () {
     WXAPI.orderStatistics(wx.getStorageSync('token')).then(res => {
       if (res.retcode == 0) {

@@ -52,9 +52,16 @@ page,view,image,input {
 }
 .userinfo-nickname {
   margin-top: 20rpx;
-  margin-bottom: 24rpx;
+  margin-bottom: 20rpx;
   font-size: 36rpx;
   line-height: 36rpx;
+}
+.userinfo-shortDesc {
+  margin-bottom: 5rpx;
+  font-size: 24rpx;
+  font-family: Alibaba PuHuiTi;
+  font-weight: 400;
+  color: #fff;
 }
 .info-box .info-item {
   margin: 0 12rpx;

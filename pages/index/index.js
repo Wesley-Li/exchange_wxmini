@@ -35,7 +35,7 @@ Page({
   tabClick: function(e) {
     wx.setStorageSync("_categoryId", e.currentTarget.id)
     wx.switchTab({
-      url: '/pages/category/category',
+      url: '/subpackages/category/category',
     })
     // wx.navigateTo({
     //   url: '/pages/goods/list?categoryId=' + e.currentTarget.id,

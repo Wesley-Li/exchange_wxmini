@@ -144,7 +144,7 @@ Page({
         this.setData({
           wxlogin: isLogined
         })
-        TOOLS.showTabBarBadge() // 获取购物车数据，显示TabBarBadge
+        // TOOLS.showTabBarBadge() // 获取购物车数据，显示TabBarBadge
       }
     })
     const _categoryId = wx.getStorageSync('_categoryId')
@@ -157,6 +157,7 @@ Page({
     }
   },
   async addShopCar(e) {
+    console.log(e, 1414141)
     const curGood = this.data.currentGoods.find(ele => {
       return ele.id == e.currentTarget.dataset.id
     })
@@ -221,8 +222,8 @@ Page({
     this.setData({
       skuCurGoods: null
     })
-    wx.showTabBar()
-    TOOLS.showTabBarBadge() // 获取购物车数据，显示TabBarBadge
+    // wx.showTabBar()
+    // TOOLS.showTabBarBadge() // 获取购物车数据，显示TabBarBadge
   },
   storesJia(){
     const skuCurGoods = this.data.skuCurGoods
