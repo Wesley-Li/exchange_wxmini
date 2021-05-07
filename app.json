@@ -80,19 +80,19 @@
         "pagePath": "pages/index/index",
         "iconPath": "images/nav/task.png",
         "selectedIconPath": "images/nav/task-on.png",
-        "text": "分类"
+        "text": "手记"
       },
       {
-        "pagePath": "pages/index/index",
-        "iconPath": "images/nav/cart-off.png",
-        "selectedIconPath": "images/nav/cart-on.png",
-        "text": "购物车"
+        "pagePath": "pages/goods-add/question-ask",
+        "iconPath": "images/nav/add.png",
+        "selectedIconPath": "images/nav/add-on.png",
+        "text": "发布瞬间"
       },
       {
         "pagePath": "pages/index/index",
         "iconPath": "images/nav/fair.png",
         "selectedIconPath": "images/nav/fair-on.png",
-        "text": "市集"
+        "text": "消息"
       },
       {
         "pagePath": "pages/my/index",

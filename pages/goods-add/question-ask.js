@@ -10,6 +10,7 @@ const wxUploadFile = promisify(wx.uploadFile)
 Page({
 
   data: {
+    selectedType: 1,
     categories:[],
     titleCount: 0,
     contentCount: 0,
@@ -62,6 +63,12 @@ Page({
       },()=>{this.getGoodsDetail(options.id)})
     }
 
+  },
+  // 发布类型选择
+  onTypeSelect(e) {
+    this.setData({
+      selectedType: e.target.dataset.type,
+    })
   },
   async categories() {
     wx.showLoading({

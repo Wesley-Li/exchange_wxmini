@@ -1,11 +1,23 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qiniu-js/3.1.1/qiniu.min.js"></script>
 <view class="question-form">
+  <!-- 提交表单按钮  -->
+  <view class="btns-box">
+    <button class="weui-btn" type="primary" bindtap="submitForm">发布</button>
+  </view>
+  <view class="select-issue-type">
+    <text>选择发布内容类别<text class="color">（必须2选1）</text></text>
+    <view class="type-btns">
+      <view class="btn {{selectedType == 1 && 'btn-selected'}}" bindtap="onTypeSelect" data-type="1">手记</view>
+      <view class="btn {{selectedType == 2 && 'btn-selected'}}" bindtap="onTypeSelect" data-type="2">市集</view>
+    </view>
+  </view>
 
   <view class="question-input-area">
 
     <!-- 问题标题  -->
-    <view class="question-title-wrap">
-      <input class="question-title" placeholder="请输入标题" maxlength="40" value="{{title}}" placeholder-style="color:#b3b3b3;font-size:18px;" bindinput="handleTitleInput"></input>
+    <view class="question-title-wrap" wx:if="{{selectedType == 2}}">
+      <view class="title-label">标题</view>
+      <input class="question-title" placeholder="写标题，吸引更多的人哦" maxlength="40" value="{{title}}" placeholder-style="color: #b3b3b3; font-size: 24rpx;" bindinput="handleTitleInput"></input>
       <view class="title-input-counter">{{titleCount}}/40</view>
     </view>
 
@@ -22,12 +34,86 @@
           </view>
         </view>
       </view>
-    </view>
 
+      <view class="question-images-area">
+        <!-- 添加图片按钮  -->
+        <view class="weui-cell">
+          <view class="weui-cell__hd">
+            <view class="weui-label">缩略图</view>
+          </view>
+          <view class="weui-cell__hd">
+            <view class="question-images-tool">
+              <button type="default" size="mini" bindtap="chooseGallery" wx:if="{{!gallery}}">添加缩略图</button>
+            </view>
+          </view>
+        </view>
+
+        <!-- 图片缩略图  -->
+        <view class="gallery-image" wx:if="{{gallery}}">
+            <view class="q-gallery-wrap">
+              <image class="q-gallery" src="{{gallery}}" mode="aspectFit" bindtap="handleGalleryPreview"></image>
+              <view class="q-image-remover" bindtap="removeGallery">删除缩略图</view>
+            </view>
+        </view>
+      </view>
+
+      <view class="question-images-area">
+
+        <!-- 添加图片按钮  -->
+        <view class="weui-cell">
+          <view class="weui-cell__hd">
+            <view class="weui-label">短视频</view>
+          </view>
+          <view class="weui-cell__hd">
+            <view class="question-images-tool">
+              <button type="default" size="mini" bindtap="chooseVideo" wx:if="{{videos.length < 1}}">添加短视频(2分钟内)</button>
+            </view>
+          </view>
+        </view>
+
+        <view class="question-images">
+          <block wx:for="{{videos}}" wx:key="*this">
+            <view style="width: 100%;">
+              <video class="q-video" src="{{item}}" mode="aspectFill" data-idx="{{index}}"></video>
+              <view class="q-image-remover" data-idx="{{index}}" bindtap="removeVideo">删除视频</view>
+            </view>
+          </block>
+        </view>
+      </view>
+
+      <view class="question-images-area">
+
+        <!-- 添加图片按钮  -->
+        <view class="weui-cell">
+          <view class="weui-cell__hd">
+            <view class="weui-label">滚动图</view>
+          </view>
+          <view class="weui-cell__hd">
+            <view class="question-images-tool">
+              <button type="default" size="mini" bindtap="chooseImage" wx:if="{{images.length < 3}}">添加滚动图</button>
+            </view>
+          </view>
+        </view>
+
+        <!-- 图片 -->
+        <view class="question-images">
+          <block wx:for="{{images}}" wx:key="*this">
+            <view class="q-image-wrap">
+              <image class="q-image" src="{{item}}" mode="aspectFit" data-idx="{{index}}" bindtap="handleImagePreview"></image>
+              <view class="q-image-remover" data-idx="{{index}}" bindtap="removeImage">删除</view>
+            </view>
+          </block>
+        </view>
+      </view>
+    </view>
   </view>
-  <view class="weui-cell">
+  
+  <view class="weui-cell" wx:if="{{selectedType == 2}}">
     <view class="weui-cell__hd">
-      <view class="weui-label">物品分类</view>
+      <view class="weui-label">
+        <image class="label-img" src="/images/classify.png" />
+        分类
+      </view>
     </view>
     <view class="weui-cell__bd">
       <picker bindchange="bindPickerChange" value="{{index}}" range-key="name" range="{{categories}}">
@@ -37,88 +123,19 @@
     </picker>
     </view>
   </view>
-  <view class="weui-cell">
-    <view class="weui-cell__hd">
-      <view class="weui-label">信用币</view>
-    </view>
-    <view class="weui-cell__bd">
-      <input name="credprice" maxlength="10" class="weui-input" type="digit" placeholder="填写信用币金额" value="{{credprice}}" bindinput="handleCredprice"/>
-    </view>
-  </view>
-  <view class="tip-small">(人民币和蚁库信用币比例为1:10, 请根据原价和旧损情况自行评估)</view>
-  <view class="question-images-area">
-
-    <!-- 添加图片按钮  -->
+  <view class="cell-container" wx:if="{{selectedType == 2}}">
     <view class="weui-cell">
       <view class="weui-cell__hd">
-        <view class="weui-label">缩略图</view>
-      </view>
-      <view class="weui-cell__hd">
-        <view class="question-images-tool">
-          <button type="default" size="mini" bindtap="chooseGallery" wx:if="{{!gallery}}">添加缩略图</button>
+        <view class="weui-label">
+          <image class="label-img" src="/images/coin.png" />
+          信用币
         </view>
       </view>
-    </view>
-
-    <!-- 图片缩略图  -->
-    <view class="gallery-image" wx:if="{{gallery}}">
-        <view class="q-gallery-wrap">
-          <image class="q-gallery" src="{{gallery}}" mode="aspectFit" bindtap="handleGalleryPreview"></image>
-          <view class="q-image-remover" bindtap="removeGallery">删除缩略图</view>
-        </view>
-    </view>
-
-  </view>
-
-  <view class="question-images-area">
-
-    <!-- 添加图片按钮  -->
-    <view class="weui-cell">
-      <view class="weui-cell__hd">
-        <view class="weui-label">短视频</view>
-      </view>
-      <view class="weui-cell__hd">
-        <view class="question-images-tool">
-          <button type="default" size="mini" bindtap="chooseVideo" wx:if="{{videos.length < 1}}">添加短视频(2分钟内)</button>
-        </view>
+      <view class="weui-cell__bd">
+        <input name="credprice" maxlength="10" class="weui-input" type="digit" placeholder="填写信用币金额" value="{{credprice}}" bindinput="handleCredprice"/>
       </view>
     </view>
-
-    <view class="question-images">
-      <block wx:for="{{videos}}" wx:key="*this">
-        <view style="width: 100%;">
-          <video class="q-video" src="{{item}}" mode="aspectFill" data-idx="{{index}}"></video>
-          <view class="q-image-remover" data-idx="{{index}}" bindtap="removeVideo">删除视频</view>
-        </view>
-      </block>
-    </view>
-
-  </view>
-
-  <view class="question-images-area">
-
-    <!-- 添加图片按钮  -->
-    <view class="weui-cell">
-      <view class="weui-cell__hd">
-        <view class="weui-label">滚动图</view>
-      </view>
-      <view class="weui-cell__hd">
-        <view class="question-images-tool">
-          <button type="default" size="mini" bindtap="chooseImage" wx:if="{{images.length < 3}}">添加滚动图</button>
-        </view>
-      </view>
-    </view>
-
-    <!-- 图片 -->
-    <view class="question-images">
-      <block wx:for="{{images}}" wx:key="*this">
-        <view class="q-image-wrap">
-          <image class="q-image" src="{{item}}" mode="aspectFit" data-idx="{{index}}" bindtap="handleImagePreview"></image>
-          <view class="q-image-remover" data-idx="{{index}}" bindtap="removeImage">删除</view>
-        </view>
-      </block>
-    </view>
-
+    <view class="tip-small">(人民币和蚁库信用币比例为1:10, 请根据原价和旧损情况自行评估)</view>
   </view>
   
   <view class="toolbar" catchtouchend="format" style="bottom: {{isIOS ? keyboardHeight : 50}}px" hidden="{{!showToolbar}}">
@@ -132,8 +149,4 @@
     <i class="iconfont icon-youxupailie {{formats.list === 'ordered' ? 'ql-active' : ''}}" data-name="list" data-value="ordered"></i>
     <i class="iconfont icon-wuxupailie {{formats.list === 'bullet' ? 'ql-active' : ''}}" data-name="list" data-value="bullet"></i>
   </view>
-
-  <!-- 提交表单按钮  -->
-  <button class="weui-btn" type="primary" bindtap="submitForm">提交</button>
-
 </view>
