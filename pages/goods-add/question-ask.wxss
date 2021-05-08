@@ -9,8 +9,14 @@ page {
 }
 
 .question-form .btns-box {
-  margin: 40rpx 30rpx 20rpx;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 40rpx 30rpx 20rpx;
+  width: calc(100% - 60rpx);
+  background: #F3F3F3;
   overflow: hidden;
+  z-index: 999;
 }
 .btns-box .weui-btn {
   float: right;
@@ -27,7 +33,7 @@ page {
   line-height: 60rpx;
 }
 .select-issue-type {
-  margin-bottom: 30rpx;
+  margin: 120rpx 0 30rpx;
   padding: 30rpx;
   width: 100%;
   height: 180rpx;
@@ -105,6 +111,14 @@ page {
 .weui-cells_after-title {
   margin: 0;
   border-radius: 16rpx;
+}
+.weui-cells_after-title .set-moments {
+  display: flex;
+  justify-content: space-around;
+}
+.set-location image {
+  width: 24rpx;
+  height: 24rpx;
 }
 
 .weui-cell::before, .weui-cells::before, .weui-cell::after, .weui-cells::after {

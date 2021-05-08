@@ -259,27 +259,33 @@ Page({
     })
   },
 
+  onPostMoments() {
+    
+  },
+  // 发布
   async submitForm(e) {
     const that = this;
-    const title = this.data.title
-    const content = this.data.content
+    const { selectedType, title, content, credprice, gallery, videos, images } = this.data;
+
     let token = wx.getStorageSync('token');
-    //此处要加判断必选项
-    if(!title || !this.data.credprice || !this.data.gallery){
-      wx.showToast({
-        title: "标题，信用币和缩略图必须填写!",
-        icon: 'none',
-        duration: 3000
-      })
-      return
-    }
-    if(this.data.videos.length==0 && this.data.images.length==0){
-      wx.showToast({
-        title: "视频和滚动图至少需设置一项!",
-        icon: 'none',
-        duration: 3000
-      })
-      return
+    // 此处要加判断必选项
+    if(selectedType == 2) {
+      if(!title || !credprice || !gallery) {
+        wx.showToast({
+          title: "标题，信用币和缩略图必须填写!",
+          icon: 'none',
+          duration: 3000
+        })
+        return
+      }
+      if(videos.length == 0 && images.length == 0) {
+        wx.showToast({
+          title: "视频和滚动图至少需设置一项!",
+          icon: 'none',
+          duration: 3000
+        })
+        return
+      }
     }
 
       // 将选择的图片组成一个Promise数组，准备进行并行上传
@@ -308,7 +314,7 @@ Page({
         mask: true
       })
       //wni: 传缩略图
-      if(this.data.gallery.indexOf("//tmp")>-1){ //说明是本地选的文件
+      if(gallery.indexOf("//tmp") > -1){ //说明是本地选的文件
         
         let res = await WXAPI.uploadFile(wx.getStorageSync('token'), this.data.gallery)
         console.log("upgallery res is " + res)
@@ -389,8 +395,20 @@ Page({
           duration: 2000
         })
       }).then(async urls => {
+        if(selectedType == 1) {
+          let { videourl, netpics } = this.data;
+          WXAPI.onPostMoments({content, opentype: 0, video: videourl, pics: JSON.stringify(urls.concat(netpics))})
+            .then(res => {
+              console.log(res, 12121212);
+              if(res.retcode == 0) {
+
+              }
+            })
+          return;
+        }
+
         const res = await WXAPI.addProduct(title, parseInt(this.data.categories[this.data.index].id), this.data.gallery, parseInt(this.data.credprice), 
-                                this.data.content, 1, JSON.stringify(urls.concat(netpics)), this.data.videourl, this.data.pid)
+                                content, 1, JSON.stringify(urls.concat(netpics)), this.data.videourl, this.data.pid)
         if(res.retcode==0){
           let msg = this.data.pid ? "更改成功!": "创建成功！感谢对蚁库的支持，新增商品获得信用币"+res.data+"奖励!"
           if(this.data.pid){

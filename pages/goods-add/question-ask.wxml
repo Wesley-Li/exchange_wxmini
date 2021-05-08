@@ -105,9 +105,30 @@
           </block>
         </view>
       </view>
+
+      <view class="set-moments">
+        <view class="set-location">
+          <image src="/images/location.png" />
+          你在哪里
+        </view>
+        <view class="weui-cell set-visible">
+          <view class="weui-cell__hd">
+            <view class="weui-label">
+              谁可以看
+            </view>
+          </view>
+          <view class="weui-cell__bd">
+            <picker bindchange="bindPickerChange" value="{{index}}" range-key="name" range="{{categories}}">
+            <view class="picker">
+              {{categories[index].name}}
+            </view>
+          </picker>
+          </view>
+        </view>
+      </view>
     </view>
   </view>
-  
+
   <view class="weui-cell" wx:if="{{selectedType == 2}}">
     <view class="weui-cell__hd">
       <view class="weui-label">

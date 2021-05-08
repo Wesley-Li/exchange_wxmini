@@ -1188,6 +1188,12 @@ module.exports = {
       roomId: roomId
     });
   },
+  // 发布手记
+  onPostMoments: function onPostMoments(params) {
+    return request('/api/moment/add/', false, 'post', {
+      ...params
+    })
+  },
   // 获取朋友圈关注和粉丝数
   getMomentStats: function getMomentStats(params) {
     return request('/api/moment/stats', false, 'get', {
