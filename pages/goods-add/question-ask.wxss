@@ -116,7 +116,22 @@ page {
   display: flex;
   justify-content: space-around;
 }
+.set-location {
+  display: flex;
+  padding: 0 6rpx;
+  min-width: 140rpx;
+  height: 50rpx;
+  font-size: 20rpx;
+  font-family: Alibaba PuHuiTi;
+  font-weight: 400;
+  color: #999;
+  background: #F3F3F3;
+  border-radius: 25rpx;
+  justify-content: center;
+  align-items: center;
+}
 .set-location image {
+  margin-right: 3rpx;
   width: 24rpx;
   height: 24rpx;
 }
