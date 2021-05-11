@@ -118,9 +118,10 @@
             </view>
           </view>
           <view class="weui-cell__bd">
-            <picker bindchange="bindPickerChange" value="{{index}}" range-key="name" range="{{categories}}">
+            <picker bindchange="bindPickerChange" value="{{visibleValue}}" range-key="name" range="{{visibleList}}" data-param="visibleValue">
             <view class="picker">
-              {{categories[index].name}}
+              {{visibleList[index].name}}
+              <span>></span>
             </view>
           </picker>
           </view>
@@ -137,7 +138,7 @@
       </view>
     </view>
     <view class="weui-cell__bd">
-      <picker bindchange="bindPickerChange" value="{{index}}" range-key="name" range="{{categories}}">
+      <picker bindchange="bindPickerChange" value="{{index}}" range-key="name" range="{{categories}}" data-param="index">
       <view class="picker">
         {{categories[index].name}}
       </view>

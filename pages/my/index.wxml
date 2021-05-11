@@ -245,6 +245,13 @@
 
   <view class="space"></view>
   <div class="item-title">我的手记</div>
+  <view class="moments-list" wx:for="{{momentsList}}" wx:key="id">
+    <view class="moments-header">
+      <text class="create-time">{{item.createtime}}</text>
+      <text class="opentype">{{item.opentypeName}}</text>
+    </view>
+    <parser html="{{item.content}}" />
+  </view>
 
   <view class="space"></view>
   <view class="version">蚁库 v {{version}}</view>

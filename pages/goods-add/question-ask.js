@@ -11,6 +11,12 @@ Page({
 
   data: {
     selectedType: 1,
+    visibleList: [
+      {name: '全部可见'},
+      {name: '仅好友可见'},
+      {name: '仅本校可见'},
+    ],
+    visibleValue: 0,
     categories:[],
     titleCount: 0,
     contentCount: 0,
@@ -115,7 +121,7 @@ Page({
   bindPickerChange: function (e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
-      index: e.detail.value
+      [e.currentTarget.dataset.param]: e.detail.value
     })
   },
   handleTitleInput(e) {
@@ -396,12 +402,16 @@ Page({
         })
       }).then(async urls => {
         if(selectedType == 1) {
-          let { videourl, netpics } = this.data;
-          WXAPI.onPostMoments({content, opentype: 0, video: videourl, pics: JSON.stringify(urls.concat(netpics))})
+          let { videourl, netpics, visibleValue } = this.data;
+          WXAPI.onPostMoments({content, opentype: visibleValue, video: videourl, pics: JSON.stringify(urls.concat(netpics))})
             .then(res => {
               console.log(res, 12121212);
               if(res.retcode == 0) {
-
+                wx.showToast({
+                  title: '发布成功!',
+                  icon: 'none',
+                  duration: 2000
+                })
               }
             })
           return;

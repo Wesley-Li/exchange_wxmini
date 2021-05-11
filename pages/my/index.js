@@ -24,6 +24,9 @@ Page({
     count_id_no_transfer: 0,
     count_id_needmetrans: 0,
     count_myproducts: 0,
+
+    momentsList: [], // 手记列表
+    hasMore: true,
   },
   currentPage: 1,
 	onLoad() {
@@ -190,17 +193,21 @@ Page({
     WXAPI.getMyMoments({page: t.currentPage, pageSize: 5, type: 9})
       .then(res => {
         if(res.retcode == 0) {
-          let dataList = [], hasMore = true;
+          let momentsList = [], hasMore = true;
+          res.data.map(item => {
+            let opentypeObj = {0: '全部可见', 1: '仅好友可见', 2: '仅本校可见'};
+            opentypeName = opentypeObj[item.opentype];
+          })
           if(t.currentPage == 1) {
-            dataList = res.data;
+            momentsList = res.data;
           } else {
-            dataList = t.data.dataList.concat(res.data);
+            momentsList = t.data.momentsList.concat(res.data);
             if(!res.data.length) {
               hasMore = false;
             }
           }
           t.setData({
-            dataList,
+            momentsList,
             hasMore,
           })
         }
