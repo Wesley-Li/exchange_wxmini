@@ -20,7 +20,10 @@
     <view class="pics-container">
       <image wx:if="{{pic}}" wx:for="{{item.pics}}" wx:key="idx" wx:for-item="pic" src="{{pic}}"/>
     </view>
-    <view class="location" wx:if="{{item.city_name}}">{{item.city_name}}</view>
+    <view class="location" wx:if="{{item.city_name}}">
+      <image src="/images/location1.png" />
+      {{item.city_name}}
+    </view>
     <view class="footer-btns">
       <view class="btns-item">
         <image src="/images/icon-like.png" />

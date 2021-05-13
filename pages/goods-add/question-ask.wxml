@@ -35,77 +35,6 @@
         </view>
       </view>
 
-      <view class="question-images-area">
-        <!-- 添加图片按钮  -->
-        <view class="weui-cell">
-          <view class="weui-cell__hd">
-            <view class="weui-label">缩略图</view>
-          </view>
-          <view class="weui-cell__hd">
-            <view class="question-images-tool">
-              <button type="default" size="mini" bindtap="chooseGallery" wx:if="{{!gallery}}">添加缩略图</button>
-            </view>
-          </view>
-        </view>
-
-        <!-- 图片缩略图  -->
-        <view class="gallery-image" wx:if="{{gallery}}">
-            <view class="q-gallery-wrap">
-              <image class="q-gallery" src="{{gallery}}" mode="aspectFit" bindtap="handleGalleryPreview"></image>
-              <view class="q-image-remover" bindtap="removeGallery">删除缩略图</view>
-            </view>
-        </view>
-      </view>
-
-      <view class="question-images-area">
-
-        <!-- 添加图片按钮  -->
-        <view class="weui-cell">
-          <view class="weui-cell__hd">
-            <view class="weui-label">短视频</view>
-          </view>
-          <view class="weui-cell__hd">
-            <view class="question-images-tool">
-              <button type="default" size="mini" bindtap="chooseVideo" wx:if="{{videos.length < 1}}">添加短视频(2分钟内)</button>
-            </view>
-          </view>
-        </view>
-
-        <view class="question-images">
-          <block wx:for="{{videos}}" wx:key="*this">
-            <view style="width: 100%;">
-              <video class="q-video" src="{{item}}" mode="aspectFill" data-idx="{{index}}"></video>
-              <view class="q-image-remover" data-idx="{{index}}" bindtap="removeVideo">删除视频</view>
-            </view>
-          </block>
-        </view>
-      </view>
-
-      <view class="question-images-area">
-
-        <!-- 添加图片按钮  -->
-        <view class="weui-cell">
-          <view class="weui-cell__hd">
-            <view class="weui-label">滚动图</view>
-          </view>
-          <view class="weui-cell__hd">
-            <view class="question-images-tool">
-              <button type="default" size="mini" bindtap="chooseImage" wx:if="{{images.length < 3}}">添加滚动图</button>
-            </view>
-          </view>
-        </view>
-
-        <!-- 图片 -->
-        <view class="question-images">
-          <block wx:for="{{images}}" wx:key="*this">
-            <view class="q-image-wrap">
-              <image class="q-image" src="{{item}}" mode="aspectFit" data-idx="{{index}}" bindtap="handleImagePreview"></image>
-              <view class="q-image-remover" data-idx="{{index}}" bindtap="removeImage">删除</view>
-            </view>
-          </block>
-        </view>
-      </view>
-
       <view class="set-moments">
         <view class="set-location">
           <image src="/images/location.png" />
@@ -127,6 +56,64 @@
           </view>
         </view>
       </view>
+    </view>
+  </view>
+
+  <view class="question-images-area" wx:if="{{selectedType == 2}}">
+    <!-- 添加图片按钮  -->
+    <view class="label">
+      缩略图
+      <text>选择一张您最喜欢的图，作为您商品的首图</text>
+    </view>
+    <view class="img-container">
+      <!-- 图片缩略图  -->
+      <view class="gallery-image" wx:if="{{gallery}}">
+        <image class="q-gallery" src="{{gallery}}" mode="aspectFit" bindtap="handleGalleryPreview"></image>
+        <view class="q-image-remover" bindtap="removeGallery">删除</view>
+      </view>
+      <button type="default" size="mini" bindtap="chooseGallery" wx:if="{{!gallery}}">+</button>
+    </view>
+  </view>
+
+  <view class="question-images-area">
+    <!-- 添加图片按钮  -->
+    <view class="label">
+      短视频
+      <text>添加短视频(2分钟内)</text>
+    </view>
+    <view class="img-container">
+      <view class="video-box" wx:if="{{videos.length}}">
+        <block wx:for="{{videos}}" wx:key="*this">
+          <video class="q-video" src="{{item}}" mode="aspectFill" data-idx="{{index}}"></video>
+          <view class="q-image-remover" data-idx="{{index}}" bindtap="removeVideo">删除视频</view>
+        </block>
+      </view>
+      <button type="default" size="mini" bindtap="chooseVideo" wx:if="{{videos.length < 1}}">+</button>
+    </view>
+  </view>
+
+  <view class="question-images-area">
+
+    <!-- 添加图片按钮  -->
+    <view class="weui-cell">
+      <view class="weui-cell__hd">
+        <view class="weui-label">滚动图</view>
+      </view>
+      <view class="weui-cell__hd">
+        <view class="question-images-tool">
+          <button type="default" size="mini" bindtap="chooseImage" wx:if="{{images.length < 3}}">添加滚动图</button>
+        </view>
+      </view>
+    </view>
+
+    <!-- 图片 -->
+    <view class="question-images">
+      <block wx:for="{{images}}" wx:key="*this">
+        <view class="q-image-wrap">
+          <image class="q-image" src="{{item}}" mode="aspectFit" data-idx="{{index}}" bindtap="handleImagePreview"></image>
+          <view class="q-image-remover" data-idx="{{index}}" bindtap="removeImage">删除</view>
+        </view>
+      </block>
     </view>
   </view>
 

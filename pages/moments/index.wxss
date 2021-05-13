@@ -97,8 +97,23 @@ page, view, image, input {
 .pics-container image:nth-child(3n + 3) {
   margin-right: 0;
 }
+.moments-list .location {
+  display: flex;
+  padding: 15rpx 0;
+  align-items: center;
+  font-size: 24rpx;
+  font-family: Alibaba PuHuiTi;
+  font-weight: 400;
+  color: #FCCE09;
+}
+.location image {
+  margin-right: 5rpx;
+  width: 22rpx;
+  height: 22rpx;
+}
 .footer-btns {
   display: flex;
+  padding-top: 10rpx;
   font-size: 22rpx;
   font-family: Alibaba PuHuiTi;
   font-weight: 400;
