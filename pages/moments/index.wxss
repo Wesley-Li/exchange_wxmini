@@ -1,0 +1,118 @@
+/* pages/moments/index.wxss */
+page, view, image, input {
+  display: block;
+  box-sizing: border-box;
+}
+
+.container {
+  display: block;
+  min-height: 100vh;
+  overflow: hidden;
+  overflow-y: hidden;
+}
+
+.header-tabs {
+  padding: 15rpx 0;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+.header-tabs .tabs-item {
+  padding: 0 30rpx;
+  font-size: 24rpx;
+  font-family: Alibaba PuHuiTi;
+  font-weight: 400;
+  color: #333;
+}
+.header-tabs .tabs-item-selected {
+  position: relative;
+  font-size: 36rpx;
+  font-weight: bold;
+}
+.header-tabs .tabs-item-selected::before {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 60rpx;
+  height: 4rpx;
+  background: #FCCE09;
+  transform: translate(-50%);
+}
+
+.moments-list {
+  margin: 60rpx 30rpx 0;
+  padding-bottom: 30rpx;
+  border-bottom: 1rpx solid #f3f3f3;
+}
+.moments-list .moments-header-data {
+  margin-bottom: 30rpx;
+  overflow: hidden;
+}
+.moments-header-data image {
+  float: left;
+  margin-right: 20rpx;
+  width: 80rpx;
+  height: 80rpx;
+  background: #E5E5E5;
+  border-radius: 50%;
+}
+.moments-header-data .right {
+  float: left;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+  min-height: 80rpx;
+  font-family: Alibaba PuHuiTi;
+  font-weight: 400;
+}
+.right .school-name {
+  font-size: 24rpx;
+  color: #FCCE09;
+}
+.right .nick-name {
+  font-size: 30rpx;
+  color: #333;
+  line-height: 38rpx;
+}
+.right .create-time {
+  font-size: 24rpx;
+  color: #ddd;
+}
+.moments-list video {
+  margin: 10rpx 0;
+  width: 100%;
+}
+.moments-list .pics-container {
+  width: 100%;
+}
+.pics-container image {
+  display: inline-block;
+  margin: 10rpx 10rpx 0 0;
+  width: calc(100% / 3);
+  height: 200rpx;
+}
+.pics-container image:nth-child(3n + 3) {
+  margin-right: 0;
+}
+.footer-btns {
+  display: flex;
+  font-size: 22rpx;
+  font-family: Alibaba PuHuiTi;
+  font-weight: 400;
+  color: #999;
+  justify-content: flex-end;
+}
+.footer-btns .btns-item {
+  padding: 0 30rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.footer-btns image {
+  margin-right: 7rpx;
+  width: 40rpx;
+  height: 40rpx;
+}

@@ -247,15 +247,19 @@
   <div class="item-title">我的手记</div>
   <view class="moments-list" wx:for="{{momentsList}}" wx:key="id">
     <view class="moments-header">
-      <text class="create-time">{{item.createtime}}</text>
+      <text class="create-time">{{item.createtimeStr}}</text>
       <text class="opentype">{{item.opentypeName}}</text>
     </view>
     <parser html="{{item.content}}" />
+    <video wx:if="{{item.video}}" src="{{item.video}}" />
+    <view class="pics-container">
+      <image wx:if="{{pic}}" wx:for="{{item.pics}}" wx:key="idx" wx:for-item="pic" src="{{pic}}"/>
+    </view>
   </view>
 
   <view class="space"></view>
-  <view class="version">蚁库 v {{version}}</view>
-  <view class="space"></view>
+  <!-- <view class="version">蚁库 v {{version}}</view>
+  <view class="space"></view> -->
 </view>
 
 <template is="apifmLogin" data="{{wxlogin: wxlogin}}" />

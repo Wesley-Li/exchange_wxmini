@@ -6,6 +6,7 @@
     "downloadFile": 120000
   },
   "pages": [
+    "pages/moments/index",
     "pages/start/start",
     "pages/shop/select",
     "pages/home-page/index",
@@ -77,7 +78,7 @@
         "text": "首页"
       },
       {
-        "pagePath": "pages/index/index",
+        "pagePath": "pages/moments/index",
         "iconPath": "images/nav/task.png",
         "selectedIconPath": "images/nav/task-on.png",
         "text": "手记"

@@ -3,6 +3,7 @@ const CONFIG = require('../../config.js')
 const WXAPI = require('apifm-wxapi')
 const AUTH = require('../../utils/auth')
 const TOOLS = require('../../utils/tools.js')
+const { formatTime } = require('../../utils/common.util');
 
 Page({
 	data: {
@@ -190,13 +191,15 @@ Page({
     wx.showLoading({
       title: '加载中',
     });
-    WXAPI.getMyMoments({page: t.currentPage, pageSize: 5, type: 9})
+    WXAPI.getMoments({page: t.currentPage, pageSize: 5, type: 9})
       .then(res => {
         if(res.retcode == 0) {
           let momentsList = [], hasMore = true;
           res.data.map(item => {
             let opentypeObj = {0: '全部可见', 1: '仅好友可见', 2: '仅本校可见'};
-            opentypeName = opentypeObj[item.opentype];
+            item.opentypeName = opentypeObj[item.opentype];
+            let date = new Date(item.createtime);
+            item.createtimeStr = formatTime(date);
           })
           if(t.currentPage == 1) {
             momentsList = res.data;

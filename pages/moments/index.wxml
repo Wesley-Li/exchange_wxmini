@@ -1,0 +1,35 @@
+<!--pages/moments/index.wxml-->
+<view class="container">
+  <view class="header-tabs">
+    <view class="tabs-item {{tabKey == 1 && 'tabs-item-selected'}}" bindtap="onTabsClick" data-type="1">关注</view>
+    <view class="tabs-item {{tabKey == 2 && 'tabs-item-selected'}}" bindtap="onTabsClick" data-type="2">推荐</view>
+    <view class="tabs-item {{tabKey == 0 && 'tabs-item-selected'}}" bindtap="onTabsClick" data-type="0">最新</view>
+  </view>
+
+  <view class="moments-list" wx:for="{{momentsList}}" wx:key="id">
+    <view class="moments-header-data">
+      <image src="{{item.avatar}}" />
+      <view class="right">
+        <text class="school-name">{{item.college_name ? '来自' + item.college_name : ''}}</text>
+        <text class="nick-name">{{item.nick_name}}</text>
+        <text class="create-time">{{item.createtimeStr}}</text>
+      </view>
+    </view>
+    <parser html="{{item.content}}" />
+    <video wx:if="{{item.video}}" src="{{item.video}}" />
+    <view class="pics-container">
+      <image wx:if="{{pic}}" wx:for="{{item.pics}}" wx:key="idx" wx:for-item="pic" src="{{pic}}"/>
+    </view>
+    <view class="location" wx:if="{{item.city_name}}">{{item.city_name}}</view>
+    <view class="footer-btns">
+      <view class="btns-item">
+        <image src="/images/icon-like.png" />
+        {{item.thumbs}}
+      </view>
+      <view class="btns-item">
+        <image src="/images/icon-message.png" />
+        {{item.comments}}
+      </view>
+    </view>
+  </view>
+</view>

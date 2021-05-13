@@ -1200,8 +1200,8 @@ module.exports = {
       ...params
     })
   },
-  // 我的手记
-  getMyMoments: function getMyMoments(params) {
+  // 手记数据
+  getMoments: function getMoments(params) {
     return request('/api/moment/getMoments/', false, 'get', {
       ...params
     })
