@@ -25,20 +25,21 @@
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell">
         <view class="weui-cell__bd">
-          <!-- <textarea class="weui-textarea" placeholder="请输入问题的正文内容。" maxlength="500" placeholder-style="color:#b3b3b3;font-size:14px;" style="height: 12rem" bindinput="handleContentInput" />
-          <view class="weui-textarea-counter">{{contentCount}}/500</view> -->
-          <view class="container" style="height:{{editorHeight}}px;">
+          <view class="label">描述</view>
+          <textarea class="weui-textarea" placeholder="说说您的感受，转手原因等……" cursor-spacing="20" maxlength="500" placeholder-style="color: #999; font-size: 24rpx;" style="height: 6rem" bindinput="handleContentInput" disable-default-padding="{{true}}" />
+          <view class="weui-textarea-counter">{{contentCount}}/500</view>
+          <!-- <view class="container" style="height:{{editorHeight}}px;">
             <editor id="editor" class="ql-container" placeholder="{{placeholder}}" showImgSize showImgToolbar showImgResize 
             bindstatuschange="onStatusChange" bindready="onEditorReady" bindfocus="onFocus" bindblur="onNoFocus" bindinput="onContentChange">
             </editor>
-          </view>
+          </view> -->
         </view>
       </view>
 
-      <view class="set-moments">
-        <view class="set-location">
+      <view class="set-moments" wx:if="{{selectedType == 1}}">
+        <view class="set-location" bindtap="onLocation">
           <image src="/images/location.png" />
-          你在哪里
+          {{cityname || "你在哪里"}}
         </view>
         <view class="weui-cell set-visible">
           <view class="weui-cell__hd">
@@ -93,27 +94,18 @@
   </view>
 
   <view class="question-images-area">
-
-    <!-- 添加图片按钮  -->
-    <view class="weui-cell">
-      <view class="weui-cell__hd">
-        <view class="weui-label">滚动图</view>
-      </view>
-      <view class="weui-cell__hd">
-        <view class="question-images-tool">
-          <button type="default" size="mini" bindtap="chooseImage" wx:if="{{images.length < 3}}">添加滚动图</button>
-        </view>
-      </view>
+    <view class="label">
+      {{selectedType == 1 ? '图片' : '滚动图'}}
+      <text>最多可添加{{selectedType == 1 ? 9 : 3}}张</text>
     </view>
-
-    <!-- 图片 -->
-    <view class="question-images">
-      <block wx:for="{{images}}" wx:key="*this">
-        <view class="q-image-wrap">
+    <view class="img-container">
+      <block wx:for="{{images}}" wx:key="*this" wx:if="{{images.length}}">
+        <view class="gallery-image">
           <image class="q-image" src="{{item}}" mode="aspectFit" data-idx="{{index}}" bindtap="handleImagePreview"></image>
           <view class="q-image-remover" data-idx="{{index}}" bindtap="removeImage">删除</view>
         </view>
       </block>
+      <button type="default" size="mini" bindtap="chooseImage" data-nums="{{selectedType == 1 ? 9 : 3}}" wx:if="{{images.length < (selectedType == 1 ? 9 : 3)}}">+</button>
     </view>
   </view>
 

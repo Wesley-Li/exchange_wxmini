@@ -4,9 +4,11 @@ const WXAPI = require('apifm-wxapi')
 const COMMON = require('../../utils/common');
 // const qiuniu = require('../../utils/qiniu.min.js');
 const qiniuUploader = require("../../utils/qiniuUploader");
+const QQMapWX = require('../../utils/qqmap-wx-jssdk.min.js');
 
 const wxUploadFile = promisify(wx.uploadFile)
 
+let qqmapsdk;
 Page({
 
   data: {
@@ -69,12 +71,52 @@ Page({
       },()=>{this.getGoodsDetail(options.id)})
     }
 
+    // 实例化API核心类
+    qqmapsdk = new QQMapWX({
+      key: 'BT5BZ-PRWWX-VN24P-T7BM7-ROYTE-SRFBX'
+    });
   },
   // 发布类型选择
   onTypeSelect(e) {
     this.setData({
       selectedType: e.target.dataset.type,
     })
+  },
+  onLocation: function() {
+    let t = this;
+    
+    wx.getLocation({
+      success: res => {
+        // 调用接口
+        qqmapsdk.reverseGeocoder({
+          location: {
+            latitude: res.latitude,
+            longitude: res.longitude,
+          },
+          success: function(res) {
+            let cityid;
+            if(res.result.ad_info) {
+              let { city_code, city, nation_code } = res.result.ad_info;
+              cityid = city_code.replace(nation_code, '') * 1;
+
+              t.setData({
+                cityname: city,
+                cityid,
+              })
+            }
+          },
+          fail: function(res) {
+            console.log(res);
+          },
+          complete: function(res) {
+            console.log(res);
+          }
+        })
+        this.setData({
+          location: res,
+        })
+      },
+    });
   },
   async categories() {
     wx.showLoading({
@@ -153,12 +195,12 @@ Page({
 
   chooseImage(e) {
     wx.chooseImage({
-      count: 3,
+      count: e.currentTarget.dataset.nums,
       sizeType: ['original', 'compressed'],
       sourceType: ['album', 'camera'],
       success: res => {
         const images = this.data.images.concat(res.tempFilePaths)
-        this.data.images = images.length <= 3 ? images : images.slice(0, 3)
+        this.data.images = images.length <= e.currentTarget.dataset.nums ? images : images.slice(0, e.currentTarget.dataset.nums)
         $digest(this)
       }
     })
@@ -275,6 +317,14 @@ Page({
 
     let token = wx.getStorageSync('token');
     // 此处要加判断必选项
+    if(selectedType == 1 && !content && videos.length == 0 && images.length == 0) {
+      wx.showToast({
+        title: "描述、视频、图片至少需设置一项!",
+        icon: 'none',
+        duration: 3000
+      })
+      return
+    }
     if(selectedType == 2) {
       if(!title || !credprice || !gallery) {
         wx.showToast({
@@ -401,9 +451,14 @@ Page({
           duration: 2000
         })
       }).then(async urls => {
+
+        // 发布手记
         if(selectedType == 1) {
-          let { videourl, netpics, visibleValue } = this.data;
-          WXAPI.onPostMoments({content, opentype: visibleValue, video: videourl, pics: JSON.stringify(urls.concat(netpics))})
+          let { videourl, netpics, visibleValue, cityname, cityid } = this.data;
+          let data = {content, opentype: visibleValue, video: videourl, pics: JSON.stringify(urls.concat(netpics))};
+          cityname && (data.cityname = cityname);
+          cityid && (data.cityid = cityid);
+          WXAPI.onPostMoments(data)
             .then(res => {
               console.log(res, 12121212);
               if(res.retcode == 0) {

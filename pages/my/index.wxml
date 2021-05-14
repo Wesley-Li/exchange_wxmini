@@ -57,11 +57,13 @@
         <view class='text'>购物车</view>
       </view>
     </navigator>
-    <view class='item' bindtap='goOrder' data-type="-1">
-      <view wx:if="{{count_myproducts !== 0}}" class='dot'>{{count_myproducts}}</view>
-      <image class="icon" src="/images/my/wfbd.png" background-size="cover"></image>
-      <view class='text'>我发布的</view>
-    </view>
+    <navigator url="/pages/goods/list?onlymy=true">
+      <view class='item'>
+        <view wx:if="{{count_myproducts !== 0}}" class='dot'>{{count_myproducts}}</view>
+        <image class="icon" src="/images/my/wfbd.png" background-size="cover"></image>
+        <view class='text'>我发布的</view>
+      </view>
+    </navigator>
     <view class='item' bindtap='goOrder' data-type="0">
       <view wx:if="{{count_id_no_pay !== 0}}" class='dot'>{{count_id_no_pay}}</view>
       <image class="icon" src="/images/my/dfk.png" background-size="cover"></image>

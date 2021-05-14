@@ -103,8 +103,8 @@ page {
 }
 
 .weui-textarea-counter, .title-input-counter {
-  color: #b3b3b3;
-  font-size: 14px;
+  color: #999;
+  font-size: 24rpx;
   padding-left: 10rpx;
 }
 
@@ -112,6 +112,22 @@ page {
   padding-bottom: 30rpx;
   margin: 0;
   border-radius: 16rpx;
+}
+.weui-cells_after-title .weui-cell {
+  margin-bottom: 0;
+  padding-bottom: 15rpx;
+}
+.weui-cells_after-title .label {
+  padding-bottom: 15rpx;
+  font-size: 30rpx;
+  font-family: Alibaba PuHuiTi;
+  font-weight: 400;
+  color: #333;
+}
+.weui-cells_after-title .weui-textarea {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 400;
 }
 .weui-cells_after-title .set-moments {
   padding: 0 30rpx;
@@ -170,9 +186,6 @@ page {
   width: 40rpx;
   height: 40rpx;
 }
-.weui-cell .weui-cell__bd {
-  text-align: right;
-}
 .cell-container {
   margin-bottom: 30rpx;
   background: #fff;
@@ -218,14 +231,17 @@ page {
 .question-images-area .img-container {
   padding-top: 30rpx;
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
 }
 .img-container .gallery-image {
-  margin: 0;
+  margin: 0 60rpx 15rpx 0;
   border-radius: 16rpx;
   overflow: hidden;
 }
-.img-container .gallery-image .q-gallery {
+.img-container .gallery-image:nth-child(3n + 3) {
+  margin-right: 0;
+}
+.img-container .gallery-image .q-gallery, .gallery-image .q-image {
   width: 150rpx;
   height: 150rpx;
 }
@@ -262,20 +278,6 @@ page {
   display: flex;
   align-items: center;
   margin-top: 40rpx;
-}
-
-.q-image-wrap {
-  width: 31%;
-  margin-right: 10rpx;
-}
-
-.q-image {
-  flex: 1;
-  height: 200rpx;
-  width: 100%;
-}
-.q-gallery-wrap {
-  margin-right: 10rpx;
 }
 
 .q-gallery {
