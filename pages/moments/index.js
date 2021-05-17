@@ -15,6 +15,8 @@ Page({
   onTabsClick(e) {
     this.setData({
       tabKey: e.target.dataset.type,
+      hasMore: true,
+      momentsList: [],
     })
     this.currentPage = 1;
     this.getMoments();
@@ -100,7 +102,7 @@ Page({
   onReachBottom: function () {
     if(this.data.hasMore) {
       this.currentPage += 1;
-      this.getMyMoments();
+      this.getMoments();
     }
   },
 

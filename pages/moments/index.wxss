@@ -5,21 +5,26 @@ page, view, image, input {
 }
 
 .container {
+  /* padding-top: 84rpx; */
   display: block;
   min-height: 100vh;
   overflow: hidden;
-  overflow-y: hidden;
+  overflow-y: auto;
 }
 
 .header-tabs {
+  /* position: fixed; */
+  top: 0;
   padding: 15rpx 0;
   display: flex;
   width: 100%;
+  background: #fff;
   justify-content: center;
   align-items: center;
+  z-index: 999;
 }
 .header-tabs .tabs-item {
-  padding: 0 30rpx;
+  padding: 4rpx 30rpx 8rpx;
   font-size: 24rpx;
   font-family: Alibaba PuHuiTi;
   font-weight: 400;
@@ -130,4 +135,10 @@ page, view, image, input {
   margin-right: 7rpx;
   width: 40rpx;
   height: 40rpx;
+}
+.no-more {
+  padding: 15rpx 0;
+  font-size: 26rpx;
+  color: #999;
+  text-align: center;
 }

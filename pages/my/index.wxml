@@ -258,6 +258,7 @@
       <image wx:if="{{pic}}" wx:for="{{item.pics}}" wx:key="idx" wx:for-item="pic" src="{{pic}}"/>
     </view>
   </view>
+  <view wx:if="{{!hasMore}}" class="no-more">没有更多了~</view>
 
   <view class="space"></view>
   <!-- <view class="version">蚁库 v {{version}}</view>

@@ -1,11 +1,12 @@
 <!--pages/moments/index.wxml-->
 <view class="container">
-  <view class="header-tabs">
+  <!-- <cover-view style="height: 84rpx; position: fixed; top: 0;"> -->
+    <view class="header-tabs">
     <view class="tabs-item {{tabKey == 1 && 'tabs-item-selected'}}" bindtap="onTabsClick" data-type="1">关注</view>
     <view class="tabs-item {{tabKey == 2 && 'tabs-item-selected'}}" bindtap="onTabsClick" data-type="2">推荐</view>
     <view class="tabs-item {{tabKey == 0 && 'tabs-item-selected'}}" bindtap="onTabsClick" data-type="0">最新</view>
   </view>
-
+  <!-- </cover-view> -->
   <view class="moments-list" wx:for="{{momentsList}}" wx:key="id">
     <view class="moments-header-data">
       <image src="{{item.avatar}}" />
@@ -35,4 +36,5 @@
       </view>
     </view>
   </view>
+  <view class="no-more" wx:if="{{!hasMore}}">没有更多了～</view>
 </view>
