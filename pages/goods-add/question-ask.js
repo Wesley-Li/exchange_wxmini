@@ -468,6 +468,8 @@ Page({
                   duration: 2000
                 })
                 this.setData({
+                  content: '',
+                  contentCount: 0,
                   cityname: '',
                   cityid: undefined,
                   visibleValue: 0,
