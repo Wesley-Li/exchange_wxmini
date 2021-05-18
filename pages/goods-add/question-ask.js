@@ -467,6 +467,29 @@ Page({
                   icon: 'none',
                   duration: 2000
                 })
+                this.setData({
+                  cityname: '',
+                  cityid: undefined,
+                  visibleValue: 0,
+                  videos: [],
+                  images: [],
+                })
+                setTimeout(function() {
+                  let app = getApp();
+                  app.globalData.momentsKey = 0;
+                  wx.switchTab({
+                    url: '/pages/moments/index',
+                    success(res) {
+                      setTimeout(function() {
+                        let page = getCurrentPages().pop();
+                        if(page == undefined || page == null) {
+                          return;
+                        }
+                        page.onReady();
+                      }, 500)
+                    }
+                  })
+                }, 1000)
               }
             })
           return;

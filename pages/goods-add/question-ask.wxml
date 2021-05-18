@@ -50,7 +50,7 @@
           <view class="weui-cell__bd">
             <picker bindchange="bindPickerChange" value="{{visibleValue}}" range-key="name" range="{{visibleList}}" data-param="visibleValue">
             <view class="picker">
-              {{visibleList[index].name}}
+              {{visibleList[visibleValue].name}}
               <span>></span>
             </view>
           </picker>
