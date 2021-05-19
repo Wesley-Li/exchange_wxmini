@@ -292,6 +292,7 @@ App({
     tabBottom: 0, // 全面屏底部黑条高度
     isDetail: true,
     nick_name: null,
-    avatar: null
+    avatar: null,
+    momentsKey: undefined,
   }
 })

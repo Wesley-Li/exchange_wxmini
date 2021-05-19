@@ -77,6 +77,13 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
+    let app = getApp();
+    if(app.globalData.momentsKey != undefined) {
+      this.setData({
+        tabKey: app.globalData.momentsKey
+      })
+      this.currentPage = 1;
+    }
     this.getMoments();
   },
 
