@@ -1194,6 +1194,11 @@ module.exports = {
       ...params
     })
   },
+  onLike: function onLike(params) {
+    return request('/api/thumb/edit/', false, 'post', {
+      ...params
+    })
+  },
   // 获取朋友圈关注和粉丝数
   getMomentStats: function getMomentStats(params) {
     return request('/api/moment/stats', false, 'get', {

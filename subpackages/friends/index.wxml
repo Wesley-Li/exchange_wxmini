@@ -1,0 +1,7 @@
+<!--subpackages/friends/index.wxml-->
+<view class="container">
+  <view class="header-tabs">
+    <view class="tabs-item {{tabKey == 0 && 'tabs-item-selected'}}" bindtap="onTabsClick" data-type="0">关注</view>
+    <view class="tabs-item {{tabKey == 1 && 'tabs-item-selected'}}" bindtap="onTabsClick" data-type="1">粉丝</view>
+  </view>
+</view>

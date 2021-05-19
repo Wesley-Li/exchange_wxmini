@@ -79,6 +79,9 @@ page,view,image,input {
   display: flex;
   width: 100%;
 }
+.header-data-box navigator {
+  flex: 1;
+}
 .header-data-box .data-item {
   flex: 1;
   position: relative;
@@ -86,7 +89,7 @@ page,view,image,input {
   flex-flow: column;
   align-items: center;
 }
-.header-data-box .data-item:not(:last-child)::before {
+.header-data-box navigator:not(:last-child) .data-item::before {
   content: '';
   position: absolute;
   top: 50%;

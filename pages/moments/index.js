@@ -54,6 +54,18 @@ Page({
       })
   },
 
+  // 点赞
+  onLike: function(e) {
+    WXAPI.onLike({topic_type: 0, topic_id: e.currentTarget.dataset.id, type: 'add'})
+      then(res => {
+        if(res.retcode == 0) {
+
+        } else {
+
+        }
+      })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */

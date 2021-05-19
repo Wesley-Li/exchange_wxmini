@@ -36,14 +36,18 @@
         <div class="data-item-name">获赞</div>
         <div class="data-item-value">-</div>
       </div> -->
-      <div class="data-item">
-        <div class="data-item-name">关注</div>
-        <div class="data-item-value">{{ momentStats.following }}</div>
-      </div>
-      <div class="data-item">
-        <div class="data-item-name">粉丝</div>
-        <div class="data-item-value">{{ momentStats.followers }}</div>
-      </div>
+      <navigator url="/subpackages/friends/index?type=0">
+        <div class="data-item">
+          <div class="data-item-name">关注</div>
+          <div class="data-item-value">{{ momentStats.following }}</div>
+        </div>
+      </navigator>
+      <navigator url="/subpackages/friends/index?type=1">
+        <div class="data-item">
+          <div class="data-item-name">粉丝</div>
+          <div class="data-item-value">{{ momentStats.followers }}</div>
+        </div>
+      </navigator>
     </div>
   </view>
 	

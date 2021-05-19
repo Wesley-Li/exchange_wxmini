@@ -53,6 +53,7 @@
         "message-detail/index",
         "category/category",
         "shop-cart/index",
+        "friends/index",
         "my-accountant/index",
         "my-borrow-money/index",
         "my-make-loans/index"

@@ -26,7 +26,7 @@
       {{item.city_name}}
     </view>
     <view class="footer-btns">
-      <view class="btns-item">
+      <view class="btns-item" bindtap="onLike" data-id="{{item.id}}">
         <image src="/images/icon-like.png" />
         {{item.thumbs}}
       </view>

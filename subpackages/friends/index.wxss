@@ -1,0 +1,50 @@
+/* subpackages/friends/index.wxss */
+page, view, image, input {
+  display: block;
+  box-sizing: border-box;
+}
+
+.container {
+  /* padding-top: 84rpx; */
+  display: block;
+  min-height: 100vh;
+  overflow: hidden;
+  overflow-y: auto;
+}
+
+.header-tabs {
+  /* position: fixed; */
+  top: 0;
+  padding: 25rpx 70rpx 0;
+  display: flex;
+  width: 100%;
+  background: #fff;
+  border-bottom: 1rpx solid #f3f3f3;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+.header-tabs .tabs-item {
+  flex: 1;
+  display: flex;
+  position: relative;
+  padding: 4rpx 30rpx 22rpx;
+  font-size: 30rpx;
+  font-family: Alibaba PuHuiTi;
+  font-weight: 400;
+  color: #333;
+  justify-content: center;
+  align-items: center;
+}
+.header-tabs .tabs-item-selected::before {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 120rpx;
+  height: 4rpx;
+  background: #FCCE09;
+  border-radius: 2rpx;
+  transform: translate(-50%);
+}
