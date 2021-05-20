@@ -56,12 +56,32 @@ Page({
 
   // 点赞
   onLike: function(e) {
-    WXAPI.onLike({topic_type: 0, topic_id: e.currentTarget.dataset.id, type: 'add'})
-      then(res => {
+    let id = e.currentTarget.dataset.id;
+    let thumbed = e.currentTarget.dataset.thumbed;
+    WXAPI.onLike({topic_type: 0, topic_id: id, type: thumbed ? 'delete' : 'add'})
+      .then(res => {
         if(res.retcode == 0) {
-
+          let { momentsList } = this.data;
+          momentsList.map(item => {
+            if(item.id == id) {
+              if(thumbed) {
+                item.thumbs -= 1;
+                item.thumbed = false;
+              } else {
+                item.thumbs += 1;
+                item.thumbed = true;
+              }
+            }
+          })
+          this.setData({
+            momentsList,
+          })
         } else {
-
+          wx.showToast({
+            title: res.msg,
+            icon: 'none',
+            duration: 2000
+          })
         }
       })
   },

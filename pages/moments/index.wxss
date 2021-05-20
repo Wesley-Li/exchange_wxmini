@@ -5,7 +5,6 @@ page, view, image, input {
 }
 
 .container {
-  /* padding-top: 84rpx; */
   display: block;
   min-height: 100vh;
   overflow: hidden;
@@ -13,7 +12,7 @@ page, view, image, input {
 }
 
 .header-tabs {
-  /* position: fixed; */
+  position: fixed;
   top: 0;
   padding: 15rpx 0;
   display: flex;
@@ -51,6 +50,9 @@ page, view, image, input {
   margin: 60rpx 30rpx 0;
   padding-bottom: 30rpx;
   border-bottom: 1rpx solid #f3f3f3;
+}
+.moments-list-first {
+  margin-top: 130rpx;
 }
 .moments-list .moments-header-data {
   margin-bottom: 30rpx;

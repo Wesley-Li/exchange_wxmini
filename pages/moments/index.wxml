@@ -7,7 +7,7 @@
     <view class="tabs-item {{tabKey == 0 && 'tabs-item-selected'}}" bindtap="onTabsClick" data-type="0">最新</view>
   </view>
   <!-- </cover-view> -->
-  <view class="moments-list" wx:for="{{momentsList}}" wx:key="id">
+  <view class="moments-list {{index == 0 && 'moments-list-first'}}" wx:for="{{momentsList}}" wx:key="id">
     <view class="moments-header-data">
       <image src="{{item.avatar}}" />
       <view class="right">
@@ -26,7 +26,7 @@
       {{item.city_name}}
     </view>
     <view class="footer-btns">
-      <view class="btns-item" bindtap="onLike" data-id="{{item.id}}">
+      <view class="btns-item" bindtap="onLike" data-id="{{item.id}}" data-thumbed="{{item.thumbed}}">
         <image src="/images/icon-like.png" />
         {{item.thumbs}}
       </view>
