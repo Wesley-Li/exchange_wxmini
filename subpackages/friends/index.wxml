@@ -4,4 +4,9 @@
     <view class="tabs-item {{tabKey == 0 && 'tabs-item-selected'}}" bindtap="onTabsClick" data-type="0">关注</view>
     <view class="tabs-item {{tabKey == 1 && 'tabs-item-selected'}}" bindtap="onTabsClick" data-type="1">粉丝</view>
   </view>
+  <view class="search">
+    <input type="text" placeholder="输入搜索关键词" value="{{name}}" bindinput="bindinput" bindconfirm="bindconfirm"></input>
+    <image src="/images/icon/search.png" ></image>
+    <div class="search-btn" bindtap="goSearch">搜索</div>
+  </view>
 </view>

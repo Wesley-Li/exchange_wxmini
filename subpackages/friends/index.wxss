@@ -48,3 +48,42 @@ page, view, image, input {
   border-radius: 2rpx;
   transform: translate(-50%);
 }
+
+.search {
+  margin: 30rpx auto 60rpx;
+  position: relative;
+  width: 630rpx;
+  height: 60rpx;
+}
+.search input {
+  border: 1rpx solid #e3e3e3;
+  width: 630rpx;
+  height: 60rpx;
+  border-radius: 4rpx;
+  padding-left: 80rpx;
+  font-size: 28rpx;
+}
+.search image {
+  width: 30rpx;
+  height: 30rpx;
+  position: absolute;
+  top: 14rpx;
+  left: 28rpx;
+  z-index: 99;
+}
+.search .search-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 160rpx;
+  height: 60rpx;
+  font-size: 24rpx;
+  color: #999;
+  background: #f3f3f3;
+  border: 1px solid #ddd;
+  border-radius: 4rpx;
+  text-align: center;
+  line-height: 58rpx;
+  box-sizing: border-box;
+  z-index: 99;
+}
