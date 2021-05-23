@@ -22,7 +22,7 @@
   </view>
   <!-- <view wx:if="{{goodsDynamic}}" class="goodsDynamic">
     <swiper class="swiper2" autoplay circular vertical>
-      <navigator wx:for="{{goodsDynamic}}" wx:key="index" url="/pages/goods-details/index?id={{item.goodsId}}">
+      <navigator wx:for="{{goodsDynamic}}" wx:key="index" url="/subpackages/goods-details/index?id={{item.goodsId}}">
         <swiper-item>
           <view class="goodsDynamic-item">
             <image mode="aspectFill" src="{{item.avatarUrl}}"></image>

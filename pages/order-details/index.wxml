@@ -61,7 +61,7 @@
     <view class="list-title">商品信息</view>
     <form bindsubmit="submitReputation" report-submit="true">
       <block wx:for="{{orderDetail.goodList}}" wx:key="{{index}}">
-        <navigator url="/pages/goods-details/index?id={{item.pid}}">
+        <navigator url="/subpackages/goods-details/index?id={{item.pid}}">
           <view class="a-goods">
             <view class="img-box">
               <image src="{{item.pic}}" class="img" />

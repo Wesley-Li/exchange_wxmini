@@ -86,6 +86,16 @@ Page({
       })
   },
 
+  handleGalleryPreview(e) {
+    let urls = [];
+    e.currentTarget.dataset.urls.map(item => {
+      item && urls.push(item);
+    })
+    wx.previewImage({
+      current: e.currentTarget.dataset.index,
+      urls: urls
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */

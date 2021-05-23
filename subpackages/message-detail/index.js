@@ -590,7 +590,7 @@ Page({
     //   })
     // }
     wx.navigateTo({
-      url: "/pages/goods-details/index?id=" + id
+      url: "/subpackages/goods-details/index?id=" + id
     })
   },
 

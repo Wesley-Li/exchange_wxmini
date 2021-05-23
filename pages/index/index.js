@@ -43,7 +43,7 @@ Page({
   },
   toDetailsTap: function(e) {
     wx.navigateTo({
-      url: "/pages/goods-details/index?id=" + e.currentTarget.dataset.id
+      url: "/subpackages/goods-details/index?id=" + e.currentTarget.dataset.id
     })
   },
   tapBanner: function(e) {

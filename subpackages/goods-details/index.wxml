@@ -271,13 +271,14 @@
       <button type="primary" open-type="contact" />
       <image src="/images/icon/kf.svg"></image>
     </view> -->
+    <image class="fav-icon" src="/images/icon-like.png"></image>
+    <image bindtap="contactSeller" class="fav-icon" src="/images/icon-message.png"></image>
     <view class="shop-cart-btn" bindtap="goShopCar">
       <view class="shop-num">{{shopNum}}</view>
-      <image src="/images/nav/cart-off.png"></image>
+      <image src="/images/icon-shopping-cart.png"></image>
     </view>
     <!-- <image bindtap="addFav" class="fav-icon" src="/images/icon/fav{{faved?'1':'0'}}.svg"></image> -->
     <image bindtap="contactSeller" class="fav-icon" src="/images/icon/detail.png" bindtap="onDetailShow"></image>
-    <image bindtap="contactSeller" class="fav-icon" src="/images/icon/kf.svg"></image>
     <view wx:if="{{!goodsDetail.basicInfo.pingtuan}}" class="join-shop-cart" bindtap="{{goodsDetailSkuShowType==0?'toAddShopCar':'addShopCar'}}">加入购物车</view>
     <view wx:if="{{!goodsDetail.basicInfo.pingtuan}}" class="now-buy"  data-shopType="{{shopType}}" bindtap="{{goodsDetailSkuShowType==0?'tobuy':'buyNow'}}">立即购买</view>
     <view wx:if="{{goodsDetail.basicInfo.pingtuan}}" class="join-shop-cart" bindtap="tobuy">单独购买</view>

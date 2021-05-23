@@ -20,7 +20,7 @@
       <!-- </navigator> -->
       <scroll-view class="goods-img-container" scroll-x="true">
         <view class="img-box" wx:for="{{item.goodList}}" wx:key="index">
-          <navigator url="/pages/goods-details/index?id={{item.pid}}"><image src="{{item.pic}}" class="goods-img"></image></navigator>
+          <navigator url="/subpackages/goods-details/index?id={{item.pid}}"><image src="{{item.pic}}" class="goods-img"></image></navigator>
         </view>
       </scroll-view>
       <view class="goods-price">

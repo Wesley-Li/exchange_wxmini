@@ -19,7 +19,7 @@
     <parser html="{{item.content}}" />
     <video wx:if="{{item.video}}" src="{{item.video}}" />
     <view class="pics-container">
-      <image wx:if="{{pic}}" wx:for="{{item.pics}}" wx:key="idx" wx:for-item="pic" src="{{pic}}"/>
+      <image wx:if="{{pic}}" wx:for="{{item.pics}}" wx:key="index" wx:for-item="pic" src="{{pic}}" bindtap="handleGalleryPreview" data-urls="{{item.pics}}" data-index="{{index}}" />
     </view>
     <view class="location" wx:if="{{item.city_name}}">
       <image src="/images/location1.png" />
