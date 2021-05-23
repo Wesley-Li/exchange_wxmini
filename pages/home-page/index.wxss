@@ -91,7 +91,7 @@
   /* height: 100%; */
   /* background: url('https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1451072745,1416934682&fm=26&gp=0.jpg'); */
   background: url('https://yiku-oss.alimom.cn/yiku1.png');
-  background-size: 100%;
+  background-size: 750rpx auto;
 }
 
 .school-box .school-item {

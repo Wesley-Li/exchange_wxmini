@@ -27,19 +27,21 @@
 </block>
 <view wx:if="{{listType == 2}}" class="list2-box">
   <view class="list2" wx:for="{{goods}}" wx:key="id">
-    <navigator url="/subpackages/goods-details/index?id={{item.id}}"><image class="img" mode="aspectFit" src="{{item.pic}}"></image></navigator>
-    <view class="goods-info">
-      <view class="title"><navigator url="/subpackages/goods-details/index?id={{item.id}}">{{item.name}}</navigator></view>
-      <view class="price">¥ {{item.credprice}}</view>
-      <view class="buy-info">
-        <!-- <view class="num">{{item.numberOrders}}人已购{{item.numberSells}}件</view> -->
-        <image wx:if="{{!onlymy}}" class="car" src="/images/icon/car.svg" data-id="{{item.id}}" bindtap="addShopCar"></image>
-        <block wx:else>
-          <view class="sellout" wx:if="{{item.stores<1}}">已售罄</view>
-          <navigator url="/pages/goods-add/question-ask?id={{item.id}}"><image class="car-left" src="/images/edit.jpg"></image></navigator>
-          <image class="car" src="/images/del.png" data-key="{{item.id}}" catchtap="delItem"></image>
-        </block>
+    <view class="list2-top">
+      <navigator url="/subpackages/goods-details/index?id={{item.id}}"><image class="img" mode="aspectFit" src="{{item.pic}}"></image></navigator>
+      <view class="goods-info">
+        <view class="title"><navigator url="/subpackages/goods-details/index?id={{item.id}}">{{item.name}}</navigator></view>
+        <view class="price"><text class="text1">实收款</text> {{item.credprice}}<text class="text2">信用码</text></view>
       </view>
+    </view>
+    <view class="buy-info">
+      <!-- <view class="num">{{item.numberOrders}}人已购{{item.numberSells}}件</view> -->
+      <image wx:if="{{!onlymy}}" class="car" src="/images/icon/car.svg" data-id="{{item.id}}" bindtap="addShopCar"></image>
+      <block wx:else>
+        <view class="sellout" wx:if="{{item.stores<1}}">已售罄</view>
+        <navigator url="/pages/goods-add/question-ask?id={{item.id}}"><image class="car-left" src="/images/edit.jpg"></image></navigator>
+        <image class="car" src="/images/del.png" data-key="{{item.id}}" catchtap="delItem"></image>
+      </block>
     </view>
   </view>
 </view>
