@@ -1,3 +1,5 @@
+@import "/template/login/index.wxss";
+
 /* pages/moments/index.wxss */
 page, view, image, input {
   display: block;
@@ -138,10 +140,30 @@ page, view, image, input {
   width: 40rpx;
   height: 40rpx;
 }
+.comment-list {
+  margin-top: 15rpx;
+  padding: 10rpx 20rpx;
+  font-size: 24rpx;
+  background: #f2f2f2;
+  border-radius: 8rpx;
+}
+.comment-list .comment-item {
+
+}
+.comment-item .user-name {
+  color: #084aad;
+}
+.comment-item .text {
+  color: #000;
+}
+.comment-list .view-more {
+  color: #084aad;
+}
 .no-more {
   padding: 15rpx 0;
   font-size: 26rpx;
   color: #999;
+  border-bottom: 20rpx solid #F4F5F9;
   text-align: center;
 }
 .message-box {

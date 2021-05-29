@@ -1,3 +1,5 @@
+<import src="/template/login/index.wxml" />
+
 <!--pages/moments/index.wxml-->
 <view class="container">
   <!-- <cover-view style="height: 84rpx; position: fixed; top: 0;"> -->
@@ -35,8 +37,17 @@
         {{item.comments}}
       </view>
     </view>
-    <view class="message-list" wx:if="{{item.open}}">
-      评论
+    <view class="comment-list" wx:if="{{item.open}}">
+      <view class="comment-item" wx:for="{{item.commentList}}" wx:key="index" wx:for-item="comment" bindtap="onReplyComment" data-fromuid="{{comment.fromUid}}" data-fromnick="{{comment.fromNick}}" data-topicid="{{item.id}}">
+        <span class="user-name">
+          {{comment.fromNick}}
+          <span wx:if="{{comment.toUid}}">
+            <span class="text">回复</span>{{comment.toNick}}
+          </span>: 
+        </span>
+        {{comment.content}}
+      </view>
+      <view class="view-more" wx:if="{{item.commentList && item.comments > item.commentList.length}}" bindtap="getMoreComments" data-topicid="{{item.id}}" data-page="{{item.commentPage}}">查看更多>></view>
     </view>
   </view>
   <view class="no-more" wx:if="{{!hasMore}}">没有更多了～</view>
@@ -57,5 +68,7 @@
       value="{{inputValue}}"
       placeholder="{{toUserId ? '回复' + toUserName : '评论'}}"/>
   </view>
-  <view class='send' bindtap='onSendMessage'>发送12</view>
+  <view class='send' bindtap='onSendMessage'>发送</view>
 </view>
+
+<template is="apifmLogin" data="{{wxlogin: wxlogin}}" />

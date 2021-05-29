@@ -1,5 +1,6 @@
 // pages/moments/index.js
 const WXAPI = require('apifm-wxapi');
+const AUTH = require('../../utils/auth')
 const { formatTime } = require('../../utils/common.util');
 
 const app = getApp()
@@ -10,15 +11,16 @@ Page({
    * 页面的初始数据
    */
   data: {
+    wxlogin: true,
     tabKey: 2,
     tabBottom: app.globalData.tabBottom,
     inputValue: '', //发送的评论内容
     keyboardHeight: 0, // 键盘高度
     toUserId: undefined,
     toUserName: undefined,
+    userInfo: {},
   },
   currentPage: 1,
-  topicCurrentPage: 1,
   // 点击头部tab
   onTabsClick(e) {
     this.setData({
@@ -106,6 +108,7 @@ Page({
           messageOpen: !item.open,
         })
         item.open = !item.open;
+        item.commentList = null; // 收起评论列表时清除数据
       }
     })
     t.setData({
@@ -114,13 +117,95 @@ Page({
       toUserId: undefined,
       toUserName: undefined,
     })
-    
-    WXAPI.getMessages({topic_type: 0, topic_id: id, pageSize: 10, page: t.topicCurrentPage})
+    if(t.data.messageOpen) {
+      t.getMessages(1);
+    }
+  },
+  // 获取留言列表
+  getMessages: function(page = 1) {
+    let { momentsList, topicId } = this.data;
+    WXAPI.getMessages({topic_type: 0, topic_id: topicId, pageSize: 10, page: page})
       .then(res => {
         if(res.retcode == 0) {
-          console.log(res, 22222)
+          momentsList.map(item => {
+            if(item.id == topicId) {
+              item.commentList = item.commentList ? item.commentList : [];
+              if(item.commentList.length) {
+                if(res.data.length) {
+                  let ids = [];
+                  item.commentList.map(comment => {
+                    ids.push(comment.id);
+                  })
+                  res.data.map(comment => {
+                    if(ids.indexOf(comment.id) == -1) {
+                      item.commentList.push(comment);
+                    }
+                  })
+                } else {
+                  item.nomore = true;
+                }
+              } else {
+                item.commentList = res.data;
+              }
+              item.commentPage = page;
+            }
+          })
+          this.setData({
+            momentsList,
+          })
         }
       })
+  },
+
+  // 获取更多评论
+  getMoreComments: function(e) {
+    this.setData({
+      topicId: e.currentTarget.dataset.topicid,
+    })
+    this.getMessages(e.currentTarget.dataset.page + 1);
+  },
+  // 发送评论
+  onSendMessage: function(e) {
+    let t = this;
+    let { topicId, inputValue, toUserName, toUserId, momentsList, userInfo } = t.data;
+    let data = {};
+    if(toUserId) {
+      data.to = toUserId;
+    }
+    WXAPI.sendMessage({topic_type: 0, topic_id: topicId, content: inputValue, ...data})
+      .then(res => {
+        if(res.retcode == 0) {
+          momentsList.map(item => {
+            if(item.id == topicId) {
+              item.comments += 1;
+              item.commentList = item.commentList ? item.commentList : [];
+              let data = {
+                content: inputValue,
+                fromNick: userInfo.nickName,
+                fromUid: userInfo.id,
+                toNick: toUserName,
+                toUid: toUserId,
+              }
+
+              item.commentList.push(data)
+            }
+          })
+          t.setData({
+            momentsList,
+            inputValue: ''
+          })
+          t.bindblur();
+        }
+      })
+  },
+  // 回复评论
+  onReplyComment: function(e) {
+    this.setData({
+      messageOpen: true,
+      topicId: e.currentTarget.dataset.topicid,
+      toUserName: e.currentTarget.dataset.fromnick,
+      toUserId: e.currentTarget.dataset.fromuid,
+    })
   },
   //获取普通文本消息
   bindKeyInput(e) {
@@ -131,6 +216,16 @@ Page({
   },
   bindfocus(e) {
     console.log(e, 1222222);
+    let { userInfo } = this.data;
+    // 发布评论判断是否登录
+    AUTH.checkHasLogined().then(isLogined => {
+      this.setData({
+        wxlogin: isLogined
+      })
+      if(isLogined && !userInfo.id) {
+        this.getUserApiInfo();
+      }
+    })
      this.setData({
       focus: true,
       adjust: true,
@@ -139,7 +234,6 @@ Page({
   },
 
   bindblur(e) {
-    console.log(e, 1333333);
     let t = this;
     t.setData({
       focus: false,
@@ -150,20 +244,31 @@ Page({
     wx.hideKeyboard();
   },
 
-  // 发送评论
-  onSendMessage: function(e) {
+  // 获取用户信息
+  getUserApiInfo: function () {
     let t = this;
-    let { topicId, inputValue, toUserId } = t.data;
-    let data = {};
-    if(toUserId) {
-      data.to = toUserId;
-    }
-    WXAPI.sendMessage({topic_type: 0, topic_id: topicId, content: inputValue, ...data})
-      .then(res => {
-        if(res.retcode == 0) {
-          console.log(res, 999999)
-        }
+    WXAPI.userDetail(wx.getStorageSync('token')).then(function (res) {
+      if (res.retcode == 0) {
+        t.setData({
+          userInfo: res.data,
+        })
+      }
+    })
+  },
+  goLogin() {
+    this.setData({
+      wxlogin: false
+    })
+  },
+  processLogin(e) {
+    if (!e.detail.userInfo) {
+      wx.showToast({
+        title: '已取消',
+        icon: 'none',
       })
+      return;
+    }
+    AUTH.login(this);
   },
 
   handleGalleryPreview(e) {
