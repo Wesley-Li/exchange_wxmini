@@ -1194,8 +1194,21 @@ module.exports = {
       ...params
     })
   },
+  // 朋友圈、商品点赞
   onLike: function onLike(params) {
     return request('/api/thumb/edit/', false, 'post', {
+      ...params
+    })
+  },
+  // 获取评论
+  getMessages: function(params) {
+    return request('/api/comment/getComments/', false, 'get', {
+      ...params
+    })
+  },
+  // 发送评论
+  sendMessage: function(params) {
+    return request('/api/comment/add/', false, 'post', {
       ...params
     })
   },

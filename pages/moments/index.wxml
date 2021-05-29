@@ -30,11 +30,32 @@
         <image src="/images/icon-like.png" />
         {{item.thumbs}}
       </view>
-      <view class="btns-item">
+      <view class="btns-item" bindtap="onMessageClick" data-id="{{item.id}}">
         <image src="/images/icon-message.png" />
         {{item.comments}}
       </view>
     </view>
+    <view class="message-list" wx:if="{{item.open}}">
+      评论
+    </view>
   </view>
   <view class="no-more" wx:if="{{!hasMore}}">没有更多了～</view>
+</view>
+<view class="message-box" wx:if="{{messageOpen}}" style="padding-bottom: calc({{tabBottom}}px + 25rpx); bottom: {{keyboardHeight}}px">
+  <view class='input' bindtap="bindfocus">
+    <textarea 
+      class="inputArea"
+      focus="{{focus}}"
+      adjust-position="{{false}}"
+      fixed="{{true}}"
+      cursor-spacing="{{25}}"
+      disable-default-padding="{{true}}"
+      bindinput="bindKeyInput"
+      bindfocus="bindfocus"
+      bindblur="bindblur"
+      bindkeyboardheightchange="bindkeyboardheightchange"
+      value="{{inputValue}}"
+      placeholder="{{toUserId ? '回复' + toUserName : '评论'}}"/>
+  </view>
+  <view class='send' bindtap='onSendMessage'>发送12</view>
 </view>
