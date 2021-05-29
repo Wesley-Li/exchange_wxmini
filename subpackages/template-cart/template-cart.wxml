@@ -45,7 +45,7 @@
       <view class="total" hidden="{{noSelect}}">合计：信用币{{price}}</view>
     </view>
     <view class="to-pay-btn">
-      <navigator url="/pages/to-pay-order/index">去结算</navigator>
+      <navigator url="/subpackages/to-pay-order/index">去结算</navigator>
     </view>
   </view>
 </template>
