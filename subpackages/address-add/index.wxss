@@ -1,0 +1,63 @@
+page,view,image,input {
+  display: block;
+  box-sizing: border-box;
+}
+
+.space {
+  width: 100vw;
+  height: 16rpx;
+}
+
+picker {
+  min-width: 20rpx;
+  height: 100%;
+  margin-right: 20rpx;
+}
+
+.wx-adress-select {
+  padding: 0 30rpx;
+}
+
+.weui-cells::after {
+  display: none;
+}
+.info-container {
+  padding: 30rpx;
+}
+.info-container .weui-cell {
+  padding: 40rpx 30rpx;
+}
+.info-container .weui-cell .weui-input {
+  font-size: 30rpx;
+  font-family: Alibaba PuHuiTi;
+  font-weight: 400;
+  color: #333;
+}
+.info-container .weui-cell .text {
+  font-size: 30rpx;
+  font-family: Alibaba PuHuiTi;
+  font-weight: 400;
+  color: #999;
+}
+.weui-btn-area {
+  display: flex;
+  position: absolute;
+  bottom: calc(env(safe-area-inset-bottom) / 2);
+  left: 0;
+  margin: 0;
+  width: 100%;
+}
+.weui-btn-area .btn {
+  width: 100%;
+  height: 98rpx;
+  font-size: 30rpx;
+  font-family: Alibaba PuHuiTi;
+  font-weight: 400;
+  color: #333;
+  line-height: 98rpx;
+  background: #FCCE09;
+  border-radius: 0;
+}
+.weui-btn-area .delete-btn {
+  background: #FF4949;
+}

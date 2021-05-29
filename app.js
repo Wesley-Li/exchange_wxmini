@@ -293,6 +293,6 @@ App({
     isDetail: true,
     nick_name: null,
     avatar: null,
-    momentsKey: undefined,
+    momentsKey: undefined, // 手记页面tab key
   }
 })

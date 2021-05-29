@@ -362,7 +362,7 @@ Page({
   },
   addAddress: function () {
     wx.navigateTo({
-      url: "/pages/address-add/index"
+      url: "/subpackages/address-add/index"
     })
   },
   selectAddress: function () {

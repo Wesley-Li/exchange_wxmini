@@ -19,13 +19,13 @@ Page({
 
   addAddess: function() {
     wx.navigateTo({
-      url: "/pages/address-add/index"
+      url: "/subpackages/address-add/index"
     })
   },
 
   editAddess: function(e) {
     wx.navigateTo({
-      url: "/pages/address-add/index?id=" + e.currentTarget.dataset.id
+      url: "/subpackages/address-add/index?id=" + e.currentTarget.dataset.id
     })
   },
 
