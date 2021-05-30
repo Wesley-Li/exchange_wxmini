@@ -50,6 +50,7 @@
       "pages": [
         "message-detail/index",
         "category/category",
+        "goods-edit/index",
         "goods-details/index",
         "shop-cart/index",
         "to-pay-order/index",

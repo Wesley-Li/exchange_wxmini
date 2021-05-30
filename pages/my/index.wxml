@@ -4,9 +4,9 @@
   <view class="my-header">
     <view class="header-btns">
       <div class="btns-container">
-        <navigator url="/subpackages/my-make-loans/index">
+        <!-- <navigator url="/subpackages/my-make-loans/index">
           <image src="/images/my/add-friend.png" bindtap="onJump" data-type="friends" />
-        </navigator>
+        </navigator> -->
         <navigator url="/subpackages/my-make-loans/index">
           <image src="/images/my/information.png" bindtap="onJump" data-type="information" />
         </navigator>

@@ -24,7 +24,7 @@
                 {{option.optionName}}:{{option.optionValueName}}
               </block>
             </view>
-            <view class="goods-price">信用币{{item.price}}</view>
+            <view class="goods-price">{{item.price}}信用币</view>
             <view class="buy-num">
               <view class="jian-btn" catchtap="jianBtnTap" data-index="{{index}}">-</view>
               <input type="number" value="{{item.number}}" data-key="{{item.key}}" bindinput="changeCarNumber"/>

@@ -1,0 +1,306 @@
+/* subpackages/goods-edit/index.wxss */
+@import "../../components/common/editor/iconfont.wxss";
+
+page {
+  background: #F3F3F3;
+}
+
+.question-form {
+  margin: 25rpx 30rpx;
+}
+
+.question-form .btns-box {
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 40rpx 30rpx 20rpx;
+  width: calc(100% - 60rpx);
+  background: #F3F3F3;
+  overflow: hidden;
+  z-index: 999;
+}
+.btns-box .weui-btn {
+  float: right;
+  padding: 0;
+  width: 150rpx;
+  height: 60rpx;
+  background: #FCCE09;
+  border: none;
+  border-radius: 30rpx;
+  font-size: 30rpx;
+  font-family: Alibaba PuHuiTi;
+  font-weight: 400;
+  color: #fff;
+  line-height: 60rpx;
+}
+.select-issue-type {
+  margin: 120rpx 0 30rpx;
+  padding: 30rpx;
+  width: 100%;
+  height: 180rpx;
+  background: #FFFFFF;
+  border-radius: 16rpx;
+  box-sizing: border-box;
+}
+.select-issue-type text {
+  font-size: 30rpx;
+  font-family: Alibaba PuHuiTi;
+  font-weight: 400;
+  color: #333;
+  line-height: 30rpx;
+}
+.select-issue-type text .color {
+  font-size: 24rpx;
+  color: #FCCE09;
+}
+.select-issue-type .type-btns {
+  display: block;
+  margin-top: 15rpx;
+  width: 100%;
+}
+.type-btns .btn {
+  display: inline-flex;
+  margin-right: 64rpx;
+  width: 200rpx;
+  height: 60rpx;
+  font-size: 30rpx;
+  font-family: Alibaba PuHuiTi;
+  color: #999;
+  background: #fff;
+  text-align: center;
+  border: 1rpx solid #999;
+  border-radius: 8rpx;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+}
+.type-btns .btn-selected {
+  color: #fff;
+  background: #FCCE09;
+  border: none;
+}
+
+.question-input-area {
+  margin-bottom: 30rpx;
+  border-radius: 16rpx;
+}
+
+.question-title-wrap {
+  display: flex;
+  padding: 0 30rpx;
+  margin-bottom: 30rpx;
+  height: 80rpx;
+  background: #FFFFFF;
+  border-radius: 16rpx;
+  align-items: center;
+}
+.question-title-wrap .title-label {
+  padding-right: 20rpx;
+}
+
+.question-title {
+  flex: 1;
+  font-size: 24rpx;
+}
+
+.weui-textarea-counter, .title-input-counter {
+  color: #999;
+  font-size: 24rpx;
+  padding-left: 10rpx;
+}
+
+.weui-cells_after-title {
+  padding-bottom: 30rpx;
+  margin: 0;
+  border-radius: 16rpx;
+}
+.weui-cells_after-title .weui-cell {
+  margin-bottom: 0;
+  padding-bottom: 15rpx;
+}
+.weui-cells_after-title .label {
+  padding-bottom: 15rpx;
+  font-size: 30rpx;
+  font-family: Alibaba PuHuiTi;
+  font-weight: 400;
+  color: #333;
+}
+.weui-cells_after-title .weui-textarea {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 400;
+}
+.set-visible .weui-cell__hd {
+  width: 100rpx;
+}
+.set-visible .weui-cell__bd span {
+  color: #FCCE09;
+}
+
+.weui-cell::before, .weui-cells::before, .weui-cell::after, .weui-cells::after {
+  border: none;
+}
+.weui-cell {
+  margin-bottom: 30rpx;
+  background: #fff;
+  border-radius: 16rpx;
+}
+.weui-label {
+  display: flex;
+  align-items: center;
+}
+.weui-label image {
+  margin-right: 20rpx;
+  width: 40rpx;
+  height: 40rpx;
+}
+.cell-container {
+  margin-bottom: 30rpx;
+  background: #fff;
+  border-radius: 16rpx;
+}
+.cell-container .weui-cell {
+  margin: 0;
+  padding-bottom: 5rpx;
+}
+
+.tip-small{
+  padding: 20rpx;
+  font-size: 22rpx;
+  font-family: Alibaba PuHuiTi;
+  font-weight: 400;
+  color: #ddd;
+  line-height: 36rpx;
+  text-align: center;
+}
+
+.question-images-area {
+  margin-bottom: 30rpx;
+  padding: 25rpx 30rpx;
+  background: #fff;
+  border-radius: 16rpx;
+}
+.question-images-area .weui-cell {
+  margin: 0;
+}
+.question-images-area .label {
+  display: flex;
+  align-items: center;
+  font-size: 30rpx;
+  font-family: Alibaba PuHuiTi;
+  font-weight: 400;
+  color: #333;
+}
+.question-images-area .label text {
+  padding-left  : 20rpx;
+  font-size: 24rpx;
+  color: #999999;
+}
+.question-images-area .img-container {
+  padding-top: 30rpx;
+  display: flex;
+  flex-wrap: wrap;
+}
+.img-container .gallery-image {
+  margin: 0 60rpx 15rpx 0;
+  border-radius: 16rpx;
+  overflow: hidden;
+}
+.img-container .gallery-image:nth-child(3n + 3) {
+  margin-right: 0;
+}
+.img-container .gallery-image .q-gallery, .gallery-image .q-image {
+  width: 150rpx;
+  height: 150rpx;
+}
+.img-container .q-image-remover {
+  font-size: 26rpx;
+  color: #ED1616;
+  text-align: center;
+}
+.img-container button {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  width: 150rpx;
+  height: 150rpx;
+  font-size: 60rpx;
+  font-family: Alibaba PuHuiTi;
+  font-weight: 400;
+  color: #999;
+  background: #F3F3F3;
+  border-radius: 10rpx;
+  justify-content: center;
+  align-items: center;
+}
+.img-container .video-box {
+  width: 100%;
+}
+
+.question-images-tool {
+  display: flex;
+  align-items: center;
+}
+
+.question-images {
+  display: flex;
+  align-items: center;
+  margin-top: 40rpx;
+}
+
+.q-gallery {
+  height: 339rpx;
+  width: 339rpx;
+}
+
+.q-video{
+  width: 100%
+}
+
+.container {
+  /* position: absolute;  */
+  top: 0; 
+  left: 0; 
+  width: 100%;
+  background-color: white;
+}
+
+.ql-container {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  font-size: 16px;
+  line-height: 1.5;
+  overflow: auto;
+  padding: 10px 10px 20px 10px;
+  border: 1px solid #ECECEC;
+}
+
+.ql-active {
+  color: #22C704;
+}
+
+.iconfont {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.toolbar {
+  box-sizing: border-box;
+  padding: 0 10px;
+  height: 50px;
+  width: 100%;
+  position: fixed;
+  left: 0;
+  right: 100%;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #ECECEC;
+  border-left: none;
+  border-right: none;
+}

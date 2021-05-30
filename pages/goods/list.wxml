@@ -1,5 +1,5 @@
-<view class="header">
-  <view class="search" wx:if="{{!onlymy}}">
+<view class="header" wx:if="{{!onlymy}}">
+  <view class="search">
     <input type="text" placeholder="输入搜索关键词" value="{{name}}" bindinput="bindinput" bindconfirm="bindconfirm"></input>
     <image src="/images/icon/search.svg" bindtap="search"></image>
   </view>
@@ -39,8 +39,10 @@
       <image wx:if="{{!onlymy}}" class="car" src="/images/icon/car.svg" data-id="{{item.id}}" bindtap="addShopCar"></image>
       <block wx:else>
         <view class="sellout" wx:if="{{item.stores<1}}">已售罄</view>
-        <navigator url="/pages/goods-add/question-ask?id={{item.id}}"><image class="car-left" src="/images/edit.jpg"></image></navigator>
-        <image class="car" src="/images/del.png" data-key="{{item.id}}" catchtap="delItem"></image>
+        <!-- <navigator url="/pages/goods-add/question-ask?id={{item.id}}"><image class="car-left" src="/images/edit.jpg"></image></navigator>
+        <image class="car" src="/images/del.png" data-key="{{item.id}}" catchtap="delItem"></image> -->
+        <navigator url="/subpackages/goods-edit/index?id={{item.id}}"><view class="handle-btn edit-btn">编辑</view></navigator>
+        <view class="handle-btn delete-btn" data-key="{{item.id}}" catchtap="delItem">删除</view>
       </block>
     </view>
   </view>

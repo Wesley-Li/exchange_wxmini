@@ -17,7 +17,7 @@
 
 .to-index-btn {
   color: #fff;
-  background: #e64340;
+  background: #FCCE09;
   border-radius: 6px;
   width: 300rpx;
   height: 70rpx;
@@ -62,26 +62,27 @@
 .a-goods-conts {
   display: flex;
   justify-content: space-between;
-  padding-left: 30rpx;
+  padding-left: 60rpx;
   width: 870rpx;
+  border-bottom: 1px solid #eee;
   box-sizing: border-box;
   transition: margin-left 0.2s ease-in-out;
 }
 
 .goods-info {
-  border-bottom: 1px solid #eee;
   display: flex;
   padding: 30rpx 0 30rpx 0;
-  width: 720rpx;
+  width: 690rpx;
   box-sizing: border-box;
 }
 
 .goods-info .img-box {
-  width: 160rpx;
-  height: 160rpx;
-  overflow: hidden;
   margin-right: 20rpx;
+  width: 120rpx;
+  height: 120rpx;
   background-color: #d8d8d8;
+  border-radius: 10rpx;
+  overflow: hidden;
   flex-shrink: 0;
 }
 
@@ -91,13 +92,16 @@
 }
 
 .goods-info .text-box .goods-title {
+  padding: 20rpx 20rpx 20rpx 0;
   width: 450rpx;
-  font-size: 28rpx;
-  color: #000;
+  font-size: 30rpx;
+  font-family: Alibaba PuHuiTi;
+  font-weight: 400;
+  color: #333;
+  line-height: 30rpx;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  padding: 10rpx 20rpx 5rpx 0;
 }
 
 .goods-info .text-box .goods-label {
@@ -109,8 +113,11 @@
 }
 
 .goods-info .text-box .goods-price {
-  font-size: 26rpx;
-  color: #e64340;
+  font-size: 24rpx;
+  font-family: Alibaba PuHuiTi;
+  font-weight: 400;
+  color: #FCCE09;
+  line-height: 26rpx;
 }
 
 .goods-info .text-box .buy-num {
@@ -189,7 +196,7 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
-  height: 100rpx;
+  height: 98rpx;
   position: fixed;
   bottom: 0;
   left: 0;
@@ -200,12 +207,15 @@
 }
 
 .jiesuan-box .to-pay-btn {
-  width: 240rpx;
+  width: 220rpx;
+  height: 98rpx;
+  font-size: 26rpx;
+  font-family: Alibaba PuHuiTi;
+  font-weight: 400;
+  color: #333;
+  background-color: #FCCE09;
   text-align: center;
-  line-height: 100rpx;
-  background-color: #e64340;
-  font-size: 32rpx;
-  color: #fff;
+  line-height: 98rpx;
 }
 
 .jiesuan-box .to-pay-btn.no-select {
@@ -214,15 +224,17 @@
 
 .jiesuan-box  .left-price {
   display: flex;
+  padding: 0 30rpx 0 50rpx;
   width: 510rpx;
-  justify-content: space-between;
+  font-size: 30rpx;
+  font-family: Alibaba PuHuiTi;
+  font-weight: bold;
   line-height: 100rpx;
-  padding: 0 30rpx 0 32rpx;
-  font-size: 28rpx;
   box-sizing: border-box;
+  justify-content: space-between;
 }
 .jiesuan-box .total {
-  color: #e64340;
+  color: #333333;
 }
 .trip {
   background: #e64340;

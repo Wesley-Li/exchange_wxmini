@@ -17,7 +17,7 @@ page,view,image,input {
 .header-btns {
   display: flex;
   margin: 25rpx 60rpx 25rpx 32rpx;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
 }
 .btns-container {
