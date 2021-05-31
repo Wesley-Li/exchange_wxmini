@@ -73,26 +73,55 @@ swiper-item image {
   transition: max-height 0.6s;
 }
 
-.goods-info{
-  background-color: #fff;
-  padding: 35rpx 0;
-  margin-bottom: 24rpx;
-  width: 100%;
+.goods-info {
   position: relative;
+  display: flex;
+  padding: 30rpx 0;
+  margin: 0 60rpx 30rpx;
+  width: calc(100% - 120rpx);
+  background-color: #fff;
+  border-bottom: 1rpx solid #f3f3f3;
+}
+.goods-info .cover-img {
+  display: flex;
+  width: 88rpx;
+  height: 88rpx;
+  align-items: center;
+}
+.goods-info .cover-img image {
+  width: 100%;
+  height: 100%;
+}
+.goods-info .info {
+  margin-left: 20rpx;
+}
+.goods-info .info .goods-title {
+  font-size: 24rpx;
+  font-family: Alibaba PuHuiTi;
+  font-weight: 500;
+  color: #333;
+  line-height: 48rpx;
+}
+.goods-info .info .goods-time {
+  font-size: 20rpx;
+  font-family: Alibaba PuHuiTi;
+  font-weight: 500;
+  color: #DDD;
+  line-height: 48rpx;
 }
 .goods-info-fx {
   position: absolute;
-  right: 35rpx;
+  right: 65rpx;
   bottom: 60rpx;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 130rpx;
+  width: 40rpx;
 }
 .goods-info-fx .item {
-  width: 50rpx;
-  height: 50rpx;
-  right: 130rpx;
+  width: 40rpx;
+  height: 40rpx;
+  right: 0rpx;
   top: 100rpx;
   display: flex;
   flex-direction: column;
@@ -103,8 +132,8 @@ swiper-item image {
   z-index: 20;
 } 
 .goods-info-fx .item image {
-  width: 50rpx;
-  height: 50rpx;
+  width: 40rpx;
+  height: 40rpx;
 }
 .goods-info-fx .item button {
   position: absolute;
@@ -112,14 +141,6 @@ swiper-item image {
   width: 100%;
   opacity: 0;
   z-index: 99;
-}
-.goods-info .goods-title{
-  box-sizing: border-box;
-  padding: 0 35rpx;
-  font-size: 32rpx;
-  line-height: 1.4;
-  color: #000;
-  margin-bottom: 28rpx;
 }
 .goods-info .goods-share{
   box-sizing: border-box;
@@ -131,15 +152,15 @@ swiper-item image {
 }
 .goods-profile {
   display: flex;
-  align-items:center;
+  align-items: center;
 }
-.goods-profile .p{
-   color:#e64340;
-   font-size: 20pt;
-   margin-left: 30rpx;
+.goods-profile .p {
+   color: #ED1616;
+   font-size: 30rpx;
+   margin-left: 60rpx;
 }
-.goods-profile .p text{
-   font-size: 12pt;
+.goods-profile .p text {
+   font-size: 24rpx;
 }
 .goods-profile .r{
    color:#ccc;
@@ -173,11 +194,18 @@ swiper-item image {
   padding: 30rpx;
 }
 .goods-text{
-  padding: 0 10rpx;
+  padding: 25rpx 60rpx 20rpx;
   font-size:28rpx;
   color:#666666;
   line-height: 56rpx;
   margin-bottom: 30rpx;
+}
+.goods-text .content {
+  font-size: 30rpx;
+  font-family: Alibaba PuHuiTi;
+  font-weight: 400;
+  color: #333;
+  line-height: 36rpx;
 }
 .goods-text image{
   width: 100%;

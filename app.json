@@ -10,6 +10,7 @@
     "pages/home-page/index",
     "pages/moments/index",
     "pages/goods-add/question-ask",
+    "pages/message/index",
     "pages/my/index",
 
     "pages/shop/select",
@@ -41,8 +42,7 @@
     "pages/invoice/apply",
     "pages/deposit/pay",
     "pages/live/index",
-    "pages/aboutus/index",
-    "pages/message/index"
+    "pages/aboutus/index"
   ],
   "subpackages": [
     {
@@ -93,7 +93,7 @@
         "text": "发布瞬间"
       },
       {
-        "pagePath": "pages/index/index",
+        "pagePath": "pages/message/index",
         "iconPath": "images/nav/fair.png",
         "selectedIconPath": "images/nav/fair-on.png",
         "text": "消息"

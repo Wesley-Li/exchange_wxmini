@@ -15,23 +15,24 @@
     <!-- <view class="popup-header" bindtap="onPopupClick">{{popupShrink ? '︽' : '︾'}}</view> -->
     <view class="popup-body">
       <view class="goods-info">
-        <view class="goods-title">{{goodsDetail.name}}</view>
-        <view class="goods-share" wx:if="{{goodsDetail.basicInfo.commissionType == 1}}">分享有赏，好友下单后可得 {{goodsDetail.basicInfo.commission}} 积分奖励</view>
-        <view class="goods-share" wx:if="{{goodsDetail.basicInfo.commissionType == 2}}">分享有赏，好友下单后可得 {{goodsDetail.basicInfo.commission}}元 现金奖励</view>
-        <view class="goods-profile">
-          <view class="p"><text>信用币:</text> {{selectSizePrice}}</view>
-          <view wx:if="{{goodsDetail.basicInfo.originalPrice && goodsDetail.basicInfo.originalPrice > 0}}" class="goods-price" style='color:#aaa;text-decoration:line-through;padding: 15rpx 0rpx 0rpx 15rpx;'><text>¥</text> {{selectSizeOPrice}}</view>
-          <!-- <view class="r">{{goodsDetail.basicInfo.numberSells}}人已买</view> -->
+        <view class="cover-img">
+          <image src="{{goodsDetail.pic}}" />
         </view>
-        <view class="goods-info-fx">
-          <view class='item'>
-            <image src='/images/share/share1.png'></image>
-            <button open-type='share'></button>
-          </view>
-          <!-- <view class='item' bindtap="drawSharePic">
-            <image src='/images/share/share2.png'></image>
-          </view> -->
-        </view>    
+        <view class="info">
+          <view class="goods-title">{{goodsDetail.name}}</view>
+          <view class="goods-time">{{goodsDetail.createtime}}</view>
+          <view class="goods-share" wx:if="{{goodsDetail.basicInfo.commissionType == 1}}">分享有赏，好友下单后可得 {{goodsDetail.basicInfo.commission}} 积分奖励</view>
+          <view class="goods-share" wx:if="{{goodsDetail.basicInfo.commissionType == 2}}">分享有赏，好友下单后可得 {{goodsDetail.basicInfo.commission}}元 现金奖励</view>
+          <view class="goods-info-fx">
+            <view class='item'>
+              <image src='/images/share/share1.png'></image>
+              <button open-type='share'></button>
+            </view>
+            <!-- <view class='item' bindtap="drawSharePic">
+              <image src='/images/share/share2.png'></image>
+            </view> -->
+          </view> 
+        </view>
       </view>
       <view class="size-label-box2" wx:if="{{goodsDetailSkuShowType==1}}">
         <!-- <view class="label-title">选择商品规格</view>
@@ -45,7 +46,7 @@
             </view>
           </block>
         </view> -->
-        <view class="buy-num-box">
+        <!-- <view class="buy-num-box">
           <view class="num-label">购买数量</view>
           <view class="num-box">
             <view class="num-jian {{buyNumber == buyNumMin ? 'hui': ''}}" bindtap="numJianTap">-</view>
@@ -54,12 +55,18 @@
             </view>
             <view class="num-jia {{buyNumber== buyNumMax ? 'hui': ''}}" bindtap="numJiaTap">+</view>
           </view>
-        </view>
+        </view> -->
+      </view>
+      <view class="goods-profile">
+        <view class="p">{{selectSizePrice}}<text>信用码</text></view>
+        <view wx:if="{{goodsDetail.basicInfo.originalPrice && goodsDetail.basicInfo.originalPrice > 0}}" class="goods-price" style='color:#aaa;text-decoration:line-through;padding: 15rpx 0rpx 0rpx 15rpx;'><text>¥</text> {{selectSizeOPrice}}</view>
+        <!-- <view class="r">{{goodsDetail.basicInfo.numberSells}}人已买</view> -->
       </view>
       <view class="goods-des-info" wx:if="{{goodsDetail.content}}">
-        <view class="label-title">商品介绍</view>
+        <!-- <view class="label-title">商品介绍</view> -->
         <view class="goods-text">
-          <parser html="{{goodsDetail.content}}" />
+          <!-- <parser html="{{goodsDetail.content}}" /> -->
+          <view class="content">{{goodsDetail.content}}</view>
         </view>
       </view>
     </view>
