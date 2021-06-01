@@ -227,7 +227,7 @@ Page({
         icon: 'none'
       })
       wx.redirectTo({
-        url: "/pages/order-list/index"
+        url: "/subpackages/order-list/index"
       });
       this.data.pageIsEnd = false
       return
@@ -252,12 +252,12 @@ Page({
                 return
               }
               wx.redirectTo({
-                url: "/pages/order-list/index?type=1"
+                url: "/subpackages/order-list/index?type=1"
               })
             })
           } else {
             wx.redirectTo({
-              url: "/pages/order-list/index?type=0"
+              url: "/subpackages/order-list/index?type=0"
             })
           }
         }
@@ -280,11 +280,11 @@ Page({
       //   success: res2 => {
       //     if (res2.confirm) {
       //       wx.redirectTo({
-      //         url: "/pages/order-list/index"
+      //         url: "/subpackages/order-list/index"
       //       })
       //     } else {
       //       wx.redirectTo({
-      //         url: "/pages/order-list/index"
+      //         url: "/subpackages/order-list/index"
       //       })
       //     }
       //   }
@@ -293,7 +293,7 @@ Page({
   },
   onHandleDialog(e) {
     wx.redirectTo({
-      url: "/pages/order-list/index"
+      url: "/subpackages/order-list/index"
     })
   },
   // 去借款

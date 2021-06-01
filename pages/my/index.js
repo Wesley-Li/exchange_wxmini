@@ -229,7 +229,7 @@ Page({
   },
   goOrder: function (e) {
     wx.navigateTo({
-      url: "/pages/order-list/index?type=" + e.currentTarget.dataset.type
+      url: "/subpackages/order-list/index?type=" + e.currentTarget.dataset.type
     })
   },
   cancelLogin() {

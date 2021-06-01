@@ -66,7 +66,7 @@ Page({
               WXAPI.orderShipper(wx.getStorageSync('token'), JSON.stringify(that.data.odids), null, true).then(function(res) {
                 if (res.retcode == 0) {
                   // wx.navigateTo({
-                  //   url: "/pages/order-list/index?type=3"
+                  //   url: "/subpackages/order-list/index?type=3"
                   // })
                   that.setData({
                     type: 4 //我已收货，待评价状态

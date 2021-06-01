@@ -59,7 +59,7 @@ Page({
     WXAPI.refundApplyCancel(wx.getStorageSync('token'), _this.data.orderId).then(res => {
       if (res.code == 0) {
         wx.navigateTo({
-          url: "/pages/order-list/index"
+          url: "/subpackages/order-list/index"
         })
       }
     })
@@ -154,7 +154,7 @@ Page({
           confirmText: '我知道了',
           success(res) {
             wx.navigateTo({
-              url: "/pages/order-list/index"
+              url: "/subpackages/order-list/index"
             })
           }
         })
@@ -166,7 +166,7 @@ Page({
           confirmText: '我知道了',
           success(res) {
             wx.navigateTo({
-              url: "/pages/order-list/index"
+              url: "/subpackages/order-list/index"
             })
           }
         })

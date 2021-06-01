@@ -25,11 +25,11 @@
       </scroll-view>
       <view class="goods-price">
         共 {{item.number}} 件商品 合计：
-        <text class="p">信用币{{item.total}}</text>
+        <text class="p">{{item.total}}<text class="unit">信用码</text></text>
         <!-- <text class="p" wx:if="{{item.score <= 0}}">¥ {{item.amountReal}}</text>
         <text class="p" wx:if="{{item.score > 0}}">¥ {{item.amountReal}} + {{item.score}} 积分</text> -->
       </view>
-      <view class="goods-info">
+      <view class="goods-info" wx:if="{{item.remark || item.dateAdd}}">
         <view class="goods-des">
           <view class="remark" wx:if="{{item.remark && item.remark != ''}}">{{item.remark}}</view>
           <view>{{item.dateAdd}} </view>
@@ -52,5 +52,4 @@
       <view class="btn-wni" bindtap="shipperConfirm">确定</view>
       <view class="btn-wni" bindtap="cancelShipper">取消</view>
   </view>
-  <view class="safeAreaOldMarginBttom safeAreaNewMarginBttom"></view>
 </view>
