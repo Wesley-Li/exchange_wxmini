@@ -20,7 +20,6 @@
     "pages/goods/list",
     "pages/goods/fav",
     "pages/select-address/index",
-    "pages/order-list/index",
     "pages/order-details/index",
     "pages/order-details/scan-result",
     "pages/order/refundApply",
@@ -58,7 +57,8 @@
         "friends/index",
         "my-accountant/index",
         "my-borrow-money/index",
-        "my-make-loans/index"
+        "my-make-loans/index",
+        "order-list/index"
       ]
     }],
   "window": {

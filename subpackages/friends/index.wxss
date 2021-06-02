@@ -50,7 +50,7 @@ page, view, image, input {
 }
 
 .search {
-  margin: 30rpx auto 60rpx;
+  margin: 30rpx auto 45rpx;
   position: relative;
   width: 630rpx;
   height: 60rpx;
@@ -86,4 +86,51 @@ page, view, image, input {
   line-height: 58rpx;
   box-sizing: border-box;
   z-index: 99;
+}
+
+.user-item {
+  display: flex;
+  padding: 15rpx 60rpx;
+}
+.user-item .user-avart {
+  margin-right: 20rpx;
+  width: 88rpx;
+  height: 88rpx;
+  background: #e5e5e5;
+  border-radius: 50%;
+}
+.user-item .user-info {
+  display: flex;
+  justify-content: space-between;
+  flex-flow: column;
+}
+.user-item .user-info .user-name {
+  font-size: 26rpx;
+  font-family: Alibaba PuHuiTi;
+  font-weight: 400;
+  color: #333;
+}
+.user-item .user-info .user-desc {
+  font-size: 22rpx;
+  font-family: Alibaba PuHuiTi;
+  font-weight: 400;
+  color: #DDDDDD;
+}
+.user-item .status-box {
+  margin-left: auto;
+  display: flex;
+  width: 120rpx;
+  height: 46rpx;
+  font-size: 24rpx;
+  font-family: Alibaba PuHuiTi;
+  font-weight: 400;
+  color: #333333;
+  background: #f3f3f3;
+  border-radius: 4rpx;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+}
+.weui-actionsheet__cell_warn {
+  color: #FCCE09;
 }

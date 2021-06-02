@@ -1218,6 +1218,18 @@ module.exports = {
       ...params
     })
   },
+  // 获取关注、粉丝列表
+  getFriendsList: function getFriendsList(params) {
+    return request('/api/moment/friends/', false, 'get', {
+      ...params
+    })
+  },
+  // 关注、取关某人
+  onMomentFocus: function onMomentFocus(params) {
+    return request('/api/moment/focus/', false, 'post', {
+      ...params
+    })
+  },
   // 手记数据
   getMoments: function getMoments(params) {
     return request('/api/moment/getMoments/', false, 'get', {
