@@ -58,7 +58,8 @@
         "my-accountant/index",
         "my-borrow-money/index",
         "my-make-loans/index",
-        "order-list/index"
+        "order-list/index",
+        "setting-info/index"
       ]
     }],
   "window": {

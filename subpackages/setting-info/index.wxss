@@ -1,0 +1,24 @@
+/* subpackages/settingInfo/index.wxss */
+.setting-page {
+  padding: 30rpx 60rpx;
+}
+.setting-page .weui-cell {
+  padding: 30rpx 0;
+  border-bottom: 1rpx solid #f3f3f3;
+}
+.setting-page .weui-cell::before {
+  display: none;
+}
+.setting-page .weui-cell__hd {
+  font-size: 30rpx;
+  font-family: Alibaba PuHuiTi;
+  font-weight: 400;
+  color: #333333;
+}
+.setting-page .weui-cell__bd {
+  font-size: 26rpx;
+  font-family: Alibaba PuHuiTi;
+  font-weight: 400;
+  color: #999999;
+  text-align: right;
+}

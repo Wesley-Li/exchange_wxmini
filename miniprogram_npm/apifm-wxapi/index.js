@@ -1272,6 +1272,36 @@ module.exports = {
       ...params
     })
   },
+  // 设置简介
+  setShortDesc: function setShortDesc(params) {
+    return request('/api/user/setDesc/', true, 'post', {
+      ...params
+    })
+  },
+  // 设置性别
+  setGender: function setGender(params) {
+    return request('/api/user/setGender/', true, 'post', {
+      ...params
+    })
+  },
+  // 设置生日
+  setBirth: function setBirth(params) {
+    return request('/api/user/setBirth/', true, 'post', {
+      ...params
+    })
+  },
+  // 设置所在地
+  setLocation: function setLocation(params) {
+    return request('/api/user/setLocation/', true, 'post', {
+      ...params
+    })
+  },
+  // 设置学校
+  setCollege: function setCollege(params) {
+    return request('/api/user/setCollege/', true, 'post', {
+      ...params
+    })
+  },
   // 获取学校
   getSchool: function getSchool(params) {
     return request('https://yiku-oss.alimom.cn//chinaschool.json', true, 'get', {

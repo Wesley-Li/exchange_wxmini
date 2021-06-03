@@ -1,0 +1,73 @@
+<!--subpackages/settingInfo/index.wxml-->
+<view class="setting-page">
+  <form bindsubmit="bindSave">
+    <view class="weui-cell">
+      <view class="weui-cell__hd">
+        <view class="weui-label">名字</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input name="username" class="weui-input" type="text" placeholder="名字" value="{{userInfo.nickName}}" bindblur="inputBlur" data-param="" placeholder-style="color: #999" />
+      </view>
+    </view>
+    <view class="weui-cell">
+      <view class="weui-cell__hd">
+        <view class="weui-label">简介</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input name="username" class="weui-input" type="text" placeholder="请输入简介" value="{{userInfo.shortDesc}}" bindblur="inputBlur" data-param="shortDesc" placeholder-style="color: #999" />
+      </view>
+    </view>
+    <view class="weui-cell">
+      <view class="weui-cell__hd">
+        <view class="weui-label">性别</view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker value="{{userInfo.gender}}" range="{{genderArr}}" range-key="name" bindchange="pickerChange" data-param="gender">
+          <view class="picker">
+            <view wx:if="{{!userInfo.gender && userInfo.gender != 0}}" class="text">请选择性别</view>
+            {{userInfo.genderName}}
+          </view>
+        </picker>
+      </view>
+    </view>
+    <view class="weui-cell">
+      <view class="weui-cell__hd">
+        <view class="weui-label">生日</view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker mode="date" value="{{userInfo.birth}}" bindchange="pickerChange" data-param="birth">
+          <view class="picker">
+            <view wx:if="{{!userInfo.birth}}" class="text">请选择生日</view>
+            {{userInfo.birth || ''}}
+          </view>
+        </picker>
+      </view>
+    </view>
+    <view class="weui-cell">
+      <view class="weui-cell__hd">
+        <view class="weui-label">所在地</view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker mode="region" bindchange="bindRegionChange" value="{{region}}" custom-item="">
+          <view class="picker">
+            <view wx:if="{{region.length == 0}}" class="text">请选择地区</view>
+            {{region[0]}} {{region[1]}} {{region[2]}}
+          </view>
+        </picker>
+      </view>
+    </view>
+    <view class="weui-cell">
+      <view class="weui-cell__hd">
+        <view class="weui-label">学校</view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker bindchange="pickerChange" range="{{schoolList}}" range-key="name" value="{{school}}" custom-item="" data-param='college'>
+          <view class="picker">
+            <view wx:if="{{!userInfo.collegeId}}" class="text">请选择学校</view>
+            {{userInfo.collegeName || ''}}
+          </view>
+        </picker>
+      </view>
+    </view>
+  </form>
+</view>

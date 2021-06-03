@@ -106,7 +106,7 @@ Page({
       if (res.retcode == 0) {
         let _data = {score:res.data.score}
         res.data.genderName = {0: '未知', 1: '男', 2: '女'}[res.data.gender];
-        wx.setStorageSync('user_info', {avatar: res.data.avatar, score: res.data.score});
+        wx.setStorageSync('user_info', res.data);
         _data.apiUserInfoMap = res.data
         if (res.data.mobile) {
           _data.userMobile = res.data.mobile
@@ -276,6 +276,18 @@ Page({
       title: '已清除',
       icon: 'success'
     })
+  },
+  onJump: function(e) {
+    if(e.currentTarget.dataset.type == 'information') {
+      wx.switchTab({
+        url: '/pages/message/index'
+      })
+    }
+    if(e.currentTarget.dataset.type == 'set') {
+      wx.navigateTo({
+        url: "/subpackages/setting-info/index?"
+      })
+    }
   },
   /**
    * 页面上拉触底事件的处理函数

@@ -7,14 +7,14 @@
         <!-- <navigator url="/subpackages/my-make-loans/index">
           <image src="/images/my/add-friend.png" bindtap="onJump" data-type="friends" />
         </navigator> -->
-        <navigator url="/subpackages/my-make-loans/index">
-          <image src="/images/my/information.png" bindtap="onJump" data-type="information" />
-        </navigator>
+        <image src="/images/my/information.png" bindtap="onJump" data-type="information" />
         <navigator url="/subpackages/my-accountant/index">
           <image src="/images/my/accountant.png" />
         </navigator>
       </div>
-      <div class="set" bindtap="onJump" data-type="set">设置</div>
+      <navigator url="/subpackages/setting-info/index">
+        <div class="set">设置</div>
+      </navigator>
     </view>
     <view wx:if="{{apiUserInfoMap}}" class="userinfo">
       <image wx:if="{{apiUserInfoMap.avatar}}" class="userinfo-avatar" src="{{ apiUserInfoMap.avatar }}" background-size="cover"></image>
