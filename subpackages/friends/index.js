@@ -87,7 +87,7 @@ Page({
     if(!e.currentTarget.dataset.both) {
       this.setData({
         userItem: {
-          id: e.currentTarget.dataset.id,
+          tuserid: e.currentTarget.dataset.id,
           type: 'focus'
         }
       }, () => {
@@ -111,11 +111,11 @@ Page({
     let { tabKey } = this.data;
     this.setData({
       userItem: {
-        id: e.currentTarget.dataset.id,
+        tuserid: e.currentTarget.dataset.id,
         type: e.currentTarget.dataset.both ? 'unfocus' : 'focus',
       }
     })
-    if(tabKey == 0 || tabKey == 1 && !both) {
+    if(tabKey == 0 || tabKey == 1 && both) {
       this.setData({
         showActionsheet: true,
       })
@@ -127,6 +127,7 @@ Page({
       userItem.type = 'unfocus';
       this.setData({
         userItem,
+        showActionsheet: false,
       }, () => {
         this.onMomentFocus();
       })
