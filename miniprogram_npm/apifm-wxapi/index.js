@@ -1194,6 +1194,12 @@ module.exports = {
       ...params
     })
   },
+  // 删除手记
+  onMomentsDelete: function onMomentsDelete(params) {
+    return request('/api/moment/delete/', false, 'post', {
+      ...params
+    })
+  },
   // 朋友圈、商品点赞
   onLike: function onLike(params) {
     return request('/api/thumb/edit/', false, 'post', {

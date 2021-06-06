@@ -217,6 +217,27 @@ Page({
         wx.hideLoading();
       })
   },
+  // 删除我的手记
+  onMomentsDelete: function(e) {
+    let { momentsList } = this.data;
+    WXAPI.onMomentsDelete({feedId: e.target.dataset.id})
+      .then(res => {
+        if(res.retcode == 0) {
+          wx.showToast({
+            title: '删除成功',
+            duration: 2000
+          })
+          momentsList.map((item, index) => {
+            if(item.id == e.target.dataset.id) {
+              momentsList.splice(index, 1);
+            }
+          })
+          this.setData({
+            momentsList,
+          })
+        }
+      })
+  },
   goAsset: function () {
     wx.navigateTo({
       url: "/pages/asset/index"

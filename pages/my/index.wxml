@@ -261,6 +261,9 @@
     <view class="pics-container">
       <image wx:if="{{pic}}" wx:for="{{item.pics}}" wx:key="idx" wx:for-item="pic" src="{{pic}}"/>
     </view>
+    <view class="btns">
+      <view class="delete-btn" bindtap="onMomentsDelete" data-id="{{item.id}}">删除</view>
+    </view>
   </view>
   <view wx:if="{{!hasMore}}" class="no-more">没有更多了~</view>
 
