@@ -310,6 +310,17 @@ Page({
       })
     }
   },
+  // 图片放大查看
+  handleGalleryPreview(e) {
+    let urls = [];
+    e.currentTarget.dataset.urls.map(item => {
+      item && urls.push(item);
+    })
+    wx.previewImage({
+      current: e.currentTarget.dataset.index,
+      urls: urls
+    })
+  },
   /**
    * 页面上拉触底事件的处理函数
    */
