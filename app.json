@@ -6,12 +6,12 @@
     "downloadFile": 120000
   },
   "pages": [
-    "pages/my/index",
     "pages/start/start",
     "pages/home-page/index",
     "pages/moments/index",
     "pages/goods-add/question-ask",
     "pages/message/index",
+    "pages/my/index",
 
     "pages/shop/select",
     "pages/index/index",
@@ -59,7 +59,8 @@
         "my-borrow-money/index",
         "my-make-loans/index",
         "order-list/index",
-        "setting-info/index"
+        "setting-info/index",
+        "other-info/index"
       ]
     }],
   "window": {

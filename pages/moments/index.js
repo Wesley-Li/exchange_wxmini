@@ -180,6 +180,7 @@ Page({
               item.comments += 1;
               item.commentList = item.commentList ? item.commentList : [];
               let data = {
+                id: res.id,
                 content: inputValue,
                 fromNick: userInfo.nickName,
                 fromUid: userInfo.id,
@@ -205,6 +206,11 @@ Page({
       topicId: e.currentTarget.dataset.topicid,
       toUserName: e.currentTarget.dataset.fromnick,
       toUserId: e.currentTarget.dataset.fromuid,
+    })
+  },
+  onViewOtherInfo: function(e) {
+    wx.navigateTo({
+      url: "/subpackages/other-info/index?uid=" + e.currentTarget.dataset.uid,
     })
   },
   //获取普通文本消息

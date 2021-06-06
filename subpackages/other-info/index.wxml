@@ -1,0 +1,57 @@
+<!--subpackages/other-info/index.wxml-->
+<view class="container">
+  <view class="my-header">
+    <view class="header-btns">
+      <navigator url="/subpackages/setting-info/index">
+        <div class="set">设置</div>
+      </navigator>
+    </view>
+    <view wx:if="{{userInfo}}" class="userinfo">
+      <image wx:if="{{userInfo.avatar}}" class="userinfo-avatar" src="{{ userInfo.avatar }}" background-size="cover"></image>
+      <text class="userinfo-nickname" style="color: {{haslend && '#32CD32' || hasborrow && '#EE0000' || '#fff'}}">{{ userInfo.nickName }}</text>
+      <text wx:if="{{userInfo.short_desc}}" class="userinfo-shortDesc">{{ userInfo.short_desc }}</text>
+      <div class="info-box">
+        <div class="info-item">{{ userInfo.genderName }}</div>
+        <div class="info-item">{{ userInfo.city }}</div>
+        <div wx:if="{{userInfo.collegeName}}" class="info-item">{{ userInfo.collegeName }}</div>
+      </div>
+    </view>
+    <div class="header-data-box">
+      <!-- <div class="data-item">
+        <div class="data-item-name">获赞</div>
+        <div class="data-item-value">-</div>
+      </div> -->
+      <!-- <navigator url="/subpackages/friends/index?type=0"> -->
+        <div class="data-item">
+          <div class="data-item-name">关注</div>
+          <div class="data-item-value">{{ userInfo.following }}</div>
+        </div>
+      <!-- </navigator> -->
+      <!-- <navigator url="/subpackages/friends/index?type=1"> -->
+        <div class="data-item">
+          <div class="data-item-name">粉丝</div>
+          <div class="data-item-value">{{ userInfo.followers }}</div>
+        </div>
+      <!-- </navigator> -->
+    </div>
+  </view>
+
+  <view class="moments-list" wx:for="{{momentsList}}" wx:key="id">
+    <view class="moments-header">
+      <text class="create-time">{{item.createtimeStr}}</text>
+      <text class="opentype">{{item.opentypeName}}</text>
+    </view>
+    <parser html="{{item.content}}" />
+    <video wx:if="{{item.video}}" src="{{item.video}}" />
+    <view class="pics-container">
+      <image wx:if="{{pic}}" wx:for="{{item.pics}}" wx:key="index" wx:for-item="pic" src="{{pic}}" bindtap="handleGalleryPreview" data-urls="{{item.pics}}" data-index="{{index}}" />
+    </view>
+  </view>
+  <view wx:if="{{!hasMore}}" class="no-more">没有更多了~</view>
+
+  <view class="space"></view>
+  <view class="footer-btns">
+    <view class="btn" bindtap="onMomentFocus">{{followed ? '取消关注' : '关注'}}</view>
+    <view class="btn">私聊</view>
+  </view>
+</view>

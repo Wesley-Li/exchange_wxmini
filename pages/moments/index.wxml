@@ -11,7 +11,7 @@
   <!-- </cover-view> -->
   <view class="moments-list {{index == 0 && 'moments-list-first'}}" wx:for="{{momentsList}}" wx:key="id">
     <view class="moments-header-data">
-      <image src="{{item.avatar}}" />
+      <image src="{{item.avatar}}" bindtap="onViewOtherInfo" data-uid="{{item.uid}}" />
       <view class="right">
         <text class="school-name">{{item.college_name ? '来自' + item.college_name : ''}}</text>
         <text class="nick-name">{{item.nick_name}}</text>
@@ -40,9 +40,10 @@
     <view class="comment-list" wx:if="{{item.open}}">
       <view class="comment-item" wx:for="{{item.commentList}}" wx:key="index" wx:for-item="comment" bindtap="onReplyComment" data-fromuid="{{comment.fromUid}}" data-fromnick="{{comment.fromNick}}" data-topicid="{{item.id}}">
         <span class="user-name">
-          {{comment.fromNick}}
+          <span bindtap="onViewOtherInfo" data-uid="{{comment.fromUid}}">{{comment.fromNick}}</span>
           <span wx:if="{{comment.toUid}}">
-            <span class="text">回复</span>{{comment.toNick}}
+            <span class="text">回复</span>
+            <span bindtap="onViewOtherInfo" data-uid="{{comment.toUid}}">{{comment.toNick}}</span>
           </span>: 
         </span>
         {{comment.content}}

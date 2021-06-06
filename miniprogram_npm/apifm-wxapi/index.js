@@ -1317,6 +1317,12 @@ module.exports = {
       ...params
     })
   },
+  // 获取其他用户信息
+  getOtherUserInfo: function getOtherUserInfo(params) {
+    return request('/api/user/odetail/', false, 'get', {
+      ...params
+    })
+  },
   // 获取学校
   getSchool: function getSchool(params) {
     return request('https://yiku-oss.alimom.cn//chinaschool.json', true, 'get', {
