@@ -380,8 +380,10 @@ module.exports = {
   banners: function banners(data) {
     return request('/api/banner/list', false, 'get', data);
   },
-  goodsCategory: function goodsCategory() {
-    return request('/api/product/categories/', false, 'get');
+  goodsCategory: function goodsCategory(params) {
+    return request('/api/product/categories/', false, 'get', {
+      ...params
+    });
   },
   goodsCategoryDetail: function goodsCategoryDetail(id) {
     return request('/shop/goods/category/info', true, 'get', { id: id });

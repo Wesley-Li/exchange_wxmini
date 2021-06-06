@@ -1,5 +1,6 @@
 // pages/home-page/index.js
 const WXAPI = require('apifm-wxapi');
+const AUTH = require('../../utils/auth');
 const QQMapWX = require('../../utils/qqmap-wx-jssdk.min.js');
 
 let qqmapsdk;
@@ -9,6 +10,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    inputSearchShow: false,
+    inputValue: '',
     location: {
       latitude: 35.140415,
       longitude: 105.273511
@@ -167,6 +170,28 @@ Page({
       url: '/subpackages/category/category',
     })
   },
+  onSearch: function() {
+    let { inputValue, citySchool } = this.data;
+    let filterSchool = [];
+    citySchool.map(item => {
+      if(item.name.indexOf(inputValue) > -1) {
+        filterSchool.push(item);
+      }
+    })
+    this.setData({
+      schoolList: filterSchool,
+    })
+  },
+  bindinput: function(e) {
+    this.setData({
+      inputValue: e.detail.value,
+    })
+  },
+  onSearchInput: function(e) {
+    this.setData({
+      inputSearchShow: e.currentTarget.dataset.type,
+    })
+  },
   // 获取学校列表
   getSchool: function() {
     WXAPI.getSchool({}).then(res => {
@@ -191,6 +216,7 @@ Page({
     
     t.setData({
       citySchool,
+      schoolList: citySchool
     })
   },
   GetRandomNum: function(Min,Max) {
@@ -240,6 +266,48 @@ Page({
       },
     });
   },
+  // 匹配同校
+  getMySchoolProduct: function() {
+    let t = this;
+    AUTH.checkHasLogined().then(isLogined => {
+      if(isLogined) {
+        let userInfo = wx.getStorageSync('user_info');
+        if(userInfo.collegeId) {
+          wx.navigateTo({
+            url: '/subpackages/category/category?collegeId=' + userInfo.collegeId + '&collegeName=' + userInfo.collegeName,
+          })
+        } else {
+          wx.showToast({
+            title: '还未设置学校',
+            icon: 'none',
+            duration: 2000,
+          });
+        }
+      } else {
+        wx.showModal({
+          title: '提示',
+          content: '本次操作需要您的登录授权',
+          cancelText: '暂不登录',
+          confirmText: '前往登录',
+          success(res) {
+            if(res.confirm) {
+              wx.switchTab({
+                url: "/pages/my/index"
+              })
+            } else {
+              wx.navigateBack()
+            }
+          }
+        })
+      }
+    })
+  },
+  // 学校点击
+  onSchoolTap: function(e) {
+    wx.navigateTo({
+      url: '/subpackages/category/category?collegeId=' + e.currentTarget.dataset.id + '&collegeName=' + e.currentTarget.dataset.name,
+    })
+  },
   // 获取地理位置
   getLocation: function() {
     wx.getLocation({
@@ -269,6 +337,8 @@ Page({
   goBack: function() {
     this.setData({
       citySchool: null,
+      schoolList: null,
+      inputSearchShow: false,
     })
   },
   /**

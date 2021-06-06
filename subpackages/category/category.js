@@ -12,6 +12,9 @@ Page({
       name: '',
       id: ''
     },
+    collegeId: '',
+    collegeName: '',
+    schoolFilterOpen: true,
     currentGoods: [],
     onLoadStatus: true,
     scrolltop: 0,
@@ -26,7 +29,12 @@ Page({
       withShareTicket: true,
       menus: ['shareAppMessage', 'shareTimeline']
     })
-    this.categories();
+    this.setData({
+      collegeId: options.collegeId,
+      collegeName: options.collegeName,
+    }, () => {
+      this.categories();
+    })
   },
   async categories() {
     wx.showLoading({
@@ -64,14 +72,17 @@ Page({
     this.getGoodsList();
   },
   async getGoodsList() {
+    let { collegeId, schoolFilterOpen } = this.data;
     wx.showLoading({
       title: '加载中',
     })
-    const res = await WXAPI.goods({
+    let data = {
       cid: this.data.categorySelected.id,
       page: 1,
-      pageSize: 100000
-    })
+      pageSize: 100000,
+    }
+    collegeId && schoolFilterOpen && (data.collegeId = collegeId);
+    const res = await WXAPI.goods(data)
     wx.hideLoading()
     if (res.code == 700) {
       this.setData({
@@ -82,6 +93,15 @@ Page({
     this.setData({
       currentGoods: res.data
     });
+  },
+  // 按大学过滤开关
+  onCollegeFilter: function() {
+    let { schoolFilterOpen } = this.data;
+    this.setData({
+      schoolFilterOpen: !schoolFilterOpen
+    }, () => {
+      this.getGoodsList();
+    })
   },
   toDetailsTap: function(e) {
     wx.navigateTo({

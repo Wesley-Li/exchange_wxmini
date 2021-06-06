@@ -1,17 +1,26 @@
 <!--pages/home-page/index.wxml-->
 <view class="container">
-  <view class="go-back-ball" bindtap="goBack" wx:if="{{citySchool}}">返回</view>
+  <view class="go-back-ball" bindtap="goBack" wx:if="{{schoolList}}">返回</view>
+  <view class="search-box" wx:if="{{schoolList}}">
+    <view class="btn" wx:if="{{!inputSearchShow}}" bindtap="onSearchInput" data-type="{{true}}">搜索</view>
+    <view class="search" wx:else>
+      <input type="text" placeholder="输入搜索关键词" value="{{inputValue}}" bindinput="bindinput"></input>
+      <image src="/images/icon/search.png" ></image>
+      <div class="search-btn" bindtap="onSearch">搜索</div>
+      <!-- <image class="close-btn" src="/images/icon/close1.svg" bindtap="onSearchInput" data-type="{{false}}"></image> -->
+    </view>
+  </view>
   <view class="map-container">
     <div class="bg-box"></div>
-    <div class="out" wx:if="{{!citySchool}}">
+    <div class="out" wx:if="{{!schoolList}}">
       <!-- <div class="ball" style="transform: rotateY({{numm}}deg)"> -->
       <div class="ball">
         <li wx:for="{{list}}" class="{{item.class}}" wx:key="key" style="{{item.style}}" bindtap="onCityTap" data-type="{{item.cityName}}">{{item.cityName}}</li>
       </div>
     </div>
     
-    <div class="school-box" wx:if="{{citySchool}}">
-      <li wx:for="{{citySchool}}" class="school-item" wx:key="id" style="{{item.style}}" bindtap="onSchoolTap" data-type="{{item.id}}">
+    <div class="school-box" wx:if="{{schoolList}}" style="min-width: {{schoolList.length <= 10 && '100%' || schoolList.length <= 20 && '200%' || '350%'}}">
+      <li wx:for="{{schoolList}}" class="school-item" wx:key="id" style="{{item.style}}" bindtap="onSchoolTap" data-id="{{item.id}}" data-name="{{item.name}}">
         <p>{{item.name}}</p>
       </li>
     </div>
@@ -22,7 +31,7 @@
         <image class="image" src="/images/homePage/location.png" />
         <span>定位同城</span>
       </view>
-      <view class="category-header-right">
+      <view class="category-header-right" bindtap="getMySchoolProduct">
         <image class="image" src="/images/homePage/pptx.png" />
         <span>匹配同校</span>
       </view>
