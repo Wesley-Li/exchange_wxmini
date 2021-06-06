@@ -8,7 +8,8 @@ Page({
    */
   data: {
     wxlogin: true,
-    onlymy:false,
+    onlymy: false,
+    tabKey: 0,
     listType: 2, // 1为1个商品一行，2为2个商品一行    
     name: '', // 搜索关键词
     orderBy: '', // 排序规则
@@ -51,6 +52,14 @@ Page({
    }
    this.search()
   },
+  onTabsClick: function(e) {
+    this.currentPage = 1;
+    this.setData({
+      tabKey: e.target.dataset.type,
+    }, () => {
+      this.search();
+    })
+  },
   async search(){
     // 搜索商品
     wx.showLoading({
@@ -67,6 +76,11 @@ Page({
     }
     if (this.data.categoryId) {
       _data.cid = this.data.categoryId
+    }
+    if(this.data.tabKey == 0) {
+      _data.status = 1;
+    } else {
+      _data.status = 0;
     }
     let res;
     if (this.data.onlymy) {
@@ -250,7 +264,7 @@ Page({
     const that=this;
     wx.showModal({
       title: '提示',
-      content: '确定要删除吗？',
+      content: '确定要下架这个商品吗？',
       success: async function (res) {
         if (res.confirm) {
           const token = wx.getStorageSync('token')
@@ -264,6 +278,31 @@ Page({
             that.search()
           }
         }else {
+          console.log('用户点击取消')
+        }
+      }
+    })
+  },
+  // 重新发布
+  putawayItem: function(e) {
+    let t = this;
+    wx.showModal({
+      title: '提示',
+      content: '确定要重新发布这个商品吗？',
+      success: function (res) {
+        if(res.confirm) {
+          WXAPI.putawayProduct({pid: e.target.dataset.key})
+            .then(res => {
+              if(res.retcode != 0) {
+                wx.showToast({
+                  title: res.msg,
+                  icon:'none'
+                })
+              } else {
+                t.search()
+              }
+            })
+        } else {
           console.log('用户点击取消')
         }
       }

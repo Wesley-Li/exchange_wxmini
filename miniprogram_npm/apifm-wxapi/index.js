@@ -415,9 +415,16 @@ module.exports = {
       pid
     });
   },
+  // 下架我的某个商品
   delProduct: function delProduct(token, key) {
     return request('/api/product/delete', false, 'post', {
       token: token, pid: key
+    });
+  },
+  // 重新上架某个商品
+  putawayProduct: function putawayProduct(params) {
+    return request('/api/product/reup', false, 'post', {
+      ...params
     });
   },
   goodsLimitations: function goodsLimitations(goodsId) {

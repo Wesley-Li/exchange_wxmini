@@ -5,6 +5,10 @@
   </view>
   <!-- <image class="show-type" src="/images/icon/list{{listType}}.svg" bindtap="changeShowType"></image> -->
 </view>
+<view class="header-tabs" wx:if="{{onlymy}}">
+  <view class="tabs-item {{tabKey == 0 && 'tabs-item-selected'}}" bindtap="onTabsClick" data-type="0">我发布的</view>
+  <view class="tabs-item {{tabKey == 1 && 'tabs-item-selected'}}" bindtap="onTabsClick" data-type="1">我下架的</view>
+</view>
 <!-- <view class="line"></view>
 <view class="filters">
   <view class="item {{orderBy==''?'active':''}}" data-val="" bindtap="filter">综合</view>
@@ -42,7 +46,8 @@
         <!-- <navigator url="/pages/goods-add/question-ask?id={{item.id}}"><image class="car-left" src="/images/edit.jpg"></image></navigator>
         <image class="car" src="/images/del.png" data-key="{{item.id}}" catchtap="delItem"></image> -->
         <navigator url="/subpackages/goods-edit/index?id={{item.id}}"><view class="handle-btn edit-btn">编辑</view></navigator>
-        <view class="handle-btn delete-btn" data-key="{{item.id}}" catchtap="delItem">删除</view>
+        <view class="handle-btn delete-btn" wx:if="{{tabKey == 0}}" data-key="{{item.id}}" catchtap="delItem">下架</view>
+        <view class="handle-btn" wx:if="{{tabKey == 1}}" data-key="{{item.id}}" catchtap="putawayItem">重新发布</view>
       </block>
     </view>
   </view>
