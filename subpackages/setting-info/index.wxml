@@ -61,9 +61,9 @@
         <view class="weui-label">学校</view>
       </view>
       <view class="weui-cell__bd">
-        <picker bindchange="pickerChange" range="{{schoolList}}" range-key="name" value="{{school}}" custom-item="" data-param='college'>
+        <picker bindchange="pickerChange" range="{{schoolList}}" range-key="name" value="{{userInfo.collegeIndex}}" custom-item="" data-param='college'>
           <view class="picker">
-            <view wx:if="{{!userInfo.collegeId}}" class="text">请选择学校</view>
+            <view wx:if="{{userInfo.collegeIndex == undefined}}" class="text">请选择学校</view>
             {{userInfo.collegeName || ''}}
           </view>
         </picker>

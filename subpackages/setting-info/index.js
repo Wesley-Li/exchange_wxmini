@@ -40,7 +40,7 @@ Page({
   bindRegionChange: function (e) {
     console.log('picker发送选择改变，携带值为', e.detail.value, e)
     console.log(e.detail.code)
-    let { allSchool } = this.data;
+    let { allSchool, regioncode } = this.data;
     let provinceName = e.detail.value[0];
     allSchool.map(item => {
       if(provinceName.indexOf(item.name) > -1) {
@@ -50,19 +50,23 @@ Page({
       }
     })
 
+    if(regioncode[0] != e.detail.code[0]) {
+      this.setCollege();
+    }
+
     this.setData({
       region: e.detail.value,
       regioncode: e.detail.code
     })
 
-    WXAPI.setLocation({province_id: e.detail.code[0], province: e.detail.value[0], city_id: e.detail.code[1], city: e.detail.value[1], distinct_id: e.detail.code[2], distinct_name: e.detail.value[2]})
+    WXAPI.setLocation({province_id: e.detail.code[0], province: e.detail.value[0], city_id: e.detail.code[1], city: e.detail.value[1], distinct_id: e.detail.code[2], distinctname: e.detail.value[2]})
       .then(res => {
 
       })
   },
 
   getSchool: function() {
-    let userInfo = wx.getStorageSync('user_info');
+    let { userInfo } = this.data;
     WXAPI.getSchool({})
       .then(res => {
         console.log(res, 111111)
@@ -70,12 +74,25 @@ Page({
           allSchool: res[0].provs,
         })
         if(userInfo.provinceId) {
+          let schoolList = [];
           res[0].provs.map(item => {
             if(userInfo.province.indexOf(item.name) > -1) {
+              schoolList = item.univs;
               this.setData({
-                schoolList: item.univs
+                schoolList
               })
             }
+          })
+
+          if(userInfo.collegeId) {
+            schoolList.map((item, index) => {
+              if(item.id == userInfo.collegeId) {
+                userInfo.collegeIndex = index;
+              }
+            })
+          }
+          this.setData({
+            userInfo,
           })
         }
       })
@@ -124,11 +141,30 @@ Page({
   setCollege: function(value) {
     let { userInfo, schoolList } = this.data;
 
-    WXAPI.setCollege({college_id: schoolList[value].id, college_name: schoolList[value].name})
+    let data = {
+      college_id: '', college_name: '', depart_name: '', college_date: '', edu: ''
+    };
+    if(value != undefined) {
+      data = {
+        college_id: schoolList[value].id,
+        college_name: schoolList[value].name,
+        depart_name: '', 
+        college_date: '',
+        edu: '',
+      }
+    }
+
+    WXAPI.setCollege(data)
       .then(res => {
         if(res.retcode == 0) {
-          userInfo.college = value;
-          userInfo.collegeName = name;
+          if(value != undefined) {
+            userInfo.collegeIndex = value;
+            userInfo.collegeName = schoolList[value].name;
+          } else {
+            userInfo.collegeIndex = undefined;
+            userInfo.collegeName = '';
+          }
+          
           this.setData({
             userInfo,
           })
@@ -148,7 +184,6 @@ Page({
           region: [res.data.provincename, res.data.cityname, res.data.distinctname],
           regioncode: [res.data.provincecode, res.data.citycode, res.data.distinctcode]
         })
-        
       } else {
         wx.showModal({
           title: '错误',
@@ -171,7 +206,6 @@ Page({
    */
   onShow: function () {
     let userInfo = wx.getStorageSync('user_info');
-    this.getSchool();
     let region = [], regioncode = [];
     if(userInfo.provinceId) {
       region[0] = userInfo.province;
@@ -182,13 +216,15 @@ Page({
       regioncode[1] = userInfo.cityId;
     }
     if(userInfo.distinctId) {
-      region[2] = userInfo.distinctId;
-      regioncode[2] = userInfo.distinctname;
+      region[2] = userInfo.distinctname;
+      regioncode[2] = userInfo.distinctId;
     }
     this.setData({
       userInfo,
       region,
       regioncode
+    }, () => {
+      this.getSchool();
     })
   },
 
