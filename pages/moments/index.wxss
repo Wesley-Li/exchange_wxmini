@@ -16,7 +16,7 @@ page, view, image, input {
 .header-tabs {
   position: fixed;
   top: 0;
-  padding: 15rpx 0;
+  height: 84rpx;
   display: flex;
   width: 100%;
   background: #fff;
@@ -25,22 +25,22 @@ page, view, image, input {
   z-index: 999;
 }
 .header-tabs .tabs-item {
-  padding: 4rpx 30rpx 8rpx;
+  margin: 0 30rpx;
   font-size: 24rpx;
   font-family: Alibaba PuHuiTi;
   font-weight: 400;
   color: #333;
+  text-align: center;
+  line-height: 84rpx;
 }
 .header-tabs .tabs-item-selected {
   position: relative;
   font-size: 36rpx;
   font-weight: bold;
 }
-.header-tabs .tabs-item-selected::before {
-  content: '';
-  display: inline-block;
+.header-tabs .tabs-item-selected .tabs-item-line {
   position: absolute;
-  bottom: 0;
+  bottom: 15rpx;
   left: 50%;
   width: 60rpx;
   height: 4rpx;

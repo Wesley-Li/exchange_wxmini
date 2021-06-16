@@ -2,13 +2,20 @@
 
 <!--pages/moments/index.wxml-->
 <view class="container">
-  <!-- <cover-view style="height: 84rpx; position: fixed; top: 0;"> -->
-    <view class="header-tabs">
-    <view class="tabs-item {{tabKey == 1 && 'tabs-item-selected'}}" bindtap="onTabsClick" data-type="1">关注</view>
-    <view class="tabs-item {{tabKey == 2 && 'tabs-item-selected'}}" bindtap="onTabsClick" data-type="2">推荐</view>
-    <view class="tabs-item {{tabKey == 0 && 'tabs-item-selected'}}" bindtap="onTabsClick" data-type="0">最新</view>
-  </view>
-  <!-- </cover-view> -->
+  <cover-view class="header-tabs">
+    <cover-view class="tabs-item {{tabKey == 1 && 'tabs-item-selected'}}" bindtap="onTabsClick" data-type="1">
+      关注
+      <cover-view class="tabs-item-line" wx:if="{{tabKey == 1}}"></cover-view>
+    </cover-view>
+    <cover-view class="tabs-item {{tabKey == 2 && 'tabs-item-selected'}}" bindtap="onTabsClick" data-type="2">
+      推荐
+      <cover-view class="tabs-item-line" wx:if="{{tabKey == 2}}"></cover-view>
+    </cover-view>
+    <cover-view class="tabs-item {{tabKey == 0 && 'tabs-item-selected'}}" bindtap="onTabsClick" data-type="0">
+      最新
+      <cover-view class="tabs-item-line" wx:if="{{tabKey == 0}}"></cover-view>
+    </cover-view>
+  </cover-view>
   <view class="moments-list {{index == 0 && 'moments-list-first'}}" wx:for="{{momentsList}}" wx:key="id">
     <view class="moments-header-data">
       <image src="{{item.avatar}}" bindtap="onViewOtherInfo" data-uid="{{item.uid}}" />

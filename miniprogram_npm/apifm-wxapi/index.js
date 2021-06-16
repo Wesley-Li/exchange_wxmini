@@ -1328,6 +1328,12 @@ module.exports = {
     return request('https://yiku-oss.alimom.cn//chinaschool.json', true, 'get', {
       ...params
     })
+  },
+  // 获取院系
+  getDeparts: function getDeparts(params) {
+    return request('https://yiku-oss.alimom.cn//departs.txt', true, 'get', {
+      ...params
+    })
   }
 };
 

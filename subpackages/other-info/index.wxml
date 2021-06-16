@@ -2,9 +2,9 @@
 <view class="container">
   <view class="my-header">
     <view class="header-btns">
-      <navigator url="/subpackages/setting-info/index">
+      <!-- <navigator url="/subpackages/setting-info/index">
         <div class="set">设置</div>
-      </navigator>
+      </navigator> -->
     </view>
     <view wx:if="{{userInfo}}" class="userinfo">
       <image wx:if="{{userInfo.avatar}}" class="userinfo-avatar" src="{{ userInfo.avatar }}" background-size="cover"></image>
@@ -50,8 +50,9 @@
   <view wx:if="{{!hasMore}}" class="no-more">没有更多了~</view>
 
   <view class="space"></view>
-  <view class="footer-btns">
-    <view class="btn" bindtap="onMomentFocus">{{followed ? '取消关注' : '关注'}}</view>
-    <view class="btn">私聊</view>
-  </view>
+  <cover-view class="footer-btns">
+    <cover-view class="line"></cover-view>
+    <cover-view class="btn" bindtap="onMomentFocus">{{followed ? '取消关注' : '关注'}}</cover-view>
+    <cover-view class="btn" bindtap="onTalk">私聊</cover-view>
+  </cover-view>
 </view>

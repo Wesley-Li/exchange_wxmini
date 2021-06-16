@@ -82,6 +82,12 @@ Page({
         }
       })
   },
+  onTalk: function() {
+    let { uid, userInfo } = this.data;
+    wx.navigateTo({
+      url: '/subpackages/message-detail/index?conversationID=C2C' + uid + '&avatar=' + userInfo.avatar  + '&name=' + userInfo.nick_name,
+    })
+  },
   // 图片放大查看
   handleGalleryPreview(e) {
     let urls = [];

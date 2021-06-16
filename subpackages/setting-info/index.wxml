@@ -69,5 +69,18 @@
         </picker>
       </view>
     </view>
+    <view class="weui-cell">
+      <view class="weui-cell__hd">
+        <view class="weui-label">院系</view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker bindchange="pickerChange" range="{{departsList}}" value="{{userInfo.departIndex}}" custom-item="" data-param='depart'>
+          <view class="picker">
+            <view wx:if="{{userInfo.departIndex == undefined}}" class="text">请选择院系</view>
+            {{userInfo.departName || ''}}
+          </view>
+        </picker>
+      </view>
+    </view>
   </form>
 </view>

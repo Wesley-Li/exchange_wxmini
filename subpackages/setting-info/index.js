@@ -34,6 +34,13 @@ Page({
       this.setBirth(e.detail.value);
     } else if(param == 'college') {
       this.setCollege(e.detail.value);
+      let { schoolList, allDeparts } = this.data;
+      let departsList = allDeparts[schoolList[e.detail.value].id].departs;
+      this.setData({
+        departsList,
+      })
+    } else if(param == 'depart') {
+      this.setDepart(e.detail.value);
     }
   },
 
@@ -88,6 +95,32 @@ Page({
             schoolList.map((item, index) => {
               if(item.id == userInfo.collegeId) {
                 userInfo.collegeIndex = index;
+              }
+            })
+          }
+          this.setData({
+            userInfo,
+          })
+        }
+      })
+  },
+  getDeparts: function() {
+    let { userInfo } = this.data;
+    WXAPI.getDeparts({})
+      .then(res => {
+        this.setData({
+          allDeparts: res,
+        })
+        if(userInfo.collegeId) {
+          let departsList = res[userInfo.collegeId].departs;
+          this.setData({
+            departsList
+          })
+
+          if(userInfo.departName) {
+            departsList.map((item, index) => {
+              if(item == userInfo.departName) {
+                userInfo.departIndex = index;
               }
             })
           }
@@ -164,6 +197,42 @@ Page({
             userInfo.collegeIndex = undefined;
             userInfo.collegeName = '';
           }
+          userInfo.departIndex = undefined;
+          userInfo.departName = '';
+          
+          this.setData({
+            userInfo,
+          })
+        }
+      })
+  },
+  // 设置院系
+  setDepart: function(value) {
+    let { userInfo, departsList } = this.data;
+
+    let data = {
+      college_id: '', college_name: '', depart_name: '', college_date: '', edu: ''
+    };
+    if(value != undefined) {
+      data = {
+        college_id: userInfo.collegeId,
+        college_name: userInfo.collegeName,
+        depart_name: departsList[value], 
+        college_date: '',
+        edu: '',
+      }
+    }
+
+    WXAPI.setCollege(data)
+      .then(res => {
+        if(res.retcode == 0) {
+          if(value != undefined) {
+            userInfo.departIndex = value;
+            userInfo.departName = departsList[value];
+          } else {
+            userInfo.departIndex = undefined;
+            userInfo.departName = '';
+          }
           
           this.setData({
             userInfo,
@@ -225,6 +294,7 @@ Page({
       regioncode
     }, () => {
       this.getSchool();
+      this.getDeparts();
     })
   },
 
