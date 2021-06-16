@@ -250,6 +250,7 @@ Page({
             
             t.setData({
               citySchool,
+              schoolList: citySchool,
             })
           },
           fail: function(res) {
