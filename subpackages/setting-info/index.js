@@ -124,6 +124,9 @@ Page({
               }
             })
           }
+          if(userInfo.departIndex == undefined) {
+            userInfo.departName = undefined;
+          }
           this.setData({
             userInfo,
           })

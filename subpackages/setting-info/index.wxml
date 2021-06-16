@@ -64,7 +64,7 @@
         <picker bindchange="pickerChange" range="{{schoolList}}" range-key="name" value="{{userInfo.collegeIndex}}" custom-item="" data-param='college'>
           <view class="picker">
             <view wx:if="{{userInfo.collegeIndex == undefined}}" class="text">请选择学校</view>
-            {{userInfo.collegeName || ''}}
+            {{userInfo.collegeIndex != undefined && userInfo.collegeName || ''}}
           </view>
         </picker>
       </view>
@@ -77,7 +77,7 @@
         <picker bindchange="pickerChange" range="{{departsList}}" value="{{userInfo.departIndex}}" custom-item="" data-param='depart'>
           <view class="picker">
             <view wx:if="{{userInfo.departIndex == undefined}}" class="text">请选择院系</view>
-            {{userInfo.departName || ''}}
+            {{userInfo.departIndex != undefined && userInfo.departName || ''}}
           </view>
         </picker>
       </view>

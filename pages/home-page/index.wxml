@@ -19,7 +19,7 @@
       </div>
     </div>
     
-    <div class="school-box" wx:if="{{schoolList}}" style="min-width: {{schoolList.length <= 10 && '100%' || schoolList.length <= 20 && '200%' || '350%'}}">
+    <div class="school-box" wx:else style="min-width: {{schoolList.length <= 10 && '100%' || schoolList.length <= 20 && '200%' || '350%'}}">
       <li wx:for="{{schoolList}}" class="school-item" wx:key="id" style="{{item.style}}" bindtap="onSchoolTap" data-id="{{item.id}}" data-name="{{item.name}}">
         <p>{{item.name}}</p>
       </li>
