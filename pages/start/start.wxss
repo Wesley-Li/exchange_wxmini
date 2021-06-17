@@ -11,10 +11,16 @@ image {
   height: 100vh;
 }
 .btn {  
-  position: absolute;  
-  left: 0;  
-  right: 0;  
-  bottom: 50rpx;  
-  display: flex;  
-  justify-content: center;  
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 50rpx;
+  display: flex;
+  justify-content: center;
+}
+.btn button {
+  background: #FCCE09;
+}
+.btn .button-hover {
+  background: rgba(252, 206, 9, 0.7);
 }

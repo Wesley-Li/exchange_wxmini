@@ -40,9 +40,14 @@ Page({
             });
           }
         } else {
+          // _this.setData({
+          //   banners: res.data,
+          //   swiperMaxNumber: res.data.length
+          // });
+          let banners = [{pic: 'https://yiku-oss.alimom.cn/start.png'}];
           _this.setData({
-            banners: res.data,
-            swiperMaxNumber: res.data.length
+            banners: banners,
+            swiperMaxNumber: banners.length
           });
         }
       }).catch(function (e) {
