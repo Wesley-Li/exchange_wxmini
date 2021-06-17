@@ -10,6 +10,8 @@ Page({
   data: {
     userInfo: {},
     followed: false,
+    dialogShow: false,
+    formData: {},
   },
   currentPage: 1,
   getUserInfo: function(id) {
@@ -57,6 +59,63 @@ Page({
         }
         wx.hideLoading();
       })
+  },
+  onEditRemark: function() {
+    this.setData({
+      dialogShow: true
+    })
+  },
+  onInputChange(e) {
+    this.setData({
+      [`formData.commentname`]: e.detail.value
+    })
+  },
+  isSubmitClick: false,
+  onSubmit() {
+    // 节流
+    if(this.isSubmitClick) {
+      setTimeout(() => {
+        this.isSubmitClick = false;
+      }, 2000)
+      return;
+    } else {
+      this.isSubmitClick = true;
+    }
+    this.selectComponent('#form').validate((valid, errors) => {
+      if (!valid) {
+        const firstError = Object.keys(errors)
+        if (firstError.length) {
+          this.setData({
+            error: errors[firstError[0]].message
+          })
+        }
+      } else {
+        let { uid, userInfo, formData } = this.data;
+        WXAPI.onEditRemark({...formData, target_userid: uid}).then(res => {
+          if(res.retcode == 0) {
+            wx.showToast({
+              title: '修改成功'
+            })
+            userInfo.c_name = formData.commentname;
+            this.setData({
+              dialogShow: false,
+              formData: {},
+              userInfo,
+            })
+          } else {
+            wx.showToast({
+              title: res.msg
+            })
+          }
+        })
+      }
+    })
+  },
+  onClose() {
+    this.setData({
+      dialogShow: false,
+      formData: {},
+    })
   },
   // 关注取关某人
   onMomentFocus: function() {

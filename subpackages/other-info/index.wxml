@@ -2,13 +2,17 @@
 <view class="container">
   <view class="my-header">
     <view class="header-btns">
-      <!-- <navigator url="/subpackages/setting-info/index">
-        <div class="set">设置</div>
-      </navigator> -->
+      <div class="remark" bindtap="onEditRemark">
+        <image src="/images/edit.png" />
+        修改备注
+      </div>
     </view>
     <view wx:if="{{userInfo}}" class="userinfo">
       <image wx:if="{{userInfo.avatar}}" class="userinfo-avatar" src="{{ userInfo.avatar }}" background-size="cover"></image>
-      <text class="userinfo-nickname" style="color: {{haslend && '#32CD32' || hasborrow && '#EE0000' || '#fff'}}">{{ userInfo.nickName }}</text>
+      <view class="userinfo-nickname" style="color: {{haslend && '#32CD32' || hasborrow && '#EE0000' || '#fff'}}">
+        {{ userInfo.nick_name }}
+        <text class="userinfo-remark" wx:if="{{userInfo.c_name}}">({{userInfo.c_name}})</text>
+      </view>
       <text wx:if="{{userInfo.short_desc}}" class="userinfo-shortDesc">{{ userInfo.short_desc }}</text>
       <div class="info-box">
         <div class="info-item">{{ userInfo.genderName }}</div>
@@ -55,4 +59,15 @@
     <cover-view class="btn" bindtap="onMomentFocus">{{followed ? '取消关注' : '关注'}}</cover-view>
     <cover-view class="btn" bindtap="onTalk">私聊</cover-view>
   </cover-view>
+
+  <mp-dialog title="备注填写" show="{{dialogShow}}" buttons="{{[{text: ''}, {text: ''}]}}" ext-class="remark-dialog" mask-closable="{{false}}">
+    <mp-form id="form" rules="{{rules}}" models="{{formData}}">
+      <input class="weui-input weui-input-remark" data-field='commentname' placeholder="输入备注" bindinput="onInputChange" type="number" value="{{formData.total}}"/>
+      <view class="placeholder"></view>
+      <view class="btn-area">
+        <button formType="reset" bindtap="onClose">取消</button>
+        <button class="submit-btn" formType="submit" bindtap="onSubmit">确定</button>
+      </view>
+    </mp-form>
+  </mp-dialog>
 </view>

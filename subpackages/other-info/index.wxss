@@ -20,15 +20,21 @@ page,view,image,input {
 .header-btns {
   display: flex;
   margin: 25rpx 60rpx 25rpx 32rpx;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
 }
 
-.header-btns .set {
+.header-btns .remark {
+  display: flex;
   font-size: 30rpx;
   font-family: Alibaba PuHuiTi;
   font-weight: 400;
   color: #fff;
+}
+.header-btns image {
+  margin-right: 13rpx;
+  width: 40rpx;
+  height: 40rpx;
 }
 
 .userinfo {
@@ -43,10 +49,15 @@ page,view,image,input {
   border-radius: 50%;
 }
 .userinfo-nickname {
+  display: flex;
   margin-top: 20rpx;
   margin-bottom: 20rpx;
   font-size: 36rpx;
   line-height: 36rpx;
+}
+.userinfo-remark {
+  margin-left: 5rpx;
+  font-size: 36rpx;
 }
 .userinfo-shortDesc {
   margin-bottom: 5rpx;
@@ -192,4 +203,52 @@ page,view,image,input {
   width: 100vw;
   height: 20rpx;
   background: #F4F5F9;
+}
+
+.remark-dialog .weui-dialog__bd {
+  margin: 12px 0 0 0;
+}
+.remark-dialog .weui-dialog__bd .weui-input-remark {
+  height: 75rpx;
+  line-height: 75rpx;
+  border: 1px solid rgba(204, 204, 204, 0.5);
+  border-radius: 5px;
+}
+.remark-dialog .hint {
+  font-size: 12px;
+  color: #e64340;
+  padding: 20rpx 0;
+}
+.remark-dialog .placeholder {
+  margin-top: 36rpx;
+  height: 64px;
+}
+.remark-dialog .btn-area {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  width: 100%;
+  z-index: 999;
+}
+.remark-dialog .btn-area button {
+  width: 50%;
+  height: 64px;
+  line-height: 64px;
+  font-weight: 600;
+  background: none;
+  border: none;
+  border-top: 1px solid rgba(0, 0, 0, .1);
+  border-radius: 0;
+}
+.remark-dialog .btn-area button::after {
+  border: none;
+  border-radius: 0;
+}
+.remark-dialog .btn-area .submit-btn {
+  color: #576B95;
+  border-left: 1px solid rgba(0, 0, 0, .1);
+}
+.remark-dialog .weui-dialog__ft {
+  display: none;
 }

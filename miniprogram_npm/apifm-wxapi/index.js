@@ -1251,6 +1251,12 @@ module.exports = {
       ...params
     })
   },
+  // 修改备注
+  onEditRemark: function onEditRemark(params) {
+    return request('/api/user/commentname/', false, 'post', {
+      ...params
+    })
+  },
   // 我的放款列表
   myLendingList: function myLendingList(params) {
     return request('/api/lending/list', true, 'get', {

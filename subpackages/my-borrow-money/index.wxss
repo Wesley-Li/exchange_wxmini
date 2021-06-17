@@ -19,11 +19,10 @@
 .tabs-item {
   flex: 1;
   padding: 22rpx;
-  font-size: 28rpx;
+  font-size: 30rpx;
 }
 .tabs-item-active {
   position: relative;
-  color: #e64340;
 }
 .tabs-item-active::before {
   content: '';
@@ -31,9 +30,9 @@
   bottom: 0;
   left: 50%;
   transform: translate(-50%);
-  width: 150rpx;
-  height: 6rpx;
-  background: #e64340;
+  width: 120rpx;
+  height: 4rpx;
+  background: #FCCE09;
 }
 
 .placeholder {
@@ -81,13 +80,13 @@
   align-items: center;
   justify-content: center;
   width: 140rpx;
-  color: #e64340;
+  color: #FCCE09;
 }
 .data-list .data-btn span {
   display: inline-block;
   padding: 6rpx 28rpx;
   color: #fff;
-  background: #e64340;
+  background: #FCCE09;
   font-size: 24rpx;
   border-radius: 5rpx;
   text-align: center;
