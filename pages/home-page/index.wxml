@@ -13,9 +13,11 @@
   <view class="map-container">
     <div class="bg-box"></div>
     <div class="out" wx:if="{{!schoolList}}">
-      <!-- <div class="ball" style="transform: rotateY({{numm}}deg)"> -->
+      <div class="ball-line"></div>
       <div class="ball">
-        <li wx:for="{{list}}" class="{{item.class}}" wx:key="key" style="{{item.style}}" bindtap="onCityTap" data-type="{{item.cityName}}">{{item.cityName}}</li>
+        <li wx:for="{{list}}" class="{{item.class}}" wx:key="key" style="{{item.style}}" bindtap="onCityTap" data-type="{{item.cityName}}">
+          <div>{{item.cityName}}</div>
+        </li>
       </div>
     </div>
     

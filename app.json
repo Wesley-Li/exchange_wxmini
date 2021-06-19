@@ -110,7 +110,7 @@
   },
   "permission": {
     "scope.userLocation": {
-      "desc": "获取离你最近的门店"
+      "desc": "获取同城信息"
     }
   },
   "navigateToMiniProgramAppIdList": [
