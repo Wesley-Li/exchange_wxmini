@@ -59,6 +59,7 @@
     </view>
   </view>
   <view class="no-more" wx:if="{{!hasMore}}">没有更多了～</view>
+  <view class="no-data" wx:if="{{!momentsList.length}}">暂无数据</view>
 </view>
 <view class="message-box" wx:if="{{messageOpen}}" style="padding-bottom: calc({{tabBottom}}px + 25rpx); bottom: {{keyboardHeight}}px">
   <view class='input' bindtap="bindfocus">

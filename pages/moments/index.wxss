@@ -166,6 +166,13 @@ page, view, image, input {
   border-bottom: 20rpx solid #F4F5F9;
   text-align: center;
 }
+.no-data {
+  margin-top: 100rpx;
+  padding: 15rpx 0;
+  font-size: 26rpx;
+  color: #999;
+  text-align: center;
+}
 .message-box {
   position: fixed;
   bottom: 0;

@@ -30,6 +30,7 @@ page,view,image,input {
   font-family: Alibaba PuHuiTi;
   font-weight: 400;
   color: #fff;
+  align-items: center;
 }
 .header-btns image {
   margin-right: 13rpx;
