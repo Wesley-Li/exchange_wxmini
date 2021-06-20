@@ -127,27 +127,29 @@
 
 .ball li {
   position: absolute;
-  width: 220rpx;
   height: 160rpx;
   background: rgba(148, 149, 154, 1);
   /* background: red; */
 }
-.ball li:nth-child(n+1):nth-child(-n+3) {
+.ball li:nth-child(n+1):nth-child(-n+4) {
   width: 150rpx;
 }
-.ball li:nth-child(n+4):nth-child(-n+8) {
-  width: 350rpx;
+.ball li:nth-child(n+5):nth-child(-n+9) {
+  width: 340rpx;
 }
-.ball li:nth-child(n+9):nth-child(-n+16) {
-  width: 300rpx;
+.ball li:nth-child(n+10):nth-child(-n+16) {
+  width: 280rpx;
 }
-.ball li:nth-child(n+26):nth-child(-n+33) {
-  width: 300rpx;
+.ball li:nth-child(n+17):nth-child(-n+26) {
+  width: 200rpx;
+}
+.ball li:nth-child(n+27):nth-child(-n+33) {
+  width: 280rpx;
 }
 .ball li:nth-child(n+34):nth-child(-n+38) {
-  width: 350rpx;
+  width: 340rpx;
 }
-.ball li:nth-child(n+39):nth-child(-n+42) {
+.ball li:nth-child(n+39):nth-child(-n+43) {
   width: 150rpx;
 }
 .ball li div {

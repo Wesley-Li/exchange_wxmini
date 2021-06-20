@@ -15,8 +15,8 @@
     <div class="out" wx:if="{{!schoolList}}">
       <div class="ball-line"></div>
       <div class="ball">
-        <li wx:for="{{list}}" class="{{item.class}}" wx:key="key" style="{{item.style}}" bindtap="onCityTap" data-type="{{item.cityName}}">
-          <div>{{item.cityName}}</div>
+        <li wx:for="{{list}}" class="{{item.class}}" wx:key="key" style="{{item.style}}">
+          <div bindtap="onCityTap" data-type="{{item.cityName}}">{{item.cityName}}</div>
         </li>
       </div>
     </div>

@@ -37,6 +37,19 @@ Page({
       let x = radius * Math.sin(theta) * Math.sin(phi) + radius; // 计算出 小方块 转动的 x 轴
       let y = radius * Math.cos(theta) + radius; // 计算出 小方块 转动的 y 轴
 
+      if(i > 15 && i < 26) {
+        x = x - 70;
+      }
+      if(i > 8 && i < 16 || i > 25 && i < 33) {
+        x = x - 110;
+      }
+      if(i > 3 && i < 9 || i > 32 && i < 38) {
+        x = x - 140;
+      }
+      if(i > 0 && i < 4 || i > 39 && i < 42) {
+        x = x - 45;
+      }
+
       let cityName = d_ball.angles[i].cityName || '-';
       
       let nn = (i == 24) ? 1 : z;
