@@ -26,7 +26,7 @@
       <view class="weui-cell">
         <view class="weui-cell__bd">
           <view class="label">描述</view>
-          <textarea class="weui-textarea" placeholder="说说您的感受，转手原因等……" value="{{content}}" maxlength="500" placeholder-style="color: #999; font-size: 24rpx;" style="height: 6rem" bindinput="handleContentInput" disable-default-padding="{{true}}" />
+          <textarea class="weui-textarea" placeholder="{{selectedType == 1 ? '说说您的感受等……' : '说说您的转手原因等……'}}" value="{{content}}" maxlength="500" placeholder-style="color: #999; font-size: 24rpx;" style="height: 6rem" bindinput="handleContentInput" disable-default-padding="{{true}}" />
           <view class="weui-textarea-counter">{{contentCount}}/500</view>
           <!-- <view class="container" style="height:{{editorHeight}}px;">
             <editor id="editor" class="ql-container" placeholder="{{placeholder}}" showImgSize showImgToolbar showImgResize 

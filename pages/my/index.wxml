@@ -7,7 +7,7 @@
         <!-- <navigator url="/subpackages/my-make-loans/index">
           <image src="/images/my/add-friend.png" bindtap="onJump" data-type="friends" />
         </navigator> -->
-        <image src="/images/my/information.png" bindtap="onJump" data-type="information" />
+        <!-- <image src="/images/my/information.png" bindtap="onJump" data-type="information" /> -->
         <navigator url="/subpackages/my-accountant/index">
           <image src="/images/my/accountant.png" />
         </navigator>
