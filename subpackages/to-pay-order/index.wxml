@@ -52,7 +52,7 @@
       <view class="text-box">
         <view class="arow arow01">
           <view class="goods-name">{{item.name}}</view>
-          <view class="goods-price">单价 {{item.price}}信用币</view>
+          <view class="goods-price">单价 {{item.price}}信用码</view>
         </view>
         <view class="arow">
           <view class="goods-label">
@@ -82,7 +82,7 @@
   <view class="goods-info">
     <view class="row-box">
       <view class="row-label">商品金额:</view>
-      <view class="right-text">{{allGoodsPrice}}信用币</view>
+      <view class="right-text">{{allGoodsPrice}}信用码</view>
     </view>
     <!-- <view class="row-box" wx:if="{{isNeedLogistics > 0 && peisongType == 'kd'}}">
       <view class="row-label">运费</view>
@@ -97,13 +97,13 @@
   <view class="jiesuan-box">
     <view class="left-price">
       <!-- <view class="total">合计：¥ {{(allGoodsAndYunPrice*100 - youhuijine*100)/100}} + {{totalScoreToPay}} 积分</view> -->
-      <view class="total">待支付：{{allGoodsPrice - youhuijine}}<span class="text">信用币</span></view>
+      <view class="total">待支付：{{allGoodsPrice - youhuijine}}<span class="text">信用码</span></view>
     </view>
     <button class="to-pay-btn" bindtap="goCreateOrder">提交订单</button>
   </view>
 
-  <mp-dialog title="信用币不足" show="{{dialogShow}}" buttons="{{buttons}}" bindbuttontap="onHandleDialog" ext-class="insufficient-dialog">
-    <view>订单金额{{hintInfo.total}}，但您当前仅有信用币{{hintInfo.surplusMoney}}</view>
+  <mp-dialog title="信用码不足" show="{{dialogShow}}" buttons="{{buttons}}" bindbuttontap="onHandleDialog" ext-class="insufficient-dialog">
+    <view>订单金额{{hintInfo.total}}，但您当前仅有信用码{{hintInfo.surplusMoney}}</view>
     <view class="go-borrowing" bindtap="goBorrowing">去借款</view>
   </mp-dialog>
 </view>

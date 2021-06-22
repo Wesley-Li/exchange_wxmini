@@ -170,14 +170,14 @@ Page({
         // 增加提示框
         if (res.data.score < money) {
           wx.showToast({
-            title: '您的信用币不足，无法支付',
+            title: '您的信用码不足，无法支付',
             icon: 'none'
           })
           return;
         }
-        let _msg = '订单金额: ' + money +' 信用币'
+        let _msg = '订单金额: ' + money +' 信用码'
         if (res.data.score > 0) {
-          _msg += ',可用信用币为 ' + res.data.score
+          _msg += ',可用信用码为 ' + res.data.score
           // if (money - res.data.balance > 0) {
           //   _msg += ',仍需微信支付 ' + (money - res.data.balance) + ' 元'
           // }          

@@ -743,7 +743,7 @@ Page({
           {
             x: 375,
             y: _baseHeight + 180,
-            text: '信用币:' + _this.data.goodsDetail.basicInfo.minPrice,
+            text: '信用码:' + _this.data.goodsDetail.basicInfo.minPrice,
             textAlign: 'center',
             fontSize: 50,
             color: '#e64340'

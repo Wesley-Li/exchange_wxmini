@@ -37,7 +37,7 @@
       </view>
       <view class="price-box">
         <view class="btn" hidden="{{item.status==0? false : true}}" bindtap="cancelOrderTap" data-id="{{item.oid}}">取消订单</view>
-        <view class="btn active" hidden="{{item.status==0? false : true}}" bindtap="toPayTap" data-id="{{item.oid}}" data-money="{{item.total}}" data-score="{{item.score}}">信用币支付</view>
+        <view class="btn active" hidden="{{item.status==0? false : true}}" bindtap="toPayTap" data-id="{{item.oid}}" data-money="{{item.total}}" data-score="{{item.score}}">信用码支付</view>
         <!-- <view class="btn active" hidden="{{(item.status==0 || item.status==-1) ? true : false}}" bindtap="refundApply" data-id="{{item.id}}" data-amount='{{item.amountReal}}'>退换货</view> -->
         <view class="btn" hidden="{{status==3? false : true}}" bindtap="shipperOrderTap" data-goods="{{item.goodList}}">发货</view>
         

@@ -102,7 +102,7 @@ const API_BASE_URL = 'https://yiku.airiot.net';
 // const API_BASE_URL = 'http://yiku2.airiot.net';
 var subDomain = '';
 
-var request = function request(url, needSubDomain, method, data, isfile) {
+var request = function request(url, needSubDomain, method, data, isfile, isformdata = true, needaddtoken = true) {
   if(url.indexOf("http")==-1){
     var _url = API_BASE_URL + (needSubDomain ? '/' + subDomain : '') + url;
   }else{
@@ -110,7 +110,7 @@ var request = function request(url, needSubDomain, method, data, isfile) {
   }
   let sid = wx.getStorageSync('token'); //? wx.getStorageSync('token') : getApp().globalData.sessionid;
   
-  if(data && !data.token && sid) {
+  if(data && !data.token && sid && needaddtoken) {
     data.token = sid;
   }
   return new Promise(function (resolve, reject) {
@@ -130,8 +130,10 @@ var request = function request(url, needSubDomain, method, data, isfile) {
         '\r\n' +
         '\r\n' + "test.mp4" +
         '\r\n--XXX--',
-      header: {
+      header: isformdata ? {
         'Content-Type': isfile!="file"?'application/x-www-form-urlencoded':'multipart/form-data; boundary=XXX',
+        'Cookie': 'JSESSIONID=' + sid
+      } : {
         'Cookie': 'JSESSIONID=' + sid
       },
       success: function success(request) {
@@ -1226,6 +1228,16 @@ module.exports = {
     return request('/api/comment/add/', false, 'post', {
       ...params
     })
+  },
+  getAccessToken: function(params) {
+    return request('/api/wechat/accesstoken/', false, 'get', {
+      ...params
+    })
+  },
+  verifyMessage: function({access_token, ...params}) {
+    return request(`https://api.weixin.qq.com/wxa/msg_sec_check?access_token=${access_token}`, false, 'post', {
+      ...params,
+    }, false, false, false)
   },
   // 获取朋友圈关注和粉丝数
   getMomentStats: function getMomentStats(params) {

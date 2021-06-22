@@ -39,6 +39,8 @@ Page({
     keyboardHeight: 0,
     isIOS: false,
     showToolbar: false,
+
+    accessToken: '',
   },
 
   onLoad(options) {
@@ -75,6 +77,19 @@ Page({
     qqmapsdk = new QQMapWX({
       key: 'BT5BZ-PRWWX-VN24P-T7BM7-ROYTE-SRFBX'
     });
+  },
+
+  onReady: function () {
+    this.getAccessToken();
+  },
+
+  getAccessToken: function() {
+    WXAPI.getAccessToken({type: 1})
+      .then(res => {
+        this.setData({
+          accessToken: res.token,
+        })
+      })
   },
   // 发布类型选择
   onTypeSelect(e) {
@@ -180,7 +195,7 @@ Page({
       credprice: value
     })}else{
       wx.showToast({
-        title: "信用币只能是整数!",
+        title: "信用码只能是整数!",
         icon: "none"
       })
     }
@@ -191,6 +206,7 @@ Page({
     this.data.content = value
     this.data.contentCount = value.length
     $digest(this)
+    this.verifyEnd = false;
   },
 
   chooseImage(e) {
@@ -310,10 +326,63 @@ Page({
   onPostMoments() {
     
   },
+
+
+  verifyEnd: true,
+  verifyMessage: function() {
+    let { accessToken, content } = this.data;
+    if(!content) {
+      return;
+    }
+    this.verifyEnd = false;
+    this.setData({
+      messageErr: false,
+    })
+    WXAPI.verifyMessage({access_token: accessToken, content})
+      .then(res => {
+        this.verifyEnd = true;
+        if(res.errcode == 0) {
+          if(this.sending) {
+            this.submitForm();
+            this.sending = false;
+          }
+          return true;
+        } else if(res.errcode == 87014) {
+          if(!this.sending) {
+            wx.showModal({
+              title: '提示',
+              content: '检测到敏感词,请注意言论',
+              showCancel: false
+            })
+          }
+          
+          this.setData({
+            messageErr: true,
+          })
+          return false;
+        }
+      })
+  },
+  sending: false,
   // 发布
   async submitForm(e) {
     const that = this;
-    const { selectedType, title, content, credprice, gallery, videos, images } = this.data;
+    const { selectedType, title, content, credprice, gallery, videos, images, messageErr } = this.data;
+
+    this.sending = true;
+    if(!this.verifyEnd) {
+      this.verifyMessage();
+      return;
+    }
+    this.sending = false;
+    if(messageErr) {
+      wx.showModal({
+        title: '发布失败',
+        content: '检测到敏感词,请注意言论',
+        showCancel: false
+      })
+      return;
+    }
 
     let token = wx.getStorageSync('token');
     // 此处要加判断必选项
@@ -328,7 +397,7 @@ Page({
     if(selectedType == 2) {
       if(!title || !credprice || !gallery) {
         wx.showToast({
-          title: "标题，信用币和缩略图必须填写!",
+          title: "标题，信用码和缩略图必须填写!",
           icon: 'none',
           duration: 3000
         })
@@ -500,7 +569,7 @@ Page({
         const res = await WXAPI.addProduct(title, parseInt(this.data.categories[this.data.index].id), this.data.gallery, parseInt(this.data.credprice), 
                                 content, 1, JSON.stringify(urls.concat(netpics)), this.data.videourl, this.data.pid)
         if(res.retcode==0){
-          let msg = this.data.pid ? "更改成功!": "创建成功！感谢对蚁库的支持，新增商品获得信用币"+res.data+"奖励!"
+          let msg = this.data.pid ? "更改成功!": "创建成功！感谢对蚁库的支持，新增商品获得信用码"+res.data+"奖励!"
           if(this.data.pid){
             wx.showToast({
               title: msg,

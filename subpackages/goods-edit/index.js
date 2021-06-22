@@ -166,7 +166,7 @@ Page({
       credprice: value
     })}else{
       wx.showToast({
-        title: "信用币只能是整数!",
+        title: "信用码只能是整数!",
         icon: "none"
       })
     }
@@ -305,7 +305,7 @@ Page({
     // 此处要加判断必选项
     if(!title || !credprice || !gallery) {
       wx.showToast({
-        title: "标题，信用币和缩略图必须填写!",
+        title: "标题，信用码和缩略图必须填写!",
         icon: 'none',
         duration: 3000
       })
@@ -431,7 +431,7 @@ Page({
         const res = await WXAPI.addProduct(title, parseInt(this.data.categories[this.data.index].id), this.data.gallery, parseInt(this.data.credprice), 
                                 content, 1, JSON.stringify(urls.concat(netpics)), this.data.videourl, this.data.pid)
         if(res.retcode==0){
-          let msg = this.data.pid ? "更改成功!": "创建成功！感谢对蚁库的支持，新增商品获得信用币"+res.data+"奖励!"
+          let msg = this.data.pid ? "更改成功!": "创建成功！感谢对蚁库的支持，新增商品获得信用码"+res.data+"奖励!"
           if(this.data.pid){
             wx.showToast({
               title: msg,

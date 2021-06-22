@@ -237,7 +237,7 @@ Page({
       // 直接用余额支付
       wx.showModal({
         title: '请确认支付',
-        content: `您当前可用信用币${res1.data.score}，支付${res.total}？`,
+        content: `您当前可用信用码${res1.data.score}，支付${res.total}？`,
         confirmText: "确认支付",
         cancelText: "暂不付款",
         success: res2 => {
@@ -273,8 +273,8 @@ Page({
         dialogShow: true,
       })
       // wx.showModal({
-      //   title: '信用币不足！',
-      //   content: `订单金额${res.total}，但您当前仅有信用币${res1.data.score}`,
+      //   title: '信用码不足！',
+      //   content: `订单金额${res.total}，但您当前仅有信用码${res1.data.score}`,
       //   confirmText: "确认",
       //   cancelText: "取消",
       //   success: res2 => {

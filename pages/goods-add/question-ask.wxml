@@ -26,7 +26,7 @@
       <view class="weui-cell">
         <view class="weui-cell__bd">
           <view class="label">描述</view>
-          <textarea class="weui-textarea" placeholder="{{selectedType == 1 ? '说说您的感受等……' : '说说您的转手原因等……'}}" value="{{content}}" maxlength="500" placeholder-style="color: #999; font-size: 24rpx;" style="height: 6rem" bindinput="handleContentInput" disable-default-padding="{{true}}" />
+          <textarea class="weui-textarea" placeholder="{{selectedType == 1 ? '说说您的感受等……' : '说说您的转手原因等……'}}" value="{{content}}" maxlength="500" placeholder-style="color: #999; font-size: 24rpx;" style="height: 6rem" bindinput="handleContentInput" bindblur="verifyMessage" disable-default-padding="{{true}}" />
           <view class="weui-textarea-counter">{{contentCount}}/500</view>
           <!-- <view class="container" style="height:{{editorHeight}}px;">
             <editor id="editor" class="ql-container" placeholder="{{placeholder}}" showImgSize showImgToolbar showImgResize 
@@ -129,14 +129,14 @@
       <view class="weui-cell__hd">
         <view class="weui-label">
           <image class="label-img" src="/images/coin.png" />
-          信用币
+          信用码
         </view>
       </view>
       <view class="weui-cell__bd">
-        <input name="credprice" maxlength="10" class="weui-input" type="digit" placeholder="填写信用币金额" value="{{credprice}}" bindinput="handleCredprice"/>
+        <input name="credprice" maxlength="10" class="weui-input" type="digit" placeholder="填写信用码金额" value="{{credprice}}" bindinput="handleCredprice"/>
       </view>
     </view>
-    <view class="tip-small">(人民币和蚁库信用币比例为1:10, 请根据原价和旧损情况自行评估)</view>
+    <view class="tip-small">(人民币和蚁库信用码比例为1:10, 请根据原价和旧损情况自行评估)</view>
   </view>
   
   <view class="toolbar" catchtouchend="format" style="bottom: {{isIOS ? keyboardHeight : 50}}px" hidden="{{!showToolbar}}">

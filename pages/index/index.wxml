@@ -183,7 +183,7 @@
       <view class="goods-title">{{item.name}}</view>
       <view style='display:flex;'>
         <!-- <image class="icon" src="/images/icon/ic.jpg"></image> -->
-        <view class="goods-price">信用币: {{item.credprice}}</view>
+        <view class="goods-price">信用码: {{item.credprice}}</view>
         <!-- <view wx:if="{{item.originalPrice && item.originalPrice > 0}}" class="goods-price" style='color:#aaa;text-decoration:line-through'>¥ {{item.originalPrice}}</view> -->
       </view>
     </view>

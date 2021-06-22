@@ -79,7 +79,7 @@
         <view class="goods-share" wx:if="{{goodsDetail.basicInfo.commissionType == 1}}">分享有赏，好友下单后可得 {{goodsDetail.basicInfo.commission}} 积分奖励</view>
         <view class="goods-share" wx:if="{{goodsDetail.basicInfo.commissionType == 2}}">分享有赏，好友下单后可得 {{goodsDetail.basicInfo.commission}}元 现金奖励</view>
         <view class="goods-profile">
-          <view class="p"><text>信用币:</text> {{selectSizePrice}}</view>
+          <view class="p"><text>信用码:</text> {{selectSizePrice}}</view>
           <view wx:if="{{goodsDetail.basicInfo.originalPrice && goodsDetail.basicInfo.originalPrice > 0}}" class="goods-price" style='color:#aaa;text-decoration:line-through;padding: 15rpx 0rpx 0rpx 15rpx;'><text>¥</text> {{selectSizeOPrice}}</view>
         </view>
         <view class="goods-info-fx">
@@ -123,11 +123,11 @@
       </view>
       <view class="weui-cell">
         <view class="weui-cell__bd">原价</view>
-        <view class="weui-cell__ft">信用币:{{curGoodsKanjia.originalPrice}}</view>
+        <view class="weui-cell__ft">信用码:{{curGoodsKanjia.originalPrice}}</view>
       </view>
       <view class="weui-cell">
         <view class="weui-cell__bd">底价</view>
-        <view class="weui-cell__ft">信用币:{{curGoodsKanjia.minPrice}}</view>
+        <view class="weui-cell__ft">信用码:{{curGoodsKanjia.minPrice}}</view>
       </view>
       <view class="weui-cell">
         <view class="weui-cell__bd">截止</view>
@@ -159,7 +159,7 @@
   <view class="curKanjiaprogress" wx:if="{{curKanjiaprogress}}">
     <view class="name">帮
       <text style='color:red;font-weight:bold;'>{{curKanjiaprogress.joiner.nick}}</text> 砍价吧！</view>
-    <view class="weui-badge">当前价格 信用币: {{curKanjiaprogress.kanjiaInfo .curPrice}}
+    <view class="weui-badge">当前价格 信用码: {{curKanjiaprogress.kanjiaInfo .curPrice}}
     </view>
     <view class="weui-progress" style='background-color:#fff;'>
       <view class="weui-progress__bar">
@@ -263,7 +263,7 @@
           <image class="weui-media-box__thumb" src="{{item.avatarUrl}}" />
         </view>
         <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
-          <view class="weui-media-box__title" style='color:red;'>信用币: {{item.cutPrice}}</view>
+          <view class="weui-media-box__title" style='color:red;'>信用码: {{item.cutPrice}}</view>
           <view class="weui-media-box__desc" style='margin-top:10rpx;'>好友
             <text style='color:red;'>{{item.nick}}</text> 于 {{item.dateAdd}} 帮砍</view>
         </view>
@@ -301,7 +301,7 @@
         <view class="pop-goods-des">
           <view class="pop-goods-title">{{goodsDetail.name}}</view>
           <view class="pop-goods-price">
-            信用币: <text class="t1">{{selectSizePrice}}</text>
+            信用码: <text class="t1">{{selectSizePrice}}</text>
             <text wx:if="{{goodsDetail.basicInfo.originalPrice && goodsDetail.basicInfo.originalPrice > 0}}" class="pop-goods-price-original"><text>¥</text> {{selectSizeOPrice}}</text>
           </view>
         </view>
