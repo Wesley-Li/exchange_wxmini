@@ -100,7 +100,7 @@ page, view, image, input {
 .pics-container image {
   display: inline-block;
   margin: 10rpx 10rpx 0 0;
-  width: calc(100% / 3);
+  width: calc(100% / 3 - 10rpx);
   height: 200rpx;
 }
 .pics-container image:nth-child(3n + 3) {

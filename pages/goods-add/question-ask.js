@@ -524,7 +524,16 @@ Page({
         // 发布手记
         if(selectedType == 1) {
           let { videourl, netpics, visibleValue, cityname, cityid } = this.data;
-          let data = {content, opentype: visibleValue, video: videourl, pics: JSON.stringify(urls.concat(netpics))};
+          let pics = netpics ? urls.concat(netpics) : urls;
+          let picsManage = [];
+          pics.map(item => {
+            if(item.indexOf('http') > -1) {
+              picsManage.push(item);
+            } else {
+              picsManage.push('http://' + item);
+            }
+          })
+          let data = {content, opentype: visibleValue, video: videourl, pics: JSON.stringify(picsManage)};
           cityname && (data.cityname = cityname);
           cityid && (data.cityid = cityid);
           WXAPI.onPostMoments(data)
@@ -566,8 +575,21 @@ Page({
           return;
         }
 
-        const res = await WXAPI.addProduct(title, parseInt(this.data.categories[this.data.index].id), this.data.gallery, parseInt(this.data.credprice), 
-                                content, 1, JSON.stringify(urls.concat(netpics)), this.data.videourl, this.data.pid)
+        let { gallery } = this.data;
+        if(gallery.indexOf('http') == -1) {
+          gallery = 'http://' + gallery;
+        }
+        let pics = urls.concat(netpics);
+          let picsManage = [];
+          pics.map(item => {
+            if(item.indexOf('http') > -1) {
+              picsManage.push(item);
+            } else {
+              picsManage.push('http://' + item);
+            }
+          })
+        const res = await WXAPI.addProduct(title, parseInt(this.data.categories[this.data.index].id), gallery, parseInt(this.data.credprice), 
+                                content, 1, JSON.stringify(picsManage), this.data.videourl, this.data.pid)
         if(res.retcode==0){
           let msg = this.data.pid ? "更改成功!": "创建成功！感谢对蚁库的支持，新增商品获得信用码"+res.data+"奖励!"
           if(this.data.pid){
