@@ -1235,9 +1235,9 @@ module.exports = {
     })
   },
   verifyMessage: function({access_token, ...params}) {
-    return request(`https://api.weixin.qq.com/wxa/msg_sec_check?access_token=${access_token}`, false, 'post', {
+    return request('/api/common/msgcheck', false, 'post', {
       ...params,
-    }, false, false, false)
+    })
   },
   // 获取朋友圈关注和粉丝数
   getMomentStats: function getMomentStats(params) {

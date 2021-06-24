@@ -341,17 +341,17 @@ Page({
     WXAPI.verifyMessage({access_token: accessToken, content})
       .then(res => {
         this.verifyEnd = true;
-        if(res.errcode == 0) {
+        if(res.retcode == 0) {
           if(this.sending) {
             this.submitForm();
             this.sending = false;
           }
           return true;
-        } else if(res.errcode == 87014) {
+        } else {
           if(!this.sending) {
             wx.showModal({
               title: '提示',
-              content: '检测到敏感词,请注意言论',
+              content: res.msg,
               showCancel: false
             })
           }
@@ -378,7 +378,7 @@ Page({
     if(messageErr) {
       wx.showModal({
         title: '发布失败',
-        content: '检测到敏感词,请注意言论',
+        content: '检测到敏感词,请注意言论!',
         showCancel: false
       })
       return;
