@@ -172,30 +172,45 @@ Page({
     if(toUserId) {
       data.to = toUserId;
     }
-    WXAPI.sendMessage({topic_type: 0, topic_id: topicId, content: inputValue, ...data})
+
+    WXAPI.verifyMessage({content: inputValue})
       .then(res => {
         if(res.retcode == 0) {
-          momentsList.map(item => {
-            if(item.id == topicId) {
-              item.comments += 1;
-              item.commentList = item.commentList ? item.commentList : [];
-              let data = {
-                id: res.id,
-                content: inputValue,
-                fromNick: userInfo.nickName,
-                fromUid: userInfo.id,
-                toNick: toUserName,
-                toUid: toUserId,
-              }
+          WXAPI.sendMessage({topic_type: 0, topic_id: topicId, content: inputValue, ...data})
+            .then(res1 => {
+              if(res1.retcode == 0) {
+                momentsList.map(item => {
+                  if(item.id == topicId) {
+                    item.comments += 1;
+                    item.commentList = item.commentList ? item.commentList : [];
+                    let data = {
+                      id: res1.id,
+                      content: inputValue,
+                      fromNick: userInfo.nickName,
+                      fromUid: userInfo.id,
+                      toNick: toUserName,
+                      toUid: toUserId,
+                    }
 
-              item.commentList.push(data)
-            }
+                    item.commentList.push(data)
+                  }
+                })
+                t.setData({
+                  momentsList,
+                  inputValue: ''
+                })
+                t.bindblur();
+              }
+            })
+        } else {
+          wx.showModal({
+            title: '发送失败',
+            content: res.msg,
+            showCancel: false
           })
-          t.setData({
-            momentsList,
-            inputValue: ''
+          this.setData({
+            messageOpen: true,
           })
-          t.bindblur();
         }
       })
   },

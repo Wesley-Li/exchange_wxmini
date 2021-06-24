@@ -186,6 +186,7 @@ Page({
     this.data.title = value
     this.data.titleCount = value.length
     $digest(this)
+    this.verifyEnd = false;
   },
 
   handleCredprice(e) {
@@ -329,8 +330,9 @@ Page({
 
 
   verifyEnd: true,
-  verifyMessage: function() {
-    let { accessToken, content } = this.data;
+  verifyMessage: function(e) {
+    let { accessToken } = this.data;
+    let content = e.detail.value;
     if(!content) {
       return;
     }

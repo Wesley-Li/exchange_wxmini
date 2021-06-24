@@ -17,7 +17,7 @@
     <!-- 问题标题  -->
     <view class="question-title-wrap" wx:if="{{selectedType == 2}}">
       <view class="title-label">标题</view>
-      <input class="question-title" placeholder="写标题，吸引更多的人哦" maxlength="40" value="{{title}}" placeholder-style="color: #b3b3b3; font-size: 24rpx;" bindinput="handleTitleInput"></input>
+      <input class="question-title" placeholder="写标题，吸引更多的人哦" maxlength="40" value="{{title}}" placeholder-style="color: #b3b3b3; font-size: 24rpx;" bindinput="handleTitleInput" bindblur="verifyMessage"></input>
       <view class="title-input-counter">{{titleCount}}/40</view>
     </view>
 
