@@ -110,7 +110,7 @@
   width: 700rpx;
   height: 650rpx;
   position: absolute;
-  top: 80rpx;
+  top: 30rpx;
   left: 30rpx;
   transform-style: preserve-3d;
   animation: rotate 18s linear infinite;
@@ -122,6 +122,16 @@
   }
   to {
     transform: rotateY(360deg);
+  }
+}
+@media screen and (max-height: 595px) {
+  .container .map-container .ball {
+    top: -30rpx;
+  }
+}
+@media screen and (min-height: 700px) {
+  .container .map-container .ball {
+    top: 80rpx;
   }
 }
 

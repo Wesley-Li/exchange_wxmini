@@ -208,6 +208,7 @@ Page({
     this.data.contentCount = value.length
     $digest(this)
     this.verifyEnd = false;
+    this.sending = false;
   },
 
   chooseImage(e) {
@@ -332,7 +333,7 @@ Page({
   verifyEnd: true,
   verifyMessage: function(e) {
     let { accessToken } = this.data;
-    let content = e.detail.value;
+    let content = typeof e == 'object' ? e.detail && e.detail.value : e;
     if(!content) {
       return;
     }
@@ -350,12 +351,13 @@ Page({
           }
           return true;
         } else {
-          if(!this.sending) {
+          if(this.sending) {
             wx.showModal({
               title: '提示',
               content: res.msg,
               showCancel: false
             })
+            this.sending = false;
           }
           
           this.setData({
@@ -373,7 +375,7 @@ Page({
 
     this.sending = true;
     if(!this.verifyEnd) {
-      this.verifyMessage();
+      this.verifyMessage(content);
       return;
     }
     this.sending = false;
@@ -555,6 +557,7 @@ Page({
                   visibleValue: 0,
                   videos: [],
                   images: [],
+                  videourl: '',
                 })
                 setTimeout(function() {
                   let app = getApp();

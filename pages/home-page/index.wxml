@@ -31,7 +31,7 @@
     <view class="category-header">
       <view class="category-header-left" bindtap="onLocation">
         <image class="image" src="/images/homePage/location.png" />
-        <span>定位同城</span>
+        <span>定位同省</span>
       </view>
       <view class="category-header-right" bindtap="getMySchoolProduct">
         <image class="image" src="/images/homePage/pptx.png" />
