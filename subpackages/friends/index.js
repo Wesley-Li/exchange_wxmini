@@ -133,6 +133,19 @@ Page({
       })
     }
   },
+  // 查看他人资料
+  onViewOtherInfo: function(e) {
+    wx.navigateTo({
+      url: "/subpackages/other-info/index?uid=" + e.currentTarget.dataset.id,
+    })
+  },
+  // 私聊
+  onTalk: function(e) {
+    let { avatar, id, nickname } = e.currentTarget.dataset;
+    wx.navigateTo({
+      url: '/subpackages/message-detail/index?conversationID=C2C' + id + '&avatar=' + avatar  + '&name=' + nickname,
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
