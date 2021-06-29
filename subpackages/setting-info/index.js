@@ -15,7 +15,8 @@ Page({
       {id: 0, name: '保密'},
       {id: 1, name: '男'},
       {id: 2, name: '女'},
-    ]
+    ],
+    studentCard: '',
   },
 
   inputBlur: function(e) {
@@ -243,6 +244,74 @@ Page({
         }
       })
   },
+  // 设置学生证
+  setStudentCard: function() {
+    let { studentCard } = this.data;
+    WXAPI.setStudentCard({cert: studentCard})
+      .then(res => {
+        if(res.retcode == 0) {
+          let { userInfo } = this.data;
+          userInfo.cert = studentCard;
+          this.setData({
+            userInfo,
+          })
+        }
+      })
+  },
+  chooseGallery(e) {
+    let t = this;
+    wx.chooseImage({
+      count: 1,
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+      success: res => {
+        console.log(res.tempFilePaths, 999999)
+        t.setData({
+          studentCard: res.tempFilePaths[0],
+        }, () => {
+          t.uploadImg();
+        })
+      }
+    })
+  },
+
+  async uploadImg() {
+    let t = this;
+    let { studentCard } = t.data;
+    if(studentCard.indexOf("//tmp") > -1) { //说明是本地选的文件
+      let res = await WXAPI.uploadFile(wx.getStorageSync('token'), studentCard)
+        console.log("upgallery res is " + res)
+        if(res.retcode == 0) {
+          t.setData({
+            studentCard: 'http://' + res.data
+          }, () => {
+            t.setStudentCard();
+          })
+        } else {
+          wx.showToast({
+            title: res.msg,
+            icon: 'none',
+            duration: 2000
+          })
+          return
+        }
+    }
+  },
+
+  removeGallery(e) {
+    this.setData({
+      studentCard: ''
+    }, () => {
+      this.setStudentCard();
+    })
+  },
+
+  handleGalleryPreview(e) {
+    wx.previewImage({
+      current: this.data.studentCard,
+      urls: [this.data.studentCard]
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -294,7 +363,8 @@ Page({
     this.setData({
       userInfo,
       region,
-      regioncode
+      regioncode,
+      studentCard: userInfo.cert,
     }, () => {
       this.getSchool();
       this.getDeparts();

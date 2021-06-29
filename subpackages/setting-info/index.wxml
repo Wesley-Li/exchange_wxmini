@@ -82,5 +82,19 @@
         </picker>
       </view>
     </view>
+    <view class="images-area">
+      <view class="label">
+        学生证
+      </view>
+      <view class="img-container">
+        <!-- 图片缩略图  -->
+        <view class="gallery-image" wx:if="{{studentCard}}">
+          <image class="q-gallery" src="{{studentCard}}" mode="aspectFit" bindtap="handleGalleryPreview"></image>
+          <view class="q-image-remover" bindtap="removeGallery">删除</view>
+        </view>
+        <button type="default" size="mini" bindtap="chooseGallery" wx:if="{{!studentCard}}">+</button>
+      </view>
+    </view>
+    <view class="hint">首次上传成功赠送1000信用码</view>
   </form>
 </view>

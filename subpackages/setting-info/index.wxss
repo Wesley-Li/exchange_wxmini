@@ -22,3 +22,58 @@
   color: #999999;
   text-align: right;
 }
+
+.images-area {
+  display: flex;
+  padding: 30rpx 0;
+  background: #fff;
+  border-radius: 16rpx;
+  justify-content: space-between;
+}
+.images-area .weui-cell {
+  margin: 0;
+}
+.images-area .label {
+  display: flex;
+  align-items: center;
+  font-size: 30rpx;
+  font-family: Alibaba PuHuiTi;
+  font-weight: 400;
+  color: #333;
+}
+.images-area .img-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+.img-container .gallery-image {
+  border-radius: 16rpx;
+  overflow: hidden;
+}
+.img-container .gallery-image .q-gallery {
+  width: 150rpx;
+  height: 150rpx;
+}
+.img-container .q-image-remover {
+  font-size: 26rpx;
+  color: #ED1616;
+  text-align: center;
+}
+.img-container button {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  width: 150rpx;
+  height: 150rpx;
+  font-size: 60rpx;
+  font-family: Alibaba PuHuiTi;
+  font-weight: 400;
+  color: #999;
+  background: #F3F3F3;
+  border-radius: 10rpx;
+  justify-content: center;
+  align-items: center;
+}
+.hint {
+  font-size: 24rpx;
+  color: #999999;
+}
