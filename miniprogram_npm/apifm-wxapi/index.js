@@ -1199,6 +1199,12 @@ module.exports = {
       roomId: roomId
     });
   },
+  // 获取他人商品列表
+  getOtherUserGoods: function getOtherUserGoods(params) {
+    return request('/api/product/listonsale', false, 'get', {
+      ...params
+    })
+  },
   // 发布手记
   onPostMoments: function onPostMoments(params) {
     return request('/api/moment/add/', false, 'post', {
@@ -1332,6 +1338,12 @@ module.exports = {
   // 设置学校
   setCollege: function setCollege(params) {
     return request('/api/user/setCollege/', true, 'post', {
+      ...params
+    })
+  },
+  // 设置学生证
+  setStudentCard: function setStudentCard(params) {
+    return request('/api/user/setCert/', true, 'post', {
       ...params
     })
   },

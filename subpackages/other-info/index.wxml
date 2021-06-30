@@ -21,10 +21,12 @@
       </div>
     </view>
     <div class="header-data-box">
-      <!-- <div class="data-item">
-        <div class="data-item-name">获赞</div>
-        <div class="data-item-value">-</div>
-      </div> -->
+      <navigator url="{{'/subpackages/other-user-goods/index?uid=' + uid}}">
+        <div class="data-item">
+          <div class="data-item-name">商品</div>
+          <div class="data-item-value">{{ userInfo.onsales }}</div>
+        </div>
+      </navigator>
       <!-- <navigator url="/subpackages/friends/index?type=0"> -->
         <div class="data-item">
           <div class="data-item-name">关注</div>

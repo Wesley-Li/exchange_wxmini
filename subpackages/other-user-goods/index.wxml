@@ -1,0 +1,26 @@
+<!--subpackages/other-user-goods/index.wxml-->
+
+<!-- <view class="header" wx:if="{{!onlymy}}">
+  <view class="search">
+    <input type="text" placeholder="输入搜索关键词" value="{{name}}" bindinput="bindinput" bindconfirm="bindconfirm"></input>
+    <image src="/images/icon/search.svg" bindtap="search"></image>
+  </view>
+</view> -->
+<view class="list2-box">
+  <view class="list2" wx:for="{{goods}}" wx:key="id">
+    <view class="list2-top">
+      <navigator url="/subpackages/goods-details/index?id={{item.id}}"><image class="img" mode="aspectFit" src="{{item.pic}}"></image></navigator>
+      <view class="goods-info">
+        <view class="title"><navigator url="/subpackages/goods-details/index?id={{item.id}}">{{item.name}}</navigator></view>
+        <view class="price"><text class="text1">实收款</text> {{item.credprice}}<text class="text2">信用码</text></view>
+      </view>
+    </view>
+    <view class="buy-info">
+      <image class="car" src="/images/shooping-cart.png" data-id="{{item.id}}" bindtap="addShopCar"></image>
+    </view>
+  </view>
+  <view class="no-more" wx:if="{{!hasMore}}">没有更多了～</view>
+</view>
+
+<import src="/template/login/index.wxml" />
+<template is="apifmLogin" data="{{wxlogin: wxlogin}}" />
