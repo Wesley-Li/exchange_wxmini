@@ -12,7 +12,7 @@
           <!-- <text class="tag" wx:if="{{filter.consultant(item.userProfile.userID)}}">置业顾问</text> -->
         </view>
         <view class="text" wx:if="{{item.lastMessage.type != 'TIMCustomElem'}}">{{item.lastMessage.payload.text}}</view>
-        <view class="text" wx:if="{{item.lastMessage.type == 'TIMCustomElem'}}">[房源]{{item.lastMessage.payload.data.title || item.lastMessage.payload.description}}<text style="padding-left: 10rpx">{{item.lastMessage.payload.data.price || item.lastMessage.payload.extension}}元/m²·月</text></view>
+        <!-- <view class="text" wx:if="{{item.lastMessage.type == 'TIMCustomElem'}}">[房源]{{item.lastMessage.payload.data.title || item.lastMessage.payload.description}}<text style="padding-left: 10rpx">{{item.lastMessage.payload.data.price || item.lastMessage.payload.extension}}元/m²·月</text></view> -->
       </view>
       <view class="time">{{filter.getDateDiff(item.lastMessage.lastTime, now)}}</view>
       <view class="unreadCount" wx:if="{{item.unreadCount > 0}}">{{item.unreadCount * 1 > 99 ? '99+' : item.unreadCount}}</view>
